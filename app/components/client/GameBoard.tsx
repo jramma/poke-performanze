@@ -28,7 +28,7 @@ export function GameBoard({ initialGameState, pokemon }: GameBoardProps) {
 
         startTransition(async () => {
             const result = await catchPokemonAction(gameState.userId, gameState.sessionId);
-            
+
             // Simular tiempo de vuelo
             setTimeout(() => {
                 setAnimationState('shaking');
@@ -95,11 +95,10 @@ export function GameBoard({ initialGameState, pokemon }: GameBoardProps) {
                     <div className="text-[10px] font-black uppercase text-muted-foreground mb-1">Pokéballs</div>
                     <div className="flex gap-1">
                         {Array.from({ length: Math.min(gameState.pokeballsRemaining, 6) }).map((_, i) => (
-                            <div 
-                                key={i} 
-                                className={`w-4 h-4 rounded-full border-2 border-primary ${
-                                    i < gameState.pokeballsRemaining ? 'bg-main shadow-[inset_-2px_-2px_rgba(0,0,0,0.2)]' : 'bg-muted opacity-30 shadow-none'
-                                } transition-all duration-300`} 
+                            <div
+                                key={i}
+                                className={`w-4 h-4 rounded-full border-2 border-primary ${i < gameState.pokeballsRemaining ? 'bg-main shadow-[inset_-2px_-2px_rgba(0,0,0,0.2)]' : 'bg-muted opacity-30 shadow-none'
+                                    } transition-all duration-300`}
                             />
                         ))}
                     </div>
@@ -151,14 +150,12 @@ export function GameBoard({ initialGameState, pokemon }: GameBoardProps) {
 
             {/* UI Controls */}
             <div className="w-full z-10 space-y-6">
-                <div className={`rounded-xl p-4 text-center border-2 transition-all duration-300 ${
-                    animationState === 'failure'
+                <div className={`rounded-xl p-4 text-center border-2 transition-all duration-300 ${animationState === 'failure'
                         ? 'bg-destructive/10 border-destructive'
                         : 'bg-primary/5 border-primary border-dashed'
-                } ${isPending ? 'opacity-70' : 'opacity-100'}`}>
-                    <p className={`text-sm font-black uppercase tracking-tight ${
-                        animationState === 'failure' ? 'text-destructive' : ''
-                    }`}>
+                    } ${isPending ? 'opacity-70' : 'opacity-100'}`}>
+                    <p className={`text-sm font-black uppercase tracking-tight ${animationState === 'failure' ? 'text-destructive' : ''
+                        }`}>
                         {animationState === 'failure' && !gameState.gameOver
                             ? 'It escaped! You can try another Pokéball.'
                             : message}
@@ -169,7 +166,7 @@ export function GameBoard({ initialGameState, pokemon }: GameBoardProps) {
                     {gameState.isCaught ? (
                         <div className="text-center space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
                             <p className="text-xl font-black text-main animate-pulse">POKÉMON CAUGHT!</p>
-                            <Link 
+                            <Link
                                 href="/"
                                 className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-xl font-bold text-lg hover:-translate-y-0.5 transition-transform active:translate-y-0 shadow-shadow"
                             >
@@ -181,11 +178,11 @@ export function GameBoard({ initialGameState, pokemon }: GameBoardProps) {
                         <div className="text-center space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
                             <p className="text-2xl font-black text-destructive uppercase tracking-tighter">It escaped!</p>
                             <p className="text-base font-bold text-muted-foreground uppercase">You have no Pokéballs left</p>
-                            <Link 
+                            <Link
                                 href="/"
                                 className="inline-flex items-center gap-2 border-4 border-primary px-8 py-3 rounded-xl font-bold text-lg hover:bg-primary/5 transition-colors shadow-shadow"
                             >
-                                Mañana será otro día
+                                Try again tomorrow :(
                             </Link>
                         </div>
                     ) : (
@@ -194,8 +191,8 @@ export function GameBoard({ initialGameState, pokemon }: GameBoardProps) {
                             disabled={isPending || animationState !== 'idle'}
                             className={`
                                 group relative w-full flex items-center justify-center gap-4 py-6 rounded-2xl font-black text-2xl uppercase tracking-tighter italic transition-all
-                                ${isPending || animationState !== 'idle' 
-                                    ? 'bg-muted text-muted-foreground cursor-not-allowed opacity-50' 
+                                ${isPending || animationState !== 'idle'
+                                    ? 'bg-muted text-muted-foreground cursor-not-allowed opacity-50'
                                     : 'bg-primary text-primary-foreground shadow-shadow hover:-translate-y-1 active:translate-y-1'
                                 }
                             `}
