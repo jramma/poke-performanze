@@ -3,6 +3,7 @@ import "@/app/styles/globals.css";
 import Header from "@components/Header";
 import Footer from "@components/Footer";
 import { Toaster } from "@components/ui/sonner";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: {
@@ -52,6 +53,7 @@ export default async function RootLayout({
         </main>
         <Footer />
         <Toaster />
+        <SpeedInsights/>
       </body>
     </html>
   );
