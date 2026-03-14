@@ -108,6 +108,7 @@
   --shadow-shadow: var(--shadow);
   --font-weight-base: 500;
   --font-early-gameboy: 'Early GameBoy', sans-serif;
+  --font-heading: var(--font-early-gameboy);
   --font-sans: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);

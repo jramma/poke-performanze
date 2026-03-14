@@ -3,17 +3,17 @@ import { prisma, Pokemon, Prisma } from '../index'
 
 export class PokemonRepository {
     /**
-     * Inicializar base de datos con los 151 Pokémon
+     * Initialize database with the original 151 Pokémon.
      */
     async initializePokemon() {
-        // Llamar a PokéAPI y guardar
+        // Fetch from PokéAPI and persist
         const promises = []
         for (let i = 1; i <= 151; i++) {
             promises.push(this.fetchAndSavePokemon(i))
         }
 
         const results = await Promise.allSettled(promises)
-        console.log(`Inicializados ${results.filter(r => r.status === 'fulfilled').length} Pokémon`)
+        console.log(`Seeded ${results.filter(r => r.status === 'fulfilled').length} Pokémon`)
     }
 
     private async fetchAndSavePokemon(id: number) {
@@ -42,7 +42,7 @@ export class PokemonRepository {
     }
 
     /**
-     * Obtener Pokémon aleatorio de los primeros 151
+     * Get a random Pokémon from the first 151.
      */
     async getRandomPokemon(): Promise<Pokemon> {
         const count = await prisma.pokemon.count()
@@ -58,7 +58,7 @@ export class PokemonRepository {
     }
 
     /**
-     * Obtener Pokémon por ID
+     * Get a Pokémon by id.
      */
     async getPokemonById(id: number) {
         return prisma.pokemon.findUnique({
@@ -67,7 +67,21 @@ export class PokemonRepository {
     }
 
     /**
-     * Buscar Pokémon por nombre
+     * Get all 151 first‑generation Pokémon.
+     */
+    async getAllFirstGen() {
+        return prisma.pokemon.findMany({
+            where: {
+                id: { lte: 151 }
+            },
+            orderBy: {
+                id: 'asc'
+            }
+        })
+    }
+
+    /**
+     * Search Pokémon by name.
      */
     async searchPokemon(query: string) {
         return prisma.pokemon.findMany({

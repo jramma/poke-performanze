@@ -6,11 +6,11 @@ const prisma = new PrismaClient()
 const pokemonRepo = new PokemonRepository()
 
 async function main() {
-    console.log('🌱 Inicializando base de datos...')
+    console.log('🌱 Initializing database...')
 
-    // Limpiar base de datos (opcional en desarrollo)
+    // Clean database (dev only, optional)
     if (process.env.NODE_ENV === 'development') {
-        console.log('🧹 Limpiando tablas...')
+        console.log('🧹 Truncating tables...')
         await prisma.$transaction([
             prisma.caughtPokemon.deleteMany(),
             prisma.gameSession.deleteMany(),
@@ -21,38 +21,38 @@ async function main() {
         ])
     }
 
-    // Cargar Pokémon
-    console.log('📦 Cargando Pokémon...')
+    // Load first 151 Pokémon
+    console.log('📦 Loading Pokémon...')
     await pokemonRepo.initializePokemon()
 
-    // Crear achievements
-    console.log('🏆 Creando logros...')
+    // Create achievements
+    console.log('🏆 Creating achievements...')
     await prisma.achievement.createMany({
         data: [
             {
-                name: 'Primer atrapado',
-                description: 'Atrapa tu primer Pokémon',
+                name: 'First catch',
+                description: 'Catch your first Pokémon',
                 icon: '🎯',
                 condition: JSON.stringify({ type: 'catch', count: 1 }),
                 reward: JSON.stringify({ experience: 50, pokeballs: 3 })
             },
             {
-                name: 'Coleccionista',
-                description: 'Atrapa 10 Pokémon diferentes',
+                name: 'Collector',
+                description: 'Catch 10 different Pokémon',
                 icon: '📚',
                 condition: JSON.stringify({ type: 'unique', count: 10 }),
                 reward: JSON.stringify({ experience: 200, pokeballs: 5 })
             },
             {
-                name: 'Leyenda viviente',
-                description: 'Atrapa un Pokémon legendario',
+                name: 'Living legend',
+                description: 'Catch a legendary Pokémon',
                 icon: '🌟',
                 condition: JSON.stringify({ type: 'legendary', count: 1 }),
-                reward: JSON.stringify({ experience: 500, title: 'Cazador de Leyendas' })
+                reward: JSON.stringify({ experience: 500, title: 'Legend Hunter' })
             },
             {
-                name: 'Racha de 7 días',
-                description: 'Juega 7 días seguidos',
+                name: '7-day streak',
+                description: 'Play 7 days in a row',
                 icon: '🔥',
                 condition: JSON.stringify({ type: 'streak', count: 7 }),
                 reward: JSON.stringify({ experience: 300, pokeballs: 10 })
@@ -60,7 +60,7 @@ async function main() {
         ]
     })
 
-    console.log('✅ Base de datos inicializada correctamente')
+    console.log('✅ Database initialized successfully')
 }
 
 main()

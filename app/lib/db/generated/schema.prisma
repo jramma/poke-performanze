@@ -4,67 +4,55 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql" // o "sqlite" para desarrollo local
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id        String   @id @default(cuid())
-  username  String   @unique
-  email     String   @unique
-  password  String // Para cuando implementemos auth
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // Progreso del juego
-  level        Int @default(1)
-  experience   Int @default(0)
-  pokeballs    Int @default(6) // Pokeballs actuales
-  maxPokeballs Int @default(6) // Máximo de pokeballs (mejorable)
-
-  // Estadísticas diarias
+  id             String            @id @default(cuid())
+  username       String            @unique
+  email          String            @unique
+  password       String
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+  level          Int               @default(1)
+  experience     Int               @default(0)
+  pokeballs      Int               @default(6)
+  maxPokeballs   Int               @default(6)
   lastGameDate   DateTime?
   dailyPokemonId Int?
-  dailyAttempts  Int       @default(0)
-  caughtToday    Boolean   @default(false)
-
-  dailyPokemon Pokemon? @relation("DailyPokemon", fields: [dailyPokemonId], references: [id])
-
-  // Rachas y logros
-  currentStreak Int @default(0)
-  maxStreak     Int @default(0)
-  totalCatches  Int @default(0)
-
-  // Relaciones
-  caughtPokemon CaughtPokemon[]
-  gameSessions  GameSession[]
-  dailyLogs     DailyLog[]
-  achievements  UserAchievement[]
+  dailyAttempts  Int               @default(0)
+  caughtToday    Boolean           @default(false)
+  currentStreak  Int               @default(0)
+  maxStreak      Int               @default(0)
+  totalCatches   Int               @default(0)
+  caughtPokemon  CaughtPokemon[]
+  dailyLogs      DailyLog[]
+  gameSessions   GameSession[]
+  dailyPokemon   Pokemon?          @relation("DailyPokemon", fields: [dailyPokemonId], references: [id])
+  achievements   UserAchievement[]
 
   @@index([email])
   @@index([username])
 }
 
 model Pokemon {
-  id             Int      @id
-  name           String   @unique
+  id             Int             @id
+  name           String          @unique
   sprite         String
   spriteShiny    String?
-  types          String[] // Array de tipos
+  types          String[]
   height         Int
   weight         Int
   baseExperience Int
-  isLegendary    Boolean  @default(false)
-  captureRate    Int? // Ratio de captura original del juego
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // Relaciones
-  caughtBy      CaughtPokemon[]
-  dailyForUsers User[]          @relation("DailyPokemon")
-  gameSessions  GameSession[]
-  dailyLogs     DailyLog[]
+  isLegendary    Boolean         @default(false)
+  captureRate    Int?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  caughtBy       CaughtPokemon[]
+  dailyLogs      DailyLog[]
+  gameSessions   GameSession[]
+  dailyForUsers  User[]          @relation("DailyPokemon")
 
   @@index([name])
   @@index([isLegendary])
@@ -77,10 +65,8 @@ model CaughtPokemon {
   caughtAt   DateTime @default(now())
   critical   Boolean  @default(false)
   experience Int      @default(100)
-
-  // Relaciones
-  user    User    @relation(fields: [userId], references: [id])
-  pokemon Pokemon @relation(fields: [pokemonId], references: [id])
+  pokemon    Pokemon  @relation(fields: [pokemonId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
 
   @@unique([userId, pokemonId])
   @@index([userId])
@@ -97,10 +83,8 @@ model GameSession {
   attempts      Int       @default(0)
   pokeballsUsed Int       @default(0)
   success       Boolean   @default(false)
-
-  // Relaciones
-  user    User    @relation(fields: [userId], references: [id])
-  pokemon Pokemon @relation(fields: [pokemonId], references: [id])
+  pokemon       Pokemon   @relation(fields: [pokemonId], references: [id])
+  user          User      @relation(fields: [userId], references: [id])
 
   @@index([userId])
   @@index([startedAt])
@@ -114,10 +98,8 @@ model DailyLog {
   attempts      Int      @default(0)
   caught        Boolean  @default(false)
   pokeballsLeft Int      @default(0)
-
-  // Relaciones
-  user    User    @relation(fields: [userId], references: [id])
-  pokemon Pokemon @relation(fields: [pokemonId], references: [id])
+  pokemon       Pokemon  @relation(fields: [pokemonId], references: [id])
+  user          User     @relation(fields: [userId], references: [id])
 
   @@unique([userId, date])
   @@index([userId])
@@ -125,25 +107,22 @@ model DailyLog {
 }
 
 model Achievement {
-  id          String @id @default(cuid())
-  name        String @unique
+  id          String            @id @default(cuid())
+  name        String            @unique
   description String
   icon        String
-  condition   String // JSON con condiciones
-  reward      Json // JSON con recompensas
-
-  // Relaciones
-  unlockedBy UserAchievement[]
+  condition   String
+  reward      Json
+  unlockedBy  UserAchievement[]
 }
 
 model UserAchievement {
-  id            String   @id @default(cuid())
+  id            String      @id @default(cuid())
   userId        String
   achievementId String
-  unlockedAt    DateTime @default(now())
-
-  user        User        @relation(fields: [userId], references: [id])
-  achievement Achievement @relation(fields: [achievementId], references: [id])
+  unlockedAt    DateTime    @default(now())
+  achievement   Achievement @relation(fields: [achievementId], references: [id])
+  user          User        @relation(fields: [userId], references: [id])
 
   @@unique([userId, achievementId])
 }

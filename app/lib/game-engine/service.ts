@@ -4,8 +4,8 @@ import {
     UserRepository,
     PokemonRepository,
     GameRepository
-} from '../db/repositories'
-import { prisma } from '../db'
+} from '@lib/db/repositories'
+import { prisma } from '@lib/db'
 import { CatchResult, GameState, GAME_CONSTANTS } from './types'
 
 export class GameService {
@@ -22,13 +22,13 @@ export class GameService {
     }
 
     /**
-     * Inicializar juego diario
+     * Initialize or resume the daily game for a user.
      */
     async getOrCreateDailyGame(userId: string): Promise<GameState> {
         const user = await this.userRepo.getUserWithPokemon(userId)
 
         if (!user) {
-            throw new Error('Usuario no encontrado')
+            throw new Error('User not found')
         }
 
         const today = new Date()
@@ -36,9 +36,19 @@ export class GameService {
 
         const lastGame = user.lastGameDate
         const lastGameDay = lastGame ? new Date(lastGame).setHours(0, 0, 0, 0) : null
+        const isDevMode = process.env.NODE_ENV === 'development'
 
-        // Si ya jugó hoy pero no atrapó
-        if (lastGameDay === today.getTime() && !user.caughtToday && user.dailyPokemonId) {
+        // If the user already played today but did not catch: resume session
+        // In dev we always start a fresh game, so we skip this branch there
+        if (!isDevMode && lastGameDay === today.getTime() && !user.caughtToday && user.dailyPokemonId) {
+            const activeSession = await prisma.gameSession.findFirst({
+                where: {
+                    userId,
+                    pokemonId: user.dailyPokemonId,
+                    endedAt: null
+                },
+                orderBy: { startedAt: 'desc' }
+            })
             return {
                 userId: user.id,
                 pokemonId: user.dailyPokemonId,
@@ -46,7 +56,8 @@ export class GameService {
                 attempts: 6 - user.dailyAttempts,
                 isCaught: false,
                 gameOver: user.dailyAttempts === 0,
-                lastAttemptDate: user.lastGameDate || new Date()
+                lastAttemptDate: user.lastGameDate || new Date(),
+                sessionId: activeSession?.id
             }
         }
 
@@ -80,10 +91,10 @@ export class GameService {
     }
 
     /**
-     * Procesar intento de captura
+     * Process a capture attempt for the current daily game.
      */
     async processAttempt(userId: string, sessionId?: string): Promise<CatchResult> {
-        // Usar transacción para consistencia
+        // Use a transaction for consistency
         return await prisma.$transaction(async (tx) => {
             const user = await tx.user.findUnique({
                 where: { id: userId },
@@ -93,22 +104,27 @@ export class GameService {
                         where: {
                             ...(sessionId && { id: sessionId }),
                             endedAt: null
-                        },
-                        take: 1
+                        }
                     }
                 }
             })
 
             if (!user?.dailyPokemon) {
-                throw new Error('No hay juego activo')
+                throw new Error('No active game')
             }
 
-            // Verificar límites
+            // If a specific session was provided and there is no active match,
+            // treat it as no active game to avoid desynchronizing data.
+            if (sessionId && user.gameSessions.length === 0) {
+                throw new Error('No active game')
+            }
+
+            // Basic limits
             if (user.caughtToday) {
                 return {
                     success: false,
                     pokeballsRemaining: user.dailyAttempts,
-                    message: '¡Ya atrapaste tu Pokémon diario! Vuelve mañana',
+                    message: 'You already caught today’s Pokémon. Come back tomorrow.',
                     animation: 'break'
                 }
             }
@@ -117,7 +133,7 @@ export class GameService {
                 return {
                     success: false,
                     pokeballsRemaining: 0,
-                    message: '¡Sin pokeballs! El Pokémon escapó',
+                    message: 'No Pokéballs left! The Pokémon escaped.',
                     animation: 'break'
                 }
             }
@@ -136,8 +152,10 @@ export class GameService {
                 user.level
             )
 
-            // Actualizar sesión activa
-            const activeSession = user.gameSessions[0]
+            // Actualizar sesión activa: la del Pokémon del día (evita usar sesión de otro día)
+            const activeSession = sessionId
+                ? user.gameSessions[0]
+                : user.gameSessions.find((s) => s.pokemonId === user.dailyPokemon!.id) ?? user.gameSessions[0]
             if (activeSession) {
                 await tx.gameSession.update({
                     where: { id: activeSession.id },
@@ -155,7 +173,19 @@ export class GameService {
                 })
             }
 
-            // Actualizar usuario
+            // Calcular experiencia/nivel si atrapó
+            let newExp = user.experience
+            let newLevel = user.level
+            let shouldIncreaseMaxPokeballs = false
+
+            if (result.success) {
+                const gainedExp = result.experience || 100
+                newExp = user.experience + gainedExp
+                newLevel = Math.floor(newExp / 100) + 1 // 100 exp por nivel
+                shouldIncreaseMaxPokeballs = newLevel > user.level
+            }
+
+            // Actualizar usuario (intento + progreso + experiencia/level)
             await tx.user.update({
                 where: { id: userId },
                 data: {
@@ -166,12 +196,18 @@ export class GameService {
                         currentStreak: { increment: 1 },
                         ...(user.currentStreak + 1 > user.maxStreak && {
                             maxStreak: user.currentStreak + 1
+                        }),
+                        experience: newExp,
+                        level: newLevel,
+                        ...(shouldIncreaseMaxPokeballs && {
+                            // Incrementar desde el máximo actual del usuario, no desde 6 fijo
+                            maxPokeballs: Math.min(10, user.maxPokeballs + (newLevel - user.level))
                         })
                     })
                 }
             })
 
-            // Si atrapó, guardar registro
+            // Si atrapó, guardar registro de captura
             if (result.success) {
                 await tx.caughtPokemon.create({
                     data: {
@@ -181,19 +217,33 @@ export class GameService {
                         experience: result.experience || 100
                     }
                 })
-
-                // Añadir experiencia
-                await this.userRepo.addExperience(userId, result.experience || 100)
             }
 
-            // Registrar log diario
-            await this.gameRepo.logDailyAttempt(
-                userId,
-                user.dailyPokemon.id,
-                result.success,
-                6 - result.pokeballsRemaining,
-                result.pokeballsRemaining
-            )
+            // Registrar log diario dentro de la misma transacción
+            const today = new Date()
+            today.setHours(0, 0, 0, 0)
+
+            await tx.dailyLog.upsert({
+                where: {
+                    userId_date: {
+                        userId,
+                        date: today
+                    }
+                },
+                update: {
+                    attempts: 6 - result.pokeballsRemaining,
+                    caught: result.success,
+                    pokeballsLeft: result.pokeballsRemaining
+                },
+                create: {
+                    userId,
+                    pokemonId: user.dailyPokemon.id,
+                    date: today,
+                    attempts: 6 - result.pokeballsRemaining,
+                    caught: result.success,
+                    pokeballsLeft: result.pokeballsRemaining
+                }
+            })
 
             return result
         })

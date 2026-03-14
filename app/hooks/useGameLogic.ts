@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useCallback, useEffect } from 'react';
-import { CatchResult, GameState } from '@/lib/game-engine/types';
+import { CatchResult, GameState } from '@lib/game-engine/types';
 
 export function useGameLogic(userId: string) {
     const [gameState, setGameState] = useState<GameState | null>(null);

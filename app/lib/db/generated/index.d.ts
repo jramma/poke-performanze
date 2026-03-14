@@ -1360,15 +1360,15 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     caughtPokemon: number
-    gameSessions: number
     dailyLogs: number
+    gameSessions: number
     achievements: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     caughtPokemon?: boolean | UserCountOutputTypeCountCaughtPokemonArgs
-    gameSessions?: boolean | UserCountOutputTypeCountGameSessionsArgs
     dailyLogs?: boolean | UserCountOutputTypeCountDailyLogsArgs
+    gameSessions?: boolean | UserCountOutputTypeCountGameSessionsArgs
     achievements?: boolean | UserCountOutputTypeCountAchievementsArgs
   }
 
@@ -1393,15 +1393,15 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountGameSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: GameSessionWhereInput
+  export type UserCountOutputTypeCountDailyLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DailyLogWhereInput
   }
 
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountDailyLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: DailyLogWhereInput
+  export type UserCountOutputTypeCountGameSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GameSessionWhereInput
   }
 
   /**
@@ -1418,16 +1418,16 @@ export namespace Prisma {
 
   export type PokemonCountOutputType = {
     caughtBy: number
-    dailyForUsers: number
-    gameSessions: number
     dailyLogs: number
+    gameSessions: number
+    dailyForUsers: number
   }
 
   export type PokemonCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     caughtBy?: boolean | PokemonCountOutputTypeCountCaughtByArgs
-    dailyForUsers?: boolean | PokemonCountOutputTypeCountDailyForUsersArgs
-    gameSessions?: boolean | PokemonCountOutputTypeCountGameSessionsArgs
     dailyLogs?: boolean | PokemonCountOutputTypeCountDailyLogsArgs
+    gameSessions?: boolean | PokemonCountOutputTypeCountGameSessionsArgs
+    dailyForUsers?: boolean | PokemonCountOutputTypeCountDailyForUsersArgs
   }
 
   // Custom InputTypes
@@ -1451,8 +1451,8 @@ export namespace Prisma {
   /**
    * PokemonCountOutputType without action
    */
-  export type PokemonCountOutputTypeCountDailyForUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UserWhereInput
+  export type PokemonCountOutputTypeCountDailyLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DailyLogWhereInput
   }
 
   /**
@@ -1465,8 +1465,8 @@ export namespace Prisma {
   /**
    * PokemonCountOutputType without action
    */
-  export type PokemonCountOutputTypeCountDailyLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: DailyLogWhereInput
+  export type PokemonCountOutputTypeCountDailyForUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
   }
 
 
@@ -1831,10 +1831,10 @@ export namespace Prisma {
     currentStreak?: boolean
     maxStreak?: boolean
     totalCatches?: boolean
-    dailyPokemon?: boolean | User$dailyPokemonArgs<ExtArgs>
     caughtPokemon?: boolean | User$caughtPokemonArgs<ExtArgs>
-    gameSessions?: boolean | User$gameSessionsArgs<ExtArgs>
     dailyLogs?: boolean | User$dailyLogsArgs<ExtArgs>
+    gameSessions?: boolean | User$gameSessionsArgs<ExtArgs>
+    dailyPokemon?: boolean | User$dailyPokemonArgs<ExtArgs>
     achievements?: boolean | User$achievementsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -1881,10 +1881,10 @@ export namespace Prisma {
   }
 
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    dailyPokemon?: boolean | User$dailyPokemonArgs<ExtArgs>
     caughtPokemon?: boolean | User$caughtPokemonArgs<ExtArgs>
-    gameSessions?: boolean | User$gameSessionsArgs<ExtArgs>
     dailyLogs?: boolean | User$dailyLogsArgs<ExtArgs>
+    gameSessions?: boolean | User$gameSessionsArgs<ExtArgs>
+    dailyPokemon?: boolean | User$dailyPokemonArgs<ExtArgs>
     achievements?: boolean | User$achievementsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -1895,10 +1895,10 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      dailyPokemon: Prisma.$PokemonPayload<ExtArgs> | null
       caughtPokemon: Prisma.$CaughtPokemonPayload<ExtArgs>[]
-      gameSessions: Prisma.$GameSessionPayload<ExtArgs>[]
       dailyLogs: Prisma.$DailyLogPayload<ExtArgs>[]
+      gameSessions: Prisma.$GameSessionPayload<ExtArgs>[]
+      dailyPokemon: Prisma.$PokemonPayload<ExtArgs> | null
       achievements: Prisma.$UserAchievementPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -2283,10 +2283,10 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    dailyPokemon<T extends User$dailyPokemonArgs<ExtArgs> = {}>(args?: Subset<T, User$dailyPokemonArgs<ExtArgs>>): Prisma__PokemonClient<$Result.GetResult<Prisma.$PokemonPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     caughtPokemon<T extends User$caughtPokemonArgs<ExtArgs> = {}>(args?: Subset<T, User$caughtPokemonArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CaughtPokemonPayload<ExtArgs>, T, "findMany"> | Null>
-    gameSessions<T extends User$gameSessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$gameSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameSessionPayload<ExtArgs>, T, "findMany"> | Null>
     dailyLogs<T extends User$dailyLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$dailyLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyLogPayload<ExtArgs>, T, "findMany"> | Null>
+    gameSessions<T extends User$gameSessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$gameSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameSessionPayload<ExtArgs>, T, "findMany"> | Null>
+    dailyPokemon<T extends User$dailyPokemonArgs<ExtArgs> = {}>(args?: Subset<T, User$dailyPokemonArgs<ExtArgs>>): Prisma__PokemonClient<$Result.GetResult<Prisma.$PokemonPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     achievements<T extends User$achievementsArgs<ExtArgs> = {}>(args?: Subset<T, User$achievementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserAchievementPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2652,21 +2652,6 @@ export namespace Prisma {
   }
 
   /**
-   * User.dailyPokemon
-   */
-  export type User$dailyPokemonArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Pokemon
-     */
-    select?: PokemonSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PokemonInclude<ExtArgs> | null
-    where?: PokemonWhereInput
-  }
-
-  /**
    * User.caughtPokemon
    */
   export type User$caughtPokemonArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2684,6 +2669,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CaughtPokemonScalarFieldEnum | CaughtPokemonScalarFieldEnum[]
+  }
+
+  /**
+   * User.dailyLogs
+   */
+  export type User$dailyLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyLog
+     */
+    select?: DailyLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyLogInclude<ExtArgs> | null
+    where?: DailyLogWhereInput
+    orderBy?: DailyLogOrderByWithRelationInput | DailyLogOrderByWithRelationInput[]
+    cursor?: DailyLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DailyLogScalarFieldEnum | DailyLogScalarFieldEnum[]
   }
 
   /**
@@ -2707,23 +2712,18 @@ export namespace Prisma {
   }
 
   /**
-   * User.dailyLogs
+   * User.dailyPokemon
    */
-  export type User$dailyLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$dailyPokemonArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the DailyLog
+     * Select specific fields to fetch from the Pokemon
      */
-    select?: DailyLogSelect<ExtArgs> | null
+    select?: PokemonSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: DailyLogInclude<ExtArgs> | null
-    where?: DailyLogWhereInput
-    orderBy?: DailyLogOrderByWithRelationInput | DailyLogOrderByWithRelationInput[]
-    cursor?: DailyLogWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: DailyLogScalarFieldEnum | DailyLogScalarFieldEnum[]
+    include?: PokemonInclude<ExtArgs> | null
+    where?: PokemonWhereInput
   }
 
   /**
@@ -3028,9 +3028,9 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     caughtBy?: boolean | Pokemon$caughtByArgs<ExtArgs>
-    dailyForUsers?: boolean | Pokemon$dailyForUsersArgs<ExtArgs>
-    gameSessions?: boolean | Pokemon$gameSessionsArgs<ExtArgs>
     dailyLogs?: boolean | Pokemon$dailyLogsArgs<ExtArgs>
+    gameSessions?: boolean | Pokemon$gameSessionsArgs<ExtArgs>
+    dailyForUsers?: boolean | Pokemon$dailyForUsersArgs<ExtArgs>
     _count?: boolean | PokemonCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pokemon"]>
 
@@ -3066,9 +3066,9 @@ export namespace Prisma {
 
   export type PokemonInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     caughtBy?: boolean | Pokemon$caughtByArgs<ExtArgs>
-    dailyForUsers?: boolean | Pokemon$dailyForUsersArgs<ExtArgs>
-    gameSessions?: boolean | Pokemon$gameSessionsArgs<ExtArgs>
     dailyLogs?: boolean | Pokemon$dailyLogsArgs<ExtArgs>
+    gameSessions?: boolean | Pokemon$gameSessionsArgs<ExtArgs>
+    dailyForUsers?: boolean | Pokemon$dailyForUsersArgs<ExtArgs>
     _count?: boolean | PokemonCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PokemonIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -3077,9 +3077,9 @@ export namespace Prisma {
     name: "Pokemon"
     objects: {
       caughtBy: Prisma.$CaughtPokemonPayload<ExtArgs>[]
-      dailyForUsers: Prisma.$UserPayload<ExtArgs>[]
-      gameSessions: Prisma.$GameSessionPayload<ExtArgs>[]
       dailyLogs: Prisma.$DailyLogPayload<ExtArgs>[]
+      gameSessions: Prisma.$GameSessionPayload<ExtArgs>[]
+      dailyForUsers: Prisma.$UserPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -3459,9 +3459,9 @@ export namespace Prisma {
   export interface Prisma__PokemonClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     caughtBy<T extends Pokemon$caughtByArgs<ExtArgs> = {}>(args?: Subset<T, Pokemon$caughtByArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CaughtPokemonPayload<ExtArgs>, T, "findMany"> | Null>
-    dailyForUsers<T extends Pokemon$dailyForUsersArgs<ExtArgs> = {}>(args?: Subset<T, Pokemon$dailyForUsersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany"> | Null>
-    gameSessions<T extends Pokemon$gameSessionsArgs<ExtArgs> = {}>(args?: Subset<T, Pokemon$gameSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameSessionPayload<ExtArgs>, T, "findMany"> | Null>
     dailyLogs<T extends Pokemon$dailyLogsArgs<ExtArgs> = {}>(args?: Subset<T, Pokemon$dailyLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyLogPayload<ExtArgs>, T, "findMany"> | Null>
+    gameSessions<T extends Pokemon$gameSessionsArgs<ExtArgs> = {}>(args?: Subset<T, Pokemon$gameSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameSessionPayload<ExtArgs>, T, "findMany"> | Null>
+    dailyForUsers<T extends Pokemon$dailyForUsersArgs<ExtArgs> = {}>(args?: Subset<T, Pokemon$dailyForUsersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3837,23 +3837,23 @@ export namespace Prisma {
   }
 
   /**
-   * Pokemon.dailyForUsers
+   * Pokemon.dailyLogs
    */
-  export type Pokemon$dailyForUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Pokemon$dailyLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the User
+     * Select specific fields to fetch from the DailyLog
      */
-    select?: UserSelect<ExtArgs> | null
+    select?: DailyLogSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserInclude<ExtArgs> | null
-    where?: UserWhereInput
-    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
-    cursor?: UserWhereUniqueInput
+    include?: DailyLogInclude<ExtArgs> | null
+    where?: DailyLogWhereInput
+    orderBy?: DailyLogOrderByWithRelationInput | DailyLogOrderByWithRelationInput[]
+    cursor?: DailyLogWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+    distinct?: DailyLogScalarFieldEnum | DailyLogScalarFieldEnum[]
   }
 
   /**
@@ -3877,23 +3877,23 @@ export namespace Prisma {
   }
 
   /**
-   * Pokemon.dailyLogs
+   * Pokemon.dailyForUsers
    */
-  export type Pokemon$dailyLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Pokemon$dailyForUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the DailyLog
+     * Select specific fields to fetch from the User
      */
-    select?: DailyLogSelect<ExtArgs> | null
+    select?: UserSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: DailyLogInclude<ExtArgs> | null
-    where?: DailyLogWhereInput
-    orderBy?: DailyLogOrderByWithRelationInput | DailyLogOrderByWithRelationInput[]
-    cursor?: DailyLogWhereUniqueInput
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    cursor?: UserWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: DailyLogScalarFieldEnum | DailyLogScalarFieldEnum[]
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
   }
 
   /**
@@ -4121,8 +4121,8 @@ export namespace Prisma {
     caughtAt?: boolean
     critical?: boolean
     experience?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     pokemon?: boolean | PokemonDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["caughtPokemon"]>
 
   export type CaughtPokemonSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4132,8 +4132,8 @@ export namespace Prisma {
     caughtAt?: boolean
     critical?: boolean
     experience?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     pokemon?: boolean | PokemonDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["caughtPokemon"]>
 
   export type CaughtPokemonSelectScalar = {
@@ -4146,19 +4146,19 @@ export namespace Prisma {
   }
 
   export type CaughtPokemonInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     pokemon?: boolean | PokemonDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type CaughtPokemonIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     pokemon?: boolean | PokemonDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $CaughtPokemonPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "CaughtPokemon"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
       pokemon: Prisma.$PokemonPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4531,8 +4531,8 @@ export namespace Prisma {
    */
   export interface Prisma__CaughtPokemonClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     pokemon<T extends PokemonDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PokemonDefaultArgs<ExtArgs>>): Prisma__PokemonClient<$Result.GetResult<Prisma.$PokemonPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5130,8 +5130,8 @@ export namespace Prisma {
     attempts?: boolean
     pokeballsUsed?: boolean
     success?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     pokemon?: boolean | PokemonDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["gameSession"]>
 
   export type GameSessionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -5143,8 +5143,8 @@ export namespace Prisma {
     attempts?: boolean
     pokeballsUsed?: boolean
     success?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     pokemon?: boolean | PokemonDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["gameSession"]>
 
   export type GameSessionSelectScalar = {
@@ -5159,19 +5159,19 @@ export namespace Prisma {
   }
 
   export type GameSessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     pokemon?: boolean | PokemonDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type GameSessionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     pokemon?: boolean | PokemonDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $GameSessionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "GameSession"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
       pokemon: Prisma.$PokemonPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5546,8 +5546,8 @@ export namespace Prisma {
    */
   export interface Prisma__GameSessionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     pokemon<T extends PokemonDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PokemonDefaultArgs<ExtArgs>>): Prisma__PokemonClient<$Result.GetResult<Prisma.$PokemonPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6139,8 +6139,8 @@ export namespace Prisma {
     attempts?: boolean
     caught?: boolean
     pokeballsLeft?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     pokemon?: boolean | PokemonDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["dailyLog"]>
 
   export type DailyLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6151,8 +6151,8 @@ export namespace Prisma {
     attempts?: boolean
     caught?: boolean
     pokeballsLeft?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     pokemon?: boolean | PokemonDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["dailyLog"]>
 
   export type DailyLogSelectScalar = {
@@ -6166,19 +6166,19 @@ export namespace Prisma {
   }
 
   export type DailyLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     pokemon?: boolean | PokemonDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type DailyLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     pokemon?: boolean | PokemonDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $DailyLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "DailyLog"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
       pokemon: Prisma.$PokemonPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6552,8 +6552,8 @@ export namespace Prisma {
    */
   export interface Prisma__DailyLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     pokemon<T extends PokemonDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PokemonDefaultArgs<ExtArgs>>): Prisma__PokemonClient<$Result.GetResult<Prisma.$PokemonPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8034,8 +8034,8 @@ export namespace Prisma {
     userId?: boolean
     achievementId?: boolean
     unlockedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     achievement?: boolean | AchievementDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userAchievement"]>
 
   export type UserAchievementSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -8043,8 +8043,8 @@ export namespace Prisma {
     userId?: boolean
     achievementId?: boolean
     unlockedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     achievement?: boolean | AchievementDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userAchievement"]>
 
   export type UserAchievementSelectScalar = {
@@ -8055,19 +8055,19 @@ export namespace Prisma {
   }
 
   export type UserAchievementInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     achievement?: boolean | AchievementDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type UserAchievementIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     achievement?: boolean | AchievementDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $UserAchievementPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "UserAchievement"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
       achievement: Prisma.$AchievementPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -8438,8 +8438,8 @@ export namespace Prisma {
    */
   export interface Prisma__UserAchievementClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     achievement<T extends AchievementDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AchievementDefaultArgs<ExtArgs>>): Prisma__AchievementClient<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9060,10 +9060,10 @@ export namespace Prisma {
     currentStreak?: IntFilter<"User"> | number
     maxStreak?: IntFilter<"User"> | number
     totalCatches?: IntFilter<"User"> | number
-    dailyPokemon?: XOR<PokemonNullableRelationFilter, PokemonWhereInput> | null
     caughtPokemon?: CaughtPokemonListRelationFilter
-    gameSessions?: GameSessionListRelationFilter
     dailyLogs?: DailyLogListRelationFilter
+    gameSessions?: GameSessionListRelationFilter
+    dailyPokemon?: XOR<PokemonNullableRelationFilter, PokemonWhereInput> | null
     achievements?: UserAchievementListRelationFilter
   }
 
@@ -9085,10 +9085,10 @@ export namespace Prisma {
     currentStreak?: SortOrder
     maxStreak?: SortOrder
     totalCatches?: SortOrder
-    dailyPokemon?: PokemonOrderByWithRelationInput
     caughtPokemon?: CaughtPokemonOrderByRelationAggregateInput
-    gameSessions?: GameSessionOrderByRelationAggregateInput
     dailyLogs?: DailyLogOrderByRelationAggregateInput
+    gameSessions?: GameSessionOrderByRelationAggregateInput
+    dailyPokemon?: PokemonOrderByWithRelationInput
     achievements?: UserAchievementOrderByRelationAggregateInput
   }
 
@@ -9113,10 +9113,10 @@ export namespace Prisma {
     currentStreak?: IntFilter<"User"> | number
     maxStreak?: IntFilter<"User"> | number
     totalCatches?: IntFilter<"User"> | number
-    dailyPokemon?: XOR<PokemonNullableRelationFilter, PokemonWhereInput> | null
     caughtPokemon?: CaughtPokemonListRelationFilter
-    gameSessions?: GameSessionListRelationFilter
     dailyLogs?: DailyLogListRelationFilter
+    gameSessions?: GameSessionListRelationFilter
+    dailyPokemon?: XOR<PokemonNullableRelationFilter, PokemonWhereInput> | null
     achievements?: UserAchievementListRelationFilter
   }, "id" | "username" | "email">
 
@@ -9185,9 +9185,9 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Pokemon"> | Date | string
     updatedAt?: DateTimeFilter<"Pokemon"> | Date | string
     caughtBy?: CaughtPokemonListRelationFilter
-    dailyForUsers?: UserListRelationFilter
-    gameSessions?: GameSessionListRelationFilter
     dailyLogs?: DailyLogListRelationFilter
+    gameSessions?: GameSessionListRelationFilter
+    dailyForUsers?: UserListRelationFilter
   }
 
   export type PokemonOrderByWithRelationInput = {
@@ -9204,9 +9204,9 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     caughtBy?: CaughtPokemonOrderByRelationAggregateInput
-    dailyForUsers?: UserOrderByRelationAggregateInput
-    gameSessions?: GameSessionOrderByRelationAggregateInput
     dailyLogs?: DailyLogOrderByRelationAggregateInput
+    gameSessions?: GameSessionOrderByRelationAggregateInput
+    dailyForUsers?: UserOrderByRelationAggregateInput
   }
 
   export type PokemonWhereUniqueInput = Prisma.AtLeast<{
@@ -9226,9 +9226,9 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Pokemon"> | Date | string
     updatedAt?: DateTimeFilter<"Pokemon"> | Date | string
     caughtBy?: CaughtPokemonListRelationFilter
-    dailyForUsers?: UserListRelationFilter
-    gameSessions?: GameSessionListRelationFilter
     dailyLogs?: DailyLogListRelationFilter
+    gameSessions?: GameSessionListRelationFilter
+    dailyForUsers?: UserListRelationFilter
   }, "id" | "name">
 
   export type PokemonOrderByWithAggregationInput = {
@@ -9279,8 +9279,8 @@ export namespace Prisma {
     caughtAt?: DateTimeFilter<"CaughtPokemon"> | Date | string
     critical?: BoolFilter<"CaughtPokemon"> | boolean
     experience?: IntFilter<"CaughtPokemon"> | number
-    user?: XOR<UserRelationFilter, UserWhereInput>
     pokemon?: XOR<PokemonRelationFilter, PokemonWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
   }
 
   export type CaughtPokemonOrderByWithRelationInput = {
@@ -9290,8 +9290,8 @@ export namespace Prisma {
     caughtAt?: SortOrder
     critical?: SortOrder
     experience?: SortOrder
-    user?: UserOrderByWithRelationInput
     pokemon?: PokemonOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type CaughtPokemonWhereUniqueInput = Prisma.AtLeast<{
@@ -9305,8 +9305,8 @@ export namespace Prisma {
     caughtAt?: DateTimeFilter<"CaughtPokemon"> | Date | string
     critical?: BoolFilter<"CaughtPokemon"> | boolean
     experience?: IntFilter<"CaughtPokemon"> | number
-    user?: XOR<UserRelationFilter, UserWhereInput>
     pokemon?: XOR<PokemonRelationFilter, PokemonWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
   }, "id" | "userId_pokemonId">
 
   export type CaughtPokemonOrderByWithAggregationInput = {
@@ -9347,8 +9347,8 @@ export namespace Prisma {
     attempts?: IntFilter<"GameSession"> | number
     pokeballsUsed?: IntFilter<"GameSession"> | number
     success?: BoolFilter<"GameSession"> | boolean
-    user?: XOR<UserRelationFilter, UserWhereInput>
     pokemon?: XOR<PokemonRelationFilter, PokemonWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
   }
 
   export type GameSessionOrderByWithRelationInput = {
@@ -9360,8 +9360,8 @@ export namespace Prisma {
     attempts?: SortOrder
     pokeballsUsed?: SortOrder
     success?: SortOrder
-    user?: UserOrderByWithRelationInput
     pokemon?: PokemonOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type GameSessionWhereUniqueInput = Prisma.AtLeast<{
@@ -9376,8 +9376,8 @@ export namespace Prisma {
     attempts?: IntFilter<"GameSession"> | number
     pokeballsUsed?: IntFilter<"GameSession"> | number
     success?: BoolFilter<"GameSession"> | boolean
-    user?: XOR<UserRelationFilter, UserWhereInput>
     pokemon?: XOR<PokemonRelationFilter, PokemonWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
   }, "id">
 
   export type GameSessionOrderByWithAggregationInput = {
@@ -9421,8 +9421,8 @@ export namespace Prisma {
     attempts?: IntFilter<"DailyLog"> | number
     caught?: BoolFilter<"DailyLog"> | boolean
     pokeballsLeft?: IntFilter<"DailyLog"> | number
-    user?: XOR<UserRelationFilter, UserWhereInput>
     pokemon?: XOR<PokemonRelationFilter, PokemonWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
   }
 
   export type DailyLogOrderByWithRelationInput = {
@@ -9433,8 +9433,8 @@ export namespace Prisma {
     attempts?: SortOrder
     caught?: SortOrder
     pokeballsLeft?: SortOrder
-    user?: UserOrderByWithRelationInput
     pokemon?: PokemonOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type DailyLogWhereUniqueInput = Prisma.AtLeast<{
@@ -9449,8 +9449,8 @@ export namespace Prisma {
     attempts?: IntFilter<"DailyLog"> | number
     caught?: BoolFilter<"DailyLog"> | boolean
     pokeballsLeft?: IntFilter<"DailyLog"> | number
-    user?: XOR<UserRelationFilter, UserWhereInput>
     pokemon?: XOR<PokemonRelationFilter, PokemonWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
   }, "id" | "userId_date">
 
   export type DailyLogOrderByWithAggregationInput = {
@@ -9549,8 +9549,8 @@ export namespace Prisma {
     userId?: StringFilter<"UserAchievement"> | string
     achievementId?: StringFilter<"UserAchievement"> | string
     unlockedAt?: DateTimeFilter<"UserAchievement"> | Date | string
-    user?: XOR<UserRelationFilter, UserWhereInput>
     achievement?: XOR<AchievementRelationFilter, AchievementWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
   }
 
   export type UserAchievementOrderByWithRelationInput = {
@@ -9558,8 +9558,8 @@ export namespace Prisma {
     userId?: SortOrder
     achievementId?: SortOrder
     unlockedAt?: SortOrder
-    user?: UserOrderByWithRelationInput
     achievement?: AchievementOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type UserAchievementWhereUniqueInput = Prisma.AtLeast<{
@@ -9571,8 +9571,8 @@ export namespace Prisma {
     userId?: StringFilter<"UserAchievement"> | string
     achievementId?: StringFilter<"UserAchievement"> | string
     unlockedAt?: DateTimeFilter<"UserAchievement"> | Date | string
-    user?: XOR<UserRelationFilter, UserWhereInput>
     achievement?: XOR<AchievementRelationFilter, AchievementWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
   }, "id" | "userId_achievementId">
 
   export type UserAchievementOrderByWithAggregationInput = {
@@ -9612,10 +9612,10 @@ export namespace Prisma {
     currentStreak?: number
     maxStreak?: number
     totalCatches?: number
-    dailyPokemon?: PokemonCreateNestedOneWithoutDailyForUsersInput
     caughtPokemon?: CaughtPokemonCreateNestedManyWithoutUserInput
-    gameSessions?: GameSessionCreateNestedManyWithoutUserInput
     dailyLogs?: DailyLogCreateNestedManyWithoutUserInput
+    gameSessions?: GameSessionCreateNestedManyWithoutUserInput
+    dailyPokemon?: PokemonCreateNestedOneWithoutDailyForUsersInput
     achievements?: UserAchievementCreateNestedManyWithoutUserInput
   }
 
@@ -9638,8 +9638,8 @@ export namespace Prisma {
     maxStreak?: number
     totalCatches?: number
     caughtPokemon?: CaughtPokemonUncheckedCreateNestedManyWithoutUserInput
-    gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
     dailyLogs?: DailyLogUncheckedCreateNestedManyWithoutUserInput
+    gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
     achievements?: UserAchievementUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -9660,10 +9660,10 @@ export namespace Prisma {
     currentStreak?: IntFieldUpdateOperationsInput | number
     maxStreak?: IntFieldUpdateOperationsInput | number
     totalCatches?: IntFieldUpdateOperationsInput | number
-    dailyPokemon?: PokemonUpdateOneWithoutDailyForUsersNestedInput
     caughtPokemon?: CaughtPokemonUpdateManyWithoutUserNestedInput
-    gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
     dailyLogs?: DailyLogUpdateManyWithoutUserNestedInput
+    gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
+    dailyPokemon?: PokemonUpdateOneWithoutDailyForUsersNestedInput
     achievements?: UserAchievementUpdateManyWithoutUserNestedInput
   }
 
@@ -9686,8 +9686,8 @@ export namespace Prisma {
     maxStreak?: IntFieldUpdateOperationsInput | number
     totalCatches?: IntFieldUpdateOperationsInput | number
     caughtPokemon?: CaughtPokemonUncheckedUpdateManyWithoutUserNestedInput
-    gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
     dailyLogs?: DailyLogUncheckedUpdateManyWithoutUserNestedInput
+    gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
     achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -9764,9 +9764,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     caughtBy?: CaughtPokemonCreateNestedManyWithoutPokemonInput
-    dailyForUsers?: UserCreateNestedManyWithoutDailyPokemonInput
-    gameSessions?: GameSessionCreateNestedManyWithoutPokemonInput
     dailyLogs?: DailyLogCreateNestedManyWithoutPokemonInput
+    gameSessions?: GameSessionCreateNestedManyWithoutPokemonInput
+    dailyForUsers?: UserCreateNestedManyWithoutDailyPokemonInput
   }
 
   export type PokemonUncheckedCreateInput = {
@@ -9783,9 +9783,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     caughtBy?: CaughtPokemonUncheckedCreateNestedManyWithoutPokemonInput
-    dailyForUsers?: UserUncheckedCreateNestedManyWithoutDailyPokemonInput
-    gameSessions?: GameSessionUncheckedCreateNestedManyWithoutPokemonInput
     dailyLogs?: DailyLogUncheckedCreateNestedManyWithoutPokemonInput
+    gameSessions?: GameSessionUncheckedCreateNestedManyWithoutPokemonInput
+    dailyForUsers?: UserUncheckedCreateNestedManyWithoutDailyPokemonInput
   }
 
   export type PokemonUpdateInput = {
@@ -9802,9 +9802,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     caughtBy?: CaughtPokemonUpdateManyWithoutPokemonNestedInput
-    dailyForUsers?: UserUpdateManyWithoutDailyPokemonNestedInput
-    gameSessions?: GameSessionUpdateManyWithoutPokemonNestedInput
     dailyLogs?: DailyLogUpdateManyWithoutPokemonNestedInput
+    gameSessions?: GameSessionUpdateManyWithoutPokemonNestedInput
+    dailyForUsers?: UserUpdateManyWithoutDailyPokemonNestedInput
   }
 
   export type PokemonUncheckedUpdateInput = {
@@ -9821,9 +9821,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     caughtBy?: CaughtPokemonUncheckedUpdateManyWithoutPokemonNestedInput
-    dailyForUsers?: UserUncheckedUpdateManyWithoutDailyPokemonNestedInput
-    gameSessions?: GameSessionUncheckedUpdateManyWithoutPokemonNestedInput
     dailyLogs?: DailyLogUncheckedUpdateManyWithoutPokemonNestedInput
+    gameSessions?: GameSessionUncheckedUpdateManyWithoutPokemonNestedInput
+    dailyForUsers?: UserUncheckedUpdateManyWithoutDailyPokemonNestedInput
   }
 
   export type PokemonCreateManyInput = {
@@ -9876,8 +9876,8 @@ export namespace Prisma {
     caughtAt?: Date | string
     critical?: boolean
     experience?: number
-    user: UserCreateNestedOneWithoutCaughtPokemonInput
     pokemon: PokemonCreateNestedOneWithoutCaughtByInput
+    user: UserCreateNestedOneWithoutCaughtPokemonInput
   }
 
   export type CaughtPokemonUncheckedCreateInput = {
@@ -9894,8 +9894,8 @@ export namespace Prisma {
     caughtAt?: DateTimeFieldUpdateOperationsInput | Date | string
     critical?: BoolFieldUpdateOperationsInput | boolean
     experience?: IntFieldUpdateOperationsInput | number
-    user?: UserUpdateOneRequiredWithoutCaughtPokemonNestedInput
     pokemon?: PokemonUpdateOneRequiredWithoutCaughtByNestedInput
+    user?: UserUpdateOneRequiredWithoutCaughtPokemonNestedInput
   }
 
   export type CaughtPokemonUncheckedUpdateInput = {
@@ -9939,8 +9939,8 @@ export namespace Prisma {
     attempts?: number
     pokeballsUsed?: number
     success?: boolean
-    user: UserCreateNestedOneWithoutGameSessionsInput
     pokemon: PokemonCreateNestedOneWithoutGameSessionsInput
+    user: UserCreateNestedOneWithoutGameSessionsInput
   }
 
   export type GameSessionUncheckedCreateInput = {
@@ -9961,8 +9961,8 @@ export namespace Prisma {
     attempts?: IntFieldUpdateOperationsInput | number
     pokeballsUsed?: IntFieldUpdateOperationsInput | number
     success?: BoolFieldUpdateOperationsInput | boolean
-    user?: UserUpdateOneRequiredWithoutGameSessionsNestedInput
     pokemon?: PokemonUpdateOneRequiredWithoutGameSessionsNestedInput
+    user?: UserUpdateOneRequiredWithoutGameSessionsNestedInput
   }
 
   export type GameSessionUncheckedUpdateInput = {
@@ -10013,8 +10013,8 @@ export namespace Prisma {
     attempts?: number
     caught?: boolean
     pokeballsLeft?: number
-    user: UserCreateNestedOneWithoutDailyLogsInput
     pokemon: PokemonCreateNestedOneWithoutDailyLogsInput
+    user: UserCreateNestedOneWithoutDailyLogsInput
   }
 
   export type DailyLogUncheckedCreateInput = {
@@ -10033,8 +10033,8 @@ export namespace Prisma {
     attempts?: IntFieldUpdateOperationsInput | number
     caught?: BoolFieldUpdateOperationsInput | boolean
     pokeballsLeft?: IntFieldUpdateOperationsInput | number
-    user?: UserUpdateOneRequiredWithoutDailyLogsNestedInput
     pokemon?: PokemonUpdateOneRequiredWithoutDailyLogsNestedInput
+    user?: UserUpdateOneRequiredWithoutDailyLogsNestedInput
   }
 
   export type DailyLogUncheckedUpdateInput = {
@@ -10145,8 +10145,8 @@ export namespace Prisma {
   export type UserAchievementCreateInput = {
     id?: string
     unlockedAt?: Date | string
-    user: UserCreateNestedOneWithoutAchievementsInput
     achievement: AchievementCreateNestedOneWithoutUnlockedByInput
+    user: UserCreateNestedOneWithoutAchievementsInput
   }
 
   export type UserAchievementUncheckedCreateInput = {
@@ -10159,8 +10159,8 @@ export namespace Prisma {
   export type UserAchievementUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     unlockedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutAchievementsNestedInput
     achievement?: AchievementUpdateOneRequiredWithoutUnlockedByNestedInput
+    user?: UserUpdateOneRequiredWithoutAchievementsNestedInput
   }
 
   export type UserAchievementUncheckedUpdateInput = {
@@ -10253,15 +10253,16 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
-  export type PokemonNullableRelationFilter = {
-    is?: PokemonWhereInput | null
-    isNot?: PokemonWhereInput | null
-  }
-
   export type CaughtPokemonListRelationFilter = {
     every?: CaughtPokemonWhereInput
     some?: CaughtPokemonWhereInput
     none?: CaughtPokemonWhereInput
+  }
+
+  export type DailyLogListRelationFilter = {
+    every?: DailyLogWhereInput
+    some?: DailyLogWhereInput
+    none?: DailyLogWhereInput
   }
 
   export type GameSessionListRelationFilter = {
@@ -10270,10 +10271,9 @@ export namespace Prisma {
     none?: GameSessionWhereInput
   }
 
-  export type DailyLogListRelationFilter = {
-    every?: DailyLogWhereInput
-    some?: DailyLogWhereInput
-    none?: DailyLogWhereInput
+  export type PokemonNullableRelationFilter = {
+    is?: PokemonWhereInput | null
+    isNot?: PokemonWhereInput | null
   }
 
   export type UserAchievementListRelationFilter = {
@@ -10291,11 +10291,11 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type GameSessionOrderByRelationAggregateInput = {
+  export type DailyLogOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type DailyLogOrderByRelationAggregateInput = {
+  export type GameSessionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -10583,14 +10583,14 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type UserRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
-  }
-
   export type PokemonRelationFilter = {
     is?: PokemonWhereInput
     isNot?: PokemonWhereInput
+  }
+
+  export type UserRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
   }
 
   export type CaughtPokemonUserIdPokemonIdCompoundUniqueInput = {
@@ -10830,17 +10830,18 @@ export namespace Prisma {
     unlockedAt?: SortOrder
   }
 
-  export type PokemonCreateNestedOneWithoutDailyForUsersInput = {
-    create?: XOR<PokemonCreateWithoutDailyForUsersInput, PokemonUncheckedCreateWithoutDailyForUsersInput>
-    connectOrCreate?: PokemonCreateOrConnectWithoutDailyForUsersInput
-    connect?: PokemonWhereUniqueInput
-  }
-
   export type CaughtPokemonCreateNestedManyWithoutUserInput = {
     create?: XOR<CaughtPokemonCreateWithoutUserInput, CaughtPokemonUncheckedCreateWithoutUserInput> | CaughtPokemonCreateWithoutUserInput[] | CaughtPokemonUncheckedCreateWithoutUserInput[]
     connectOrCreate?: CaughtPokemonCreateOrConnectWithoutUserInput | CaughtPokemonCreateOrConnectWithoutUserInput[]
     createMany?: CaughtPokemonCreateManyUserInputEnvelope
     connect?: CaughtPokemonWhereUniqueInput | CaughtPokemonWhereUniqueInput[]
+  }
+
+  export type DailyLogCreateNestedManyWithoutUserInput = {
+    create?: XOR<DailyLogCreateWithoutUserInput, DailyLogUncheckedCreateWithoutUserInput> | DailyLogCreateWithoutUserInput[] | DailyLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DailyLogCreateOrConnectWithoutUserInput | DailyLogCreateOrConnectWithoutUserInput[]
+    createMany?: DailyLogCreateManyUserInputEnvelope
+    connect?: DailyLogWhereUniqueInput | DailyLogWhereUniqueInput[]
   }
 
   export type GameSessionCreateNestedManyWithoutUserInput = {
@@ -10850,11 +10851,10 @@ export namespace Prisma {
     connect?: GameSessionWhereUniqueInput | GameSessionWhereUniqueInput[]
   }
 
-  export type DailyLogCreateNestedManyWithoutUserInput = {
-    create?: XOR<DailyLogCreateWithoutUserInput, DailyLogUncheckedCreateWithoutUserInput> | DailyLogCreateWithoutUserInput[] | DailyLogUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: DailyLogCreateOrConnectWithoutUserInput | DailyLogCreateOrConnectWithoutUserInput[]
-    createMany?: DailyLogCreateManyUserInputEnvelope
-    connect?: DailyLogWhereUniqueInput | DailyLogWhereUniqueInput[]
+  export type PokemonCreateNestedOneWithoutDailyForUsersInput = {
+    create?: XOR<PokemonCreateWithoutDailyForUsersInput, PokemonUncheckedCreateWithoutDailyForUsersInput>
+    connectOrCreate?: PokemonCreateOrConnectWithoutDailyForUsersInput
+    connect?: PokemonWhereUniqueInput
   }
 
   export type UserAchievementCreateNestedManyWithoutUserInput = {
@@ -10871,18 +10871,18 @@ export namespace Prisma {
     connect?: CaughtPokemonWhereUniqueInput | CaughtPokemonWhereUniqueInput[]
   }
 
-  export type GameSessionUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<GameSessionCreateWithoutUserInput, GameSessionUncheckedCreateWithoutUserInput> | GameSessionCreateWithoutUserInput[] | GameSessionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: GameSessionCreateOrConnectWithoutUserInput | GameSessionCreateOrConnectWithoutUserInput[]
-    createMany?: GameSessionCreateManyUserInputEnvelope
-    connect?: GameSessionWhereUniqueInput | GameSessionWhereUniqueInput[]
-  }
-
   export type DailyLogUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<DailyLogCreateWithoutUserInput, DailyLogUncheckedCreateWithoutUserInput> | DailyLogCreateWithoutUserInput[] | DailyLogUncheckedCreateWithoutUserInput[]
     connectOrCreate?: DailyLogCreateOrConnectWithoutUserInput | DailyLogCreateOrConnectWithoutUserInput[]
     createMany?: DailyLogCreateManyUserInputEnvelope
     connect?: DailyLogWhereUniqueInput | DailyLogWhereUniqueInput[]
+  }
+
+  export type GameSessionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<GameSessionCreateWithoutUserInput, GameSessionUncheckedCreateWithoutUserInput> | GameSessionCreateWithoutUserInput[] | GameSessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GameSessionCreateOrConnectWithoutUserInput | GameSessionCreateOrConnectWithoutUserInput[]
+    createMany?: GameSessionCreateManyUserInputEnvelope
+    connect?: GameSessionWhereUniqueInput | GameSessionWhereUniqueInput[]
   }
 
   export type UserAchievementUncheckedCreateNestedManyWithoutUserInput = {
@@ -10916,16 +10916,6 @@ export namespace Prisma {
     set?: boolean
   }
 
-  export type PokemonUpdateOneWithoutDailyForUsersNestedInput = {
-    create?: XOR<PokemonCreateWithoutDailyForUsersInput, PokemonUncheckedCreateWithoutDailyForUsersInput>
-    connectOrCreate?: PokemonCreateOrConnectWithoutDailyForUsersInput
-    upsert?: PokemonUpsertWithoutDailyForUsersInput
-    disconnect?: PokemonWhereInput | boolean
-    delete?: PokemonWhereInput | boolean
-    connect?: PokemonWhereUniqueInput
-    update?: XOR<XOR<PokemonUpdateToOneWithWhereWithoutDailyForUsersInput, PokemonUpdateWithoutDailyForUsersInput>, PokemonUncheckedUpdateWithoutDailyForUsersInput>
-  }
-
   export type CaughtPokemonUpdateManyWithoutUserNestedInput = {
     create?: XOR<CaughtPokemonCreateWithoutUserInput, CaughtPokemonUncheckedCreateWithoutUserInput> | CaughtPokemonCreateWithoutUserInput[] | CaughtPokemonUncheckedCreateWithoutUserInput[]
     connectOrCreate?: CaughtPokemonCreateOrConnectWithoutUserInput | CaughtPokemonCreateOrConnectWithoutUserInput[]
@@ -10938,6 +10928,20 @@ export namespace Prisma {
     update?: CaughtPokemonUpdateWithWhereUniqueWithoutUserInput | CaughtPokemonUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: CaughtPokemonUpdateManyWithWhereWithoutUserInput | CaughtPokemonUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: CaughtPokemonScalarWhereInput | CaughtPokemonScalarWhereInput[]
+  }
+
+  export type DailyLogUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DailyLogCreateWithoutUserInput, DailyLogUncheckedCreateWithoutUserInput> | DailyLogCreateWithoutUserInput[] | DailyLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DailyLogCreateOrConnectWithoutUserInput | DailyLogCreateOrConnectWithoutUserInput[]
+    upsert?: DailyLogUpsertWithWhereUniqueWithoutUserInput | DailyLogUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DailyLogCreateManyUserInputEnvelope
+    set?: DailyLogWhereUniqueInput | DailyLogWhereUniqueInput[]
+    disconnect?: DailyLogWhereUniqueInput | DailyLogWhereUniqueInput[]
+    delete?: DailyLogWhereUniqueInput | DailyLogWhereUniqueInput[]
+    connect?: DailyLogWhereUniqueInput | DailyLogWhereUniqueInput[]
+    update?: DailyLogUpdateWithWhereUniqueWithoutUserInput | DailyLogUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DailyLogUpdateManyWithWhereWithoutUserInput | DailyLogUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DailyLogScalarWhereInput | DailyLogScalarWhereInput[]
   }
 
   export type GameSessionUpdateManyWithoutUserNestedInput = {
@@ -10954,18 +10958,14 @@ export namespace Prisma {
     deleteMany?: GameSessionScalarWhereInput | GameSessionScalarWhereInput[]
   }
 
-  export type DailyLogUpdateManyWithoutUserNestedInput = {
-    create?: XOR<DailyLogCreateWithoutUserInput, DailyLogUncheckedCreateWithoutUserInput> | DailyLogCreateWithoutUserInput[] | DailyLogUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: DailyLogCreateOrConnectWithoutUserInput | DailyLogCreateOrConnectWithoutUserInput[]
-    upsert?: DailyLogUpsertWithWhereUniqueWithoutUserInput | DailyLogUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: DailyLogCreateManyUserInputEnvelope
-    set?: DailyLogWhereUniqueInput | DailyLogWhereUniqueInput[]
-    disconnect?: DailyLogWhereUniqueInput | DailyLogWhereUniqueInput[]
-    delete?: DailyLogWhereUniqueInput | DailyLogWhereUniqueInput[]
-    connect?: DailyLogWhereUniqueInput | DailyLogWhereUniqueInput[]
-    update?: DailyLogUpdateWithWhereUniqueWithoutUserInput | DailyLogUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: DailyLogUpdateManyWithWhereWithoutUserInput | DailyLogUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: DailyLogScalarWhereInput | DailyLogScalarWhereInput[]
+  export type PokemonUpdateOneWithoutDailyForUsersNestedInput = {
+    create?: XOR<PokemonCreateWithoutDailyForUsersInput, PokemonUncheckedCreateWithoutDailyForUsersInput>
+    connectOrCreate?: PokemonCreateOrConnectWithoutDailyForUsersInput
+    upsert?: PokemonUpsertWithoutDailyForUsersInput
+    disconnect?: PokemonWhereInput | boolean
+    delete?: PokemonWhereInput | boolean
+    connect?: PokemonWhereUniqueInput
+    update?: XOR<XOR<PokemonUpdateToOneWithWhereWithoutDailyForUsersInput, PokemonUpdateWithoutDailyForUsersInput>, PokemonUncheckedUpdateWithoutDailyForUsersInput>
   }
 
   export type UserAchievementUpdateManyWithoutUserNestedInput = {
@@ -11004,20 +11004,6 @@ export namespace Prisma {
     deleteMany?: CaughtPokemonScalarWhereInput | CaughtPokemonScalarWhereInput[]
   }
 
-  export type GameSessionUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<GameSessionCreateWithoutUserInput, GameSessionUncheckedCreateWithoutUserInput> | GameSessionCreateWithoutUserInput[] | GameSessionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: GameSessionCreateOrConnectWithoutUserInput | GameSessionCreateOrConnectWithoutUserInput[]
-    upsert?: GameSessionUpsertWithWhereUniqueWithoutUserInput | GameSessionUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: GameSessionCreateManyUserInputEnvelope
-    set?: GameSessionWhereUniqueInput | GameSessionWhereUniqueInput[]
-    disconnect?: GameSessionWhereUniqueInput | GameSessionWhereUniqueInput[]
-    delete?: GameSessionWhereUniqueInput | GameSessionWhereUniqueInput[]
-    connect?: GameSessionWhereUniqueInput | GameSessionWhereUniqueInput[]
-    update?: GameSessionUpdateWithWhereUniqueWithoutUserInput | GameSessionUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: GameSessionUpdateManyWithWhereWithoutUserInput | GameSessionUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: GameSessionScalarWhereInput | GameSessionScalarWhereInput[]
-  }
-
   export type DailyLogUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<DailyLogCreateWithoutUserInput, DailyLogUncheckedCreateWithoutUserInput> | DailyLogCreateWithoutUserInput[] | DailyLogUncheckedCreateWithoutUserInput[]
     connectOrCreate?: DailyLogCreateOrConnectWithoutUserInput | DailyLogCreateOrConnectWithoutUserInput[]
@@ -11030,6 +11016,20 @@ export namespace Prisma {
     update?: DailyLogUpdateWithWhereUniqueWithoutUserInput | DailyLogUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: DailyLogUpdateManyWithWhereWithoutUserInput | DailyLogUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: DailyLogScalarWhereInput | DailyLogScalarWhereInput[]
+  }
+
+  export type GameSessionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<GameSessionCreateWithoutUserInput, GameSessionUncheckedCreateWithoutUserInput> | GameSessionCreateWithoutUserInput[] | GameSessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GameSessionCreateOrConnectWithoutUserInput | GameSessionCreateOrConnectWithoutUserInput[]
+    upsert?: GameSessionUpsertWithWhereUniqueWithoutUserInput | GameSessionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: GameSessionCreateManyUserInputEnvelope
+    set?: GameSessionWhereUniqueInput | GameSessionWhereUniqueInput[]
+    disconnect?: GameSessionWhereUniqueInput | GameSessionWhereUniqueInput[]
+    delete?: GameSessionWhereUniqueInput | GameSessionWhereUniqueInput[]
+    connect?: GameSessionWhereUniqueInput | GameSessionWhereUniqueInput[]
+    update?: GameSessionUpdateWithWhereUniqueWithoutUserInput | GameSessionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: GameSessionUpdateManyWithWhereWithoutUserInput | GameSessionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: GameSessionScalarWhereInput | GameSessionScalarWhereInput[]
   }
 
   export type UserAchievementUncheckedUpdateManyWithoutUserNestedInput = {
@@ -11057,11 +11057,11 @@ export namespace Prisma {
     connect?: CaughtPokemonWhereUniqueInput | CaughtPokemonWhereUniqueInput[]
   }
 
-  export type UserCreateNestedManyWithoutDailyPokemonInput = {
-    create?: XOR<UserCreateWithoutDailyPokemonInput, UserUncheckedCreateWithoutDailyPokemonInput> | UserCreateWithoutDailyPokemonInput[] | UserUncheckedCreateWithoutDailyPokemonInput[]
-    connectOrCreate?: UserCreateOrConnectWithoutDailyPokemonInput | UserCreateOrConnectWithoutDailyPokemonInput[]
-    createMany?: UserCreateManyDailyPokemonInputEnvelope
-    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  export type DailyLogCreateNestedManyWithoutPokemonInput = {
+    create?: XOR<DailyLogCreateWithoutPokemonInput, DailyLogUncheckedCreateWithoutPokemonInput> | DailyLogCreateWithoutPokemonInput[] | DailyLogUncheckedCreateWithoutPokemonInput[]
+    connectOrCreate?: DailyLogCreateOrConnectWithoutPokemonInput | DailyLogCreateOrConnectWithoutPokemonInput[]
+    createMany?: DailyLogCreateManyPokemonInputEnvelope
+    connect?: DailyLogWhereUniqueInput | DailyLogWhereUniqueInput[]
   }
 
   export type GameSessionCreateNestedManyWithoutPokemonInput = {
@@ -11071,11 +11071,11 @@ export namespace Prisma {
     connect?: GameSessionWhereUniqueInput | GameSessionWhereUniqueInput[]
   }
 
-  export type DailyLogCreateNestedManyWithoutPokemonInput = {
-    create?: XOR<DailyLogCreateWithoutPokemonInput, DailyLogUncheckedCreateWithoutPokemonInput> | DailyLogCreateWithoutPokemonInput[] | DailyLogUncheckedCreateWithoutPokemonInput[]
-    connectOrCreate?: DailyLogCreateOrConnectWithoutPokemonInput | DailyLogCreateOrConnectWithoutPokemonInput[]
-    createMany?: DailyLogCreateManyPokemonInputEnvelope
-    connect?: DailyLogWhereUniqueInput | DailyLogWhereUniqueInput[]
+  export type UserCreateNestedManyWithoutDailyPokemonInput = {
+    create?: XOR<UserCreateWithoutDailyPokemonInput, UserUncheckedCreateWithoutDailyPokemonInput> | UserCreateWithoutDailyPokemonInput[] | UserUncheckedCreateWithoutDailyPokemonInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutDailyPokemonInput | UserCreateOrConnectWithoutDailyPokemonInput[]
+    createMany?: UserCreateManyDailyPokemonInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
   export type CaughtPokemonUncheckedCreateNestedManyWithoutPokemonInput = {
@@ -11085,11 +11085,11 @@ export namespace Prisma {
     connect?: CaughtPokemonWhereUniqueInput | CaughtPokemonWhereUniqueInput[]
   }
 
-  export type UserUncheckedCreateNestedManyWithoutDailyPokemonInput = {
-    create?: XOR<UserCreateWithoutDailyPokemonInput, UserUncheckedCreateWithoutDailyPokemonInput> | UserCreateWithoutDailyPokemonInput[] | UserUncheckedCreateWithoutDailyPokemonInput[]
-    connectOrCreate?: UserCreateOrConnectWithoutDailyPokemonInput | UserCreateOrConnectWithoutDailyPokemonInput[]
-    createMany?: UserCreateManyDailyPokemonInputEnvelope
-    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  export type DailyLogUncheckedCreateNestedManyWithoutPokemonInput = {
+    create?: XOR<DailyLogCreateWithoutPokemonInput, DailyLogUncheckedCreateWithoutPokemonInput> | DailyLogCreateWithoutPokemonInput[] | DailyLogUncheckedCreateWithoutPokemonInput[]
+    connectOrCreate?: DailyLogCreateOrConnectWithoutPokemonInput | DailyLogCreateOrConnectWithoutPokemonInput[]
+    createMany?: DailyLogCreateManyPokemonInputEnvelope
+    connect?: DailyLogWhereUniqueInput | DailyLogWhereUniqueInput[]
   }
 
   export type GameSessionUncheckedCreateNestedManyWithoutPokemonInput = {
@@ -11099,11 +11099,11 @@ export namespace Prisma {
     connect?: GameSessionWhereUniqueInput | GameSessionWhereUniqueInput[]
   }
 
-  export type DailyLogUncheckedCreateNestedManyWithoutPokemonInput = {
-    create?: XOR<DailyLogCreateWithoutPokemonInput, DailyLogUncheckedCreateWithoutPokemonInput> | DailyLogCreateWithoutPokemonInput[] | DailyLogUncheckedCreateWithoutPokemonInput[]
-    connectOrCreate?: DailyLogCreateOrConnectWithoutPokemonInput | DailyLogCreateOrConnectWithoutPokemonInput[]
-    createMany?: DailyLogCreateManyPokemonInputEnvelope
-    connect?: DailyLogWhereUniqueInput | DailyLogWhereUniqueInput[]
+  export type UserUncheckedCreateNestedManyWithoutDailyPokemonInput = {
+    create?: XOR<UserCreateWithoutDailyPokemonInput, UserUncheckedCreateWithoutDailyPokemonInput> | UserCreateWithoutDailyPokemonInput[] | UserUncheckedCreateWithoutDailyPokemonInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutDailyPokemonInput | UserCreateOrConnectWithoutDailyPokemonInput[]
+    createMany?: UserCreateManyDailyPokemonInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -11129,18 +11129,18 @@ export namespace Prisma {
     deleteMany?: CaughtPokemonScalarWhereInput | CaughtPokemonScalarWhereInput[]
   }
 
-  export type UserUpdateManyWithoutDailyPokemonNestedInput = {
-    create?: XOR<UserCreateWithoutDailyPokemonInput, UserUncheckedCreateWithoutDailyPokemonInput> | UserCreateWithoutDailyPokemonInput[] | UserUncheckedCreateWithoutDailyPokemonInput[]
-    connectOrCreate?: UserCreateOrConnectWithoutDailyPokemonInput | UserCreateOrConnectWithoutDailyPokemonInput[]
-    upsert?: UserUpsertWithWhereUniqueWithoutDailyPokemonInput | UserUpsertWithWhereUniqueWithoutDailyPokemonInput[]
-    createMany?: UserCreateManyDailyPokemonInputEnvelope
-    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    update?: UserUpdateWithWhereUniqueWithoutDailyPokemonInput | UserUpdateWithWhereUniqueWithoutDailyPokemonInput[]
-    updateMany?: UserUpdateManyWithWhereWithoutDailyPokemonInput | UserUpdateManyWithWhereWithoutDailyPokemonInput[]
-    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  export type DailyLogUpdateManyWithoutPokemonNestedInput = {
+    create?: XOR<DailyLogCreateWithoutPokemonInput, DailyLogUncheckedCreateWithoutPokemonInput> | DailyLogCreateWithoutPokemonInput[] | DailyLogUncheckedCreateWithoutPokemonInput[]
+    connectOrCreate?: DailyLogCreateOrConnectWithoutPokemonInput | DailyLogCreateOrConnectWithoutPokemonInput[]
+    upsert?: DailyLogUpsertWithWhereUniqueWithoutPokemonInput | DailyLogUpsertWithWhereUniqueWithoutPokemonInput[]
+    createMany?: DailyLogCreateManyPokemonInputEnvelope
+    set?: DailyLogWhereUniqueInput | DailyLogWhereUniqueInput[]
+    disconnect?: DailyLogWhereUniqueInput | DailyLogWhereUniqueInput[]
+    delete?: DailyLogWhereUniqueInput | DailyLogWhereUniqueInput[]
+    connect?: DailyLogWhereUniqueInput | DailyLogWhereUniqueInput[]
+    update?: DailyLogUpdateWithWhereUniqueWithoutPokemonInput | DailyLogUpdateWithWhereUniqueWithoutPokemonInput[]
+    updateMany?: DailyLogUpdateManyWithWhereWithoutPokemonInput | DailyLogUpdateManyWithWhereWithoutPokemonInput[]
+    deleteMany?: DailyLogScalarWhereInput | DailyLogScalarWhereInput[]
   }
 
   export type GameSessionUpdateManyWithoutPokemonNestedInput = {
@@ -11157,18 +11157,18 @@ export namespace Prisma {
     deleteMany?: GameSessionScalarWhereInput | GameSessionScalarWhereInput[]
   }
 
-  export type DailyLogUpdateManyWithoutPokemonNestedInput = {
-    create?: XOR<DailyLogCreateWithoutPokemonInput, DailyLogUncheckedCreateWithoutPokemonInput> | DailyLogCreateWithoutPokemonInput[] | DailyLogUncheckedCreateWithoutPokemonInput[]
-    connectOrCreate?: DailyLogCreateOrConnectWithoutPokemonInput | DailyLogCreateOrConnectWithoutPokemonInput[]
-    upsert?: DailyLogUpsertWithWhereUniqueWithoutPokemonInput | DailyLogUpsertWithWhereUniqueWithoutPokemonInput[]
-    createMany?: DailyLogCreateManyPokemonInputEnvelope
-    set?: DailyLogWhereUniqueInput | DailyLogWhereUniqueInput[]
-    disconnect?: DailyLogWhereUniqueInput | DailyLogWhereUniqueInput[]
-    delete?: DailyLogWhereUniqueInput | DailyLogWhereUniqueInput[]
-    connect?: DailyLogWhereUniqueInput | DailyLogWhereUniqueInput[]
-    update?: DailyLogUpdateWithWhereUniqueWithoutPokemonInput | DailyLogUpdateWithWhereUniqueWithoutPokemonInput[]
-    updateMany?: DailyLogUpdateManyWithWhereWithoutPokemonInput | DailyLogUpdateManyWithWhereWithoutPokemonInput[]
-    deleteMany?: DailyLogScalarWhereInput | DailyLogScalarWhereInput[]
+  export type UserUpdateManyWithoutDailyPokemonNestedInput = {
+    create?: XOR<UserCreateWithoutDailyPokemonInput, UserUncheckedCreateWithoutDailyPokemonInput> | UserCreateWithoutDailyPokemonInput[] | UserUncheckedCreateWithoutDailyPokemonInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutDailyPokemonInput | UserCreateOrConnectWithoutDailyPokemonInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutDailyPokemonInput | UserUpsertWithWhereUniqueWithoutDailyPokemonInput[]
+    createMany?: UserCreateManyDailyPokemonInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutDailyPokemonInput | UserUpdateWithWhereUniqueWithoutDailyPokemonInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutDailyPokemonInput | UserUpdateManyWithWhereWithoutDailyPokemonInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
   export type CaughtPokemonUncheckedUpdateManyWithoutPokemonNestedInput = {
@@ -11185,18 +11185,18 @@ export namespace Prisma {
     deleteMany?: CaughtPokemonScalarWhereInput | CaughtPokemonScalarWhereInput[]
   }
 
-  export type UserUncheckedUpdateManyWithoutDailyPokemonNestedInput = {
-    create?: XOR<UserCreateWithoutDailyPokemonInput, UserUncheckedCreateWithoutDailyPokemonInput> | UserCreateWithoutDailyPokemonInput[] | UserUncheckedCreateWithoutDailyPokemonInput[]
-    connectOrCreate?: UserCreateOrConnectWithoutDailyPokemonInput | UserCreateOrConnectWithoutDailyPokemonInput[]
-    upsert?: UserUpsertWithWhereUniqueWithoutDailyPokemonInput | UserUpsertWithWhereUniqueWithoutDailyPokemonInput[]
-    createMany?: UserCreateManyDailyPokemonInputEnvelope
-    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    update?: UserUpdateWithWhereUniqueWithoutDailyPokemonInput | UserUpdateWithWhereUniqueWithoutDailyPokemonInput[]
-    updateMany?: UserUpdateManyWithWhereWithoutDailyPokemonInput | UserUpdateManyWithWhereWithoutDailyPokemonInput[]
-    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  export type DailyLogUncheckedUpdateManyWithoutPokemonNestedInput = {
+    create?: XOR<DailyLogCreateWithoutPokemonInput, DailyLogUncheckedCreateWithoutPokemonInput> | DailyLogCreateWithoutPokemonInput[] | DailyLogUncheckedCreateWithoutPokemonInput[]
+    connectOrCreate?: DailyLogCreateOrConnectWithoutPokemonInput | DailyLogCreateOrConnectWithoutPokemonInput[]
+    upsert?: DailyLogUpsertWithWhereUniqueWithoutPokemonInput | DailyLogUpsertWithWhereUniqueWithoutPokemonInput[]
+    createMany?: DailyLogCreateManyPokemonInputEnvelope
+    set?: DailyLogWhereUniqueInput | DailyLogWhereUniqueInput[]
+    disconnect?: DailyLogWhereUniqueInput | DailyLogWhereUniqueInput[]
+    delete?: DailyLogWhereUniqueInput | DailyLogWhereUniqueInput[]
+    connect?: DailyLogWhereUniqueInput | DailyLogWhereUniqueInput[]
+    update?: DailyLogUpdateWithWhereUniqueWithoutPokemonInput | DailyLogUpdateWithWhereUniqueWithoutPokemonInput[]
+    updateMany?: DailyLogUpdateManyWithWhereWithoutPokemonInput | DailyLogUpdateManyWithWhereWithoutPokemonInput[]
+    deleteMany?: DailyLogScalarWhereInput | DailyLogScalarWhereInput[]
   }
 
   export type GameSessionUncheckedUpdateManyWithoutPokemonNestedInput = {
@@ -11213,24 +11213,18 @@ export namespace Prisma {
     deleteMany?: GameSessionScalarWhereInput | GameSessionScalarWhereInput[]
   }
 
-  export type DailyLogUncheckedUpdateManyWithoutPokemonNestedInput = {
-    create?: XOR<DailyLogCreateWithoutPokemonInput, DailyLogUncheckedCreateWithoutPokemonInput> | DailyLogCreateWithoutPokemonInput[] | DailyLogUncheckedCreateWithoutPokemonInput[]
-    connectOrCreate?: DailyLogCreateOrConnectWithoutPokemonInput | DailyLogCreateOrConnectWithoutPokemonInput[]
-    upsert?: DailyLogUpsertWithWhereUniqueWithoutPokemonInput | DailyLogUpsertWithWhereUniqueWithoutPokemonInput[]
-    createMany?: DailyLogCreateManyPokemonInputEnvelope
-    set?: DailyLogWhereUniqueInput | DailyLogWhereUniqueInput[]
-    disconnect?: DailyLogWhereUniqueInput | DailyLogWhereUniqueInput[]
-    delete?: DailyLogWhereUniqueInput | DailyLogWhereUniqueInput[]
-    connect?: DailyLogWhereUniqueInput | DailyLogWhereUniqueInput[]
-    update?: DailyLogUpdateWithWhereUniqueWithoutPokemonInput | DailyLogUpdateWithWhereUniqueWithoutPokemonInput[]
-    updateMany?: DailyLogUpdateManyWithWhereWithoutPokemonInput | DailyLogUpdateManyWithWhereWithoutPokemonInput[]
-    deleteMany?: DailyLogScalarWhereInput | DailyLogScalarWhereInput[]
-  }
-
-  export type UserCreateNestedOneWithoutCaughtPokemonInput = {
-    create?: XOR<UserCreateWithoutCaughtPokemonInput, UserUncheckedCreateWithoutCaughtPokemonInput>
-    connectOrCreate?: UserCreateOrConnectWithoutCaughtPokemonInput
-    connect?: UserWhereUniqueInput
+  export type UserUncheckedUpdateManyWithoutDailyPokemonNestedInput = {
+    create?: XOR<UserCreateWithoutDailyPokemonInput, UserUncheckedCreateWithoutDailyPokemonInput> | UserCreateWithoutDailyPokemonInput[] | UserUncheckedCreateWithoutDailyPokemonInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutDailyPokemonInput | UserCreateOrConnectWithoutDailyPokemonInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutDailyPokemonInput | UserUpsertWithWhereUniqueWithoutDailyPokemonInput[]
+    createMany?: UserCreateManyDailyPokemonInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutDailyPokemonInput | UserUpdateWithWhereUniqueWithoutDailyPokemonInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutDailyPokemonInput | UserUpdateManyWithWhereWithoutDailyPokemonInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
   export type PokemonCreateNestedOneWithoutCaughtByInput = {
@@ -11239,12 +11233,10 @@ export namespace Prisma {
     connect?: PokemonWhereUniqueInput
   }
 
-  export type UserUpdateOneRequiredWithoutCaughtPokemonNestedInput = {
+  export type UserCreateNestedOneWithoutCaughtPokemonInput = {
     create?: XOR<UserCreateWithoutCaughtPokemonInput, UserUncheckedCreateWithoutCaughtPokemonInput>
     connectOrCreate?: UserCreateOrConnectWithoutCaughtPokemonInput
-    upsert?: UserUpsertWithoutCaughtPokemonInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCaughtPokemonInput, UserUpdateWithoutCaughtPokemonInput>, UserUncheckedUpdateWithoutCaughtPokemonInput>
   }
 
   export type PokemonUpdateOneRequiredWithoutCaughtByNestedInput = {
@@ -11255,10 +11247,12 @@ export namespace Prisma {
     update?: XOR<XOR<PokemonUpdateToOneWithWhereWithoutCaughtByInput, PokemonUpdateWithoutCaughtByInput>, PokemonUncheckedUpdateWithoutCaughtByInput>
   }
 
-  export type UserCreateNestedOneWithoutGameSessionsInput = {
-    create?: XOR<UserCreateWithoutGameSessionsInput, UserUncheckedCreateWithoutGameSessionsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutGameSessionsInput
+  export type UserUpdateOneRequiredWithoutCaughtPokemonNestedInput = {
+    create?: XOR<UserCreateWithoutCaughtPokemonInput, UserUncheckedCreateWithoutCaughtPokemonInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCaughtPokemonInput
+    upsert?: UserUpsertWithoutCaughtPokemonInput
     connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCaughtPokemonInput, UserUpdateWithoutCaughtPokemonInput>, UserUncheckedUpdateWithoutCaughtPokemonInput>
   }
 
   export type PokemonCreateNestedOneWithoutGameSessionsInput = {
@@ -11267,12 +11261,10 @@ export namespace Prisma {
     connect?: PokemonWhereUniqueInput
   }
 
-  export type UserUpdateOneRequiredWithoutGameSessionsNestedInput = {
+  export type UserCreateNestedOneWithoutGameSessionsInput = {
     create?: XOR<UserCreateWithoutGameSessionsInput, UserUncheckedCreateWithoutGameSessionsInput>
     connectOrCreate?: UserCreateOrConnectWithoutGameSessionsInput
-    upsert?: UserUpsertWithoutGameSessionsInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutGameSessionsInput, UserUpdateWithoutGameSessionsInput>, UserUncheckedUpdateWithoutGameSessionsInput>
   }
 
   export type PokemonUpdateOneRequiredWithoutGameSessionsNestedInput = {
@@ -11283,10 +11275,12 @@ export namespace Prisma {
     update?: XOR<XOR<PokemonUpdateToOneWithWhereWithoutGameSessionsInput, PokemonUpdateWithoutGameSessionsInput>, PokemonUncheckedUpdateWithoutGameSessionsInput>
   }
 
-  export type UserCreateNestedOneWithoutDailyLogsInput = {
-    create?: XOR<UserCreateWithoutDailyLogsInput, UserUncheckedCreateWithoutDailyLogsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutDailyLogsInput
+  export type UserUpdateOneRequiredWithoutGameSessionsNestedInput = {
+    create?: XOR<UserCreateWithoutGameSessionsInput, UserUncheckedCreateWithoutGameSessionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutGameSessionsInput
+    upsert?: UserUpsertWithoutGameSessionsInput
     connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutGameSessionsInput, UserUpdateWithoutGameSessionsInput>, UserUncheckedUpdateWithoutGameSessionsInput>
   }
 
   export type PokemonCreateNestedOneWithoutDailyLogsInput = {
@@ -11295,12 +11289,10 @@ export namespace Prisma {
     connect?: PokemonWhereUniqueInput
   }
 
-  export type UserUpdateOneRequiredWithoutDailyLogsNestedInput = {
+  export type UserCreateNestedOneWithoutDailyLogsInput = {
     create?: XOR<UserCreateWithoutDailyLogsInput, UserUncheckedCreateWithoutDailyLogsInput>
     connectOrCreate?: UserCreateOrConnectWithoutDailyLogsInput
-    upsert?: UserUpsertWithoutDailyLogsInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDailyLogsInput, UserUpdateWithoutDailyLogsInput>, UserUncheckedUpdateWithoutDailyLogsInput>
   }
 
   export type PokemonUpdateOneRequiredWithoutDailyLogsNestedInput = {
@@ -11309,6 +11301,14 @@ export namespace Prisma {
     upsert?: PokemonUpsertWithoutDailyLogsInput
     connect?: PokemonWhereUniqueInput
     update?: XOR<XOR<PokemonUpdateToOneWithWhereWithoutDailyLogsInput, PokemonUpdateWithoutDailyLogsInput>, PokemonUncheckedUpdateWithoutDailyLogsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutDailyLogsNestedInput = {
+    create?: XOR<UserCreateWithoutDailyLogsInput, UserUncheckedCreateWithoutDailyLogsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDailyLogsInput
+    upsert?: UserUpsertWithoutDailyLogsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDailyLogsInput, UserUpdateWithoutDailyLogsInput>, UserUncheckedUpdateWithoutDailyLogsInput>
   }
 
   export type UserAchievementCreateNestedManyWithoutAchievementInput = {
@@ -11353,24 +11353,16 @@ export namespace Prisma {
     deleteMany?: UserAchievementScalarWhereInput | UserAchievementScalarWhereInput[]
   }
 
-  export type UserCreateNestedOneWithoutAchievementsInput = {
-    create?: XOR<UserCreateWithoutAchievementsInput, UserUncheckedCreateWithoutAchievementsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutAchievementsInput
-    connect?: UserWhereUniqueInput
-  }
-
   export type AchievementCreateNestedOneWithoutUnlockedByInput = {
     create?: XOR<AchievementCreateWithoutUnlockedByInput, AchievementUncheckedCreateWithoutUnlockedByInput>
     connectOrCreate?: AchievementCreateOrConnectWithoutUnlockedByInput
     connect?: AchievementWhereUniqueInput
   }
 
-  export type UserUpdateOneRequiredWithoutAchievementsNestedInput = {
+  export type UserCreateNestedOneWithoutAchievementsInput = {
     create?: XOR<UserCreateWithoutAchievementsInput, UserUncheckedCreateWithoutAchievementsInput>
     connectOrCreate?: UserCreateOrConnectWithoutAchievementsInput
-    upsert?: UserUpsertWithoutAchievementsInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAchievementsInput, UserUpdateWithoutAchievementsInput>, UserUncheckedUpdateWithoutAchievementsInput>
   }
 
   export type AchievementUpdateOneRequiredWithoutUnlockedByNestedInput = {
@@ -11379,6 +11371,14 @@ export namespace Prisma {
     upsert?: AchievementUpsertWithoutUnlockedByInput
     connect?: AchievementWhereUniqueInput
     update?: XOR<XOR<AchievementUpdateToOneWithWhereWithoutUnlockedByInput, AchievementUpdateWithoutUnlockedByInput>, AchievementUncheckedUpdateWithoutUnlockedByInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutAchievementsNestedInput = {
+    create?: XOR<UserCreateWithoutAchievementsInput, UserUncheckedCreateWithoutAchievementsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAchievementsInput
+    upsert?: UserUpsertWithoutAchievementsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAchievementsInput, UserUpdateWithoutAchievementsInput>, UserUncheckedUpdateWithoutAchievementsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -11604,47 +11604,6 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type PokemonCreateWithoutDailyForUsersInput = {
-    id: number
-    name: string
-    sprite: string
-    spriteShiny?: string | null
-    types?: PokemonCreatetypesInput | string[]
-    height: number
-    weight: number
-    baseExperience: number
-    isLegendary?: boolean
-    captureRate?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    caughtBy?: CaughtPokemonCreateNestedManyWithoutPokemonInput
-    gameSessions?: GameSessionCreateNestedManyWithoutPokemonInput
-    dailyLogs?: DailyLogCreateNestedManyWithoutPokemonInput
-  }
-
-  export type PokemonUncheckedCreateWithoutDailyForUsersInput = {
-    id: number
-    name: string
-    sprite: string
-    spriteShiny?: string | null
-    types?: PokemonCreatetypesInput | string[]
-    height: number
-    weight: number
-    baseExperience: number
-    isLegendary?: boolean
-    captureRate?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    caughtBy?: CaughtPokemonUncheckedCreateNestedManyWithoutPokemonInput
-    gameSessions?: GameSessionUncheckedCreateNestedManyWithoutPokemonInput
-    dailyLogs?: DailyLogUncheckedCreateNestedManyWithoutPokemonInput
-  }
-
-  export type PokemonCreateOrConnectWithoutDailyForUsersInput = {
-    where: PokemonWhereUniqueInput
-    create: XOR<PokemonCreateWithoutDailyForUsersInput, PokemonUncheckedCreateWithoutDailyForUsersInput>
-  }
-
   export type CaughtPokemonCreateWithoutUserInput = {
     id?: string
     caughtAt?: Date | string
@@ -11668,6 +11627,34 @@ export namespace Prisma {
 
   export type CaughtPokemonCreateManyUserInputEnvelope = {
     data: CaughtPokemonCreateManyUserInput | CaughtPokemonCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DailyLogCreateWithoutUserInput = {
+    id?: string
+    date?: Date | string
+    attempts?: number
+    caught?: boolean
+    pokeballsLeft?: number
+    pokemon: PokemonCreateNestedOneWithoutDailyLogsInput
+  }
+
+  export type DailyLogUncheckedCreateWithoutUserInput = {
+    id?: string
+    date?: Date | string
+    pokemonId: number
+    attempts?: number
+    caught?: boolean
+    pokeballsLeft?: number
+  }
+
+  export type DailyLogCreateOrConnectWithoutUserInput = {
+    where: DailyLogWhereUniqueInput
+    create: XOR<DailyLogCreateWithoutUserInput, DailyLogUncheckedCreateWithoutUserInput>
+  }
+
+  export type DailyLogCreateManyUserInputEnvelope = {
+    data: DailyLogCreateManyUserInput | DailyLogCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -11701,32 +11688,45 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type DailyLogCreateWithoutUserInput = {
-    id?: string
-    date?: Date | string
-    attempts?: number
-    caught?: boolean
-    pokeballsLeft?: number
-    pokemon: PokemonCreateNestedOneWithoutDailyLogsInput
+  export type PokemonCreateWithoutDailyForUsersInput = {
+    id: number
+    name: string
+    sprite: string
+    spriteShiny?: string | null
+    types?: PokemonCreatetypesInput | string[]
+    height: number
+    weight: number
+    baseExperience: number
+    isLegendary?: boolean
+    captureRate?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    caughtBy?: CaughtPokemonCreateNestedManyWithoutPokemonInput
+    dailyLogs?: DailyLogCreateNestedManyWithoutPokemonInput
+    gameSessions?: GameSessionCreateNestedManyWithoutPokemonInput
   }
 
-  export type DailyLogUncheckedCreateWithoutUserInput = {
-    id?: string
-    date?: Date | string
-    pokemonId: number
-    attempts?: number
-    caught?: boolean
-    pokeballsLeft?: number
+  export type PokemonUncheckedCreateWithoutDailyForUsersInput = {
+    id: number
+    name: string
+    sprite: string
+    spriteShiny?: string | null
+    types?: PokemonCreatetypesInput | string[]
+    height: number
+    weight: number
+    baseExperience: number
+    isLegendary?: boolean
+    captureRate?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    caughtBy?: CaughtPokemonUncheckedCreateNestedManyWithoutPokemonInput
+    dailyLogs?: DailyLogUncheckedCreateNestedManyWithoutPokemonInput
+    gameSessions?: GameSessionUncheckedCreateNestedManyWithoutPokemonInput
   }
 
-  export type DailyLogCreateOrConnectWithoutUserInput = {
-    where: DailyLogWhereUniqueInput
-    create: XOR<DailyLogCreateWithoutUserInput, DailyLogUncheckedCreateWithoutUserInput>
-  }
-
-  export type DailyLogCreateManyUserInputEnvelope = {
-    data: DailyLogCreateManyUserInput | DailyLogCreateManyUserInput[]
-    skipDuplicates?: boolean
+  export type PokemonCreateOrConnectWithoutDailyForUsersInput = {
+    where: PokemonWhereUniqueInput
+    create: XOR<PokemonCreateWithoutDailyForUsersInput, PokemonUncheckedCreateWithoutDailyForUsersInput>
   }
 
   export type UserAchievementCreateWithoutUserInput = {
@@ -11749,53 +11749,6 @@ export namespace Prisma {
   export type UserAchievementCreateManyUserInputEnvelope = {
     data: UserAchievementCreateManyUserInput | UserAchievementCreateManyUserInput[]
     skipDuplicates?: boolean
-  }
-
-  export type PokemonUpsertWithoutDailyForUsersInput = {
-    update: XOR<PokemonUpdateWithoutDailyForUsersInput, PokemonUncheckedUpdateWithoutDailyForUsersInput>
-    create: XOR<PokemonCreateWithoutDailyForUsersInput, PokemonUncheckedCreateWithoutDailyForUsersInput>
-    where?: PokemonWhereInput
-  }
-
-  export type PokemonUpdateToOneWithWhereWithoutDailyForUsersInput = {
-    where?: PokemonWhereInput
-    data: XOR<PokemonUpdateWithoutDailyForUsersInput, PokemonUncheckedUpdateWithoutDailyForUsersInput>
-  }
-
-  export type PokemonUpdateWithoutDailyForUsersInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    sprite?: StringFieldUpdateOperationsInput | string
-    spriteShiny?: NullableStringFieldUpdateOperationsInput | string | null
-    types?: PokemonUpdatetypesInput | string[]
-    height?: IntFieldUpdateOperationsInput | number
-    weight?: IntFieldUpdateOperationsInput | number
-    baseExperience?: IntFieldUpdateOperationsInput | number
-    isLegendary?: BoolFieldUpdateOperationsInput | boolean
-    captureRate?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    caughtBy?: CaughtPokemonUpdateManyWithoutPokemonNestedInput
-    gameSessions?: GameSessionUpdateManyWithoutPokemonNestedInput
-    dailyLogs?: DailyLogUpdateManyWithoutPokemonNestedInput
-  }
-
-  export type PokemonUncheckedUpdateWithoutDailyForUsersInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    sprite?: StringFieldUpdateOperationsInput | string
-    spriteShiny?: NullableStringFieldUpdateOperationsInput | string | null
-    types?: PokemonUpdatetypesInput | string[]
-    height?: IntFieldUpdateOperationsInput | number
-    weight?: IntFieldUpdateOperationsInput | number
-    baseExperience?: IntFieldUpdateOperationsInput | number
-    isLegendary?: BoolFieldUpdateOperationsInput | boolean
-    captureRate?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    caughtBy?: CaughtPokemonUncheckedUpdateManyWithoutPokemonNestedInput
-    gameSessions?: GameSessionUncheckedUpdateManyWithoutPokemonNestedInput
-    dailyLogs?: DailyLogUncheckedUpdateManyWithoutPokemonNestedInput
   }
 
   export type CaughtPokemonUpsertWithWhereUniqueWithoutUserInput = {
@@ -11824,6 +11777,35 @@ export namespace Prisma {
     caughtAt?: DateTimeFilter<"CaughtPokemon"> | Date | string
     critical?: BoolFilter<"CaughtPokemon"> | boolean
     experience?: IntFilter<"CaughtPokemon"> | number
+  }
+
+  export type DailyLogUpsertWithWhereUniqueWithoutUserInput = {
+    where: DailyLogWhereUniqueInput
+    update: XOR<DailyLogUpdateWithoutUserInput, DailyLogUncheckedUpdateWithoutUserInput>
+    create: XOR<DailyLogCreateWithoutUserInput, DailyLogUncheckedCreateWithoutUserInput>
+  }
+
+  export type DailyLogUpdateWithWhereUniqueWithoutUserInput = {
+    where: DailyLogWhereUniqueInput
+    data: XOR<DailyLogUpdateWithoutUserInput, DailyLogUncheckedUpdateWithoutUserInput>
+  }
+
+  export type DailyLogUpdateManyWithWhereWithoutUserInput = {
+    where: DailyLogScalarWhereInput
+    data: XOR<DailyLogUpdateManyMutationInput, DailyLogUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type DailyLogScalarWhereInput = {
+    AND?: DailyLogScalarWhereInput | DailyLogScalarWhereInput[]
+    OR?: DailyLogScalarWhereInput[]
+    NOT?: DailyLogScalarWhereInput | DailyLogScalarWhereInput[]
+    id?: StringFilter<"DailyLog"> | string
+    userId?: StringFilter<"DailyLog"> | string
+    date?: DateTimeFilter<"DailyLog"> | Date | string
+    pokemonId?: IntFilter<"DailyLog"> | number
+    attempts?: IntFilter<"DailyLog"> | number
+    caught?: BoolFilter<"DailyLog"> | boolean
+    pokeballsLeft?: IntFilter<"DailyLog"> | number
   }
 
   export type GameSessionUpsertWithWhereUniqueWithoutUserInput = {
@@ -11856,33 +11838,51 @@ export namespace Prisma {
     success?: BoolFilter<"GameSession"> | boolean
   }
 
-  export type DailyLogUpsertWithWhereUniqueWithoutUserInput = {
-    where: DailyLogWhereUniqueInput
-    update: XOR<DailyLogUpdateWithoutUserInput, DailyLogUncheckedUpdateWithoutUserInput>
-    create: XOR<DailyLogCreateWithoutUserInput, DailyLogUncheckedCreateWithoutUserInput>
+  export type PokemonUpsertWithoutDailyForUsersInput = {
+    update: XOR<PokemonUpdateWithoutDailyForUsersInput, PokemonUncheckedUpdateWithoutDailyForUsersInput>
+    create: XOR<PokemonCreateWithoutDailyForUsersInput, PokemonUncheckedCreateWithoutDailyForUsersInput>
+    where?: PokemonWhereInput
   }
 
-  export type DailyLogUpdateWithWhereUniqueWithoutUserInput = {
-    where: DailyLogWhereUniqueInput
-    data: XOR<DailyLogUpdateWithoutUserInput, DailyLogUncheckedUpdateWithoutUserInput>
+  export type PokemonUpdateToOneWithWhereWithoutDailyForUsersInput = {
+    where?: PokemonWhereInput
+    data: XOR<PokemonUpdateWithoutDailyForUsersInput, PokemonUncheckedUpdateWithoutDailyForUsersInput>
   }
 
-  export type DailyLogUpdateManyWithWhereWithoutUserInput = {
-    where: DailyLogScalarWhereInput
-    data: XOR<DailyLogUpdateManyMutationInput, DailyLogUncheckedUpdateManyWithoutUserInput>
+  export type PokemonUpdateWithoutDailyForUsersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    sprite?: StringFieldUpdateOperationsInput | string
+    spriteShiny?: NullableStringFieldUpdateOperationsInput | string | null
+    types?: PokemonUpdatetypesInput | string[]
+    height?: IntFieldUpdateOperationsInput | number
+    weight?: IntFieldUpdateOperationsInput | number
+    baseExperience?: IntFieldUpdateOperationsInput | number
+    isLegendary?: BoolFieldUpdateOperationsInput | boolean
+    captureRate?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    caughtBy?: CaughtPokemonUpdateManyWithoutPokemonNestedInput
+    dailyLogs?: DailyLogUpdateManyWithoutPokemonNestedInput
+    gameSessions?: GameSessionUpdateManyWithoutPokemonNestedInput
   }
 
-  export type DailyLogScalarWhereInput = {
-    AND?: DailyLogScalarWhereInput | DailyLogScalarWhereInput[]
-    OR?: DailyLogScalarWhereInput[]
-    NOT?: DailyLogScalarWhereInput | DailyLogScalarWhereInput[]
-    id?: StringFilter<"DailyLog"> | string
-    userId?: StringFilter<"DailyLog"> | string
-    date?: DateTimeFilter<"DailyLog"> | Date | string
-    pokemonId?: IntFilter<"DailyLog"> | number
-    attempts?: IntFilter<"DailyLog"> | number
-    caught?: BoolFilter<"DailyLog"> | boolean
-    pokeballsLeft?: IntFilter<"DailyLog"> | number
+  export type PokemonUncheckedUpdateWithoutDailyForUsersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    sprite?: StringFieldUpdateOperationsInput | string
+    spriteShiny?: NullableStringFieldUpdateOperationsInput | string | null
+    types?: PokemonUpdatetypesInput | string[]
+    height?: IntFieldUpdateOperationsInput | number
+    weight?: IntFieldUpdateOperationsInput | number
+    baseExperience?: IntFieldUpdateOperationsInput | number
+    isLegendary?: BoolFieldUpdateOperationsInput | boolean
+    captureRate?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    caughtBy?: CaughtPokemonUncheckedUpdateManyWithoutPokemonNestedInput
+    dailyLogs?: DailyLogUncheckedUpdateManyWithoutPokemonNestedInput
+    gameSessions?: GameSessionUncheckedUpdateManyWithoutPokemonNestedInput
   }
 
   export type UserAchievementUpsertWithWhereUniqueWithoutUserInput = {
@@ -11937,59 +11937,31 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type UserCreateWithoutDailyPokemonInput = {
+  export type DailyLogCreateWithoutPokemonInput = {
     id?: string
-    username: string
-    email: string
-    password: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    level?: number
-    experience?: number
-    pokeballs?: number
-    maxPokeballs?: number
-    lastGameDate?: Date | string | null
-    dailyAttempts?: number
-    caughtToday?: boolean
-    currentStreak?: number
-    maxStreak?: number
-    totalCatches?: number
-    caughtPokemon?: CaughtPokemonCreateNestedManyWithoutUserInput
-    gameSessions?: GameSessionCreateNestedManyWithoutUserInput
-    dailyLogs?: DailyLogCreateNestedManyWithoutUserInput
-    achievements?: UserAchievementCreateNestedManyWithoutUserInput
+    date?: Date | string
+    attempts?: number
+    caught?: boolean
+    pokeballsLeft?: number
+    user: UserCreateNestedOneWithoutDailyLogsInput
   }
 
-  export type UserUncheckedCreateWithoutDailyPokemonInput = {
+  export type DailyLogUncheckedCreateWithoutPokemonInput = {
     id?: string
-    username: string
-    email: string
-    password: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    level?: number
-    experience?: number
-    pokeballs?: number
-    maxPokeballs?: number
-    lastGameDate?: Date | string | null
-    dailyAttempts?: number
-    caughtToday?: boolean
-    currentStreak?: number
-    maxStreak?: number
-    totalCatches?: number
-    caughtPokemon?: CaughtPokemonUncheckedCreateNestedManyWithoutUserInput
-    gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
-    dailyLogs?: DailyLogUncheckedCreateNestedManyWithoutUserInput
-    achievements?: UserAchievementUncheckedCreateNestedManyWithoutUserInput
+    userId: string
+    date?: Date | string
+    attempts?: number
+    caught?: boolean
+    pokeballsLeft?: number
   }
 
-  export type UserCreateOrConnectWithoutDailyPokemonInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutDailyPokemonInput, UserUncheckedCreateWithoutDailyPokemonInput>
+  export type DailyLogCreateOrConnectWithoutPokemonInput = {
+    where: DailyLogWhereUniqueInput
+    create: XOR<DailyLogCreateWithoutPokemonInput, DailyLogUncheckedCreateWithoutPokemonInput>
   }
 
-  export type UserCreateManyDailyPokemonInputEnvelope = {
-    data: UserCreateManyDailyPokemonInput | UserCreateManyDailyPokemonInput[]
+  export type DailyLogCreateManyPokemonInputEnvelope = {
+    data: DailyLogCreateManyPokemonInput | DailyLogCreateManyPokemonInput[]
     skipDuplicates?: boolean
   }
 
@@ -12023,31 +11995,59 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type DailyLogCreateWithoutPokemonInput = {
+  export type UserCreateWithoutDailyPokemonInput = {
     id?: string
-    date?: Date | string
-    attempts?: number
-    caught?: boolean
-    pokeballsLeft?: number
-    user: UserCreateNestedOneWithoutDailyLogsInput
+    username: string
+    email: string
+    password: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    level?: number
+    experience?: number
+    pokeballs?: number
+    maxPokeballs?: number
+    lastGameDate?: Date | string | null
+    dailyAttempts?: number
+    caughtToday?: boolean
+    currentStreak?: number
+    maxStreak?: number
+    totalCatches?: number
+    caughtPokemon?: CaughtPokemonCreateNestedManyWithoutUserInput
+    dailyLogs?: DailyLogCreateNestedManyWithoutUserInput
+    gameSessions?: GameSessionCreateNestedManyWithoutUserInput
+    achievements?: UserAchievementCreateNestedManyWithoutUserInput
   }
 
-  export type DailyLogUncheckedCreateWithoutPokemonInput = {
+  export type UserUncheckedCreateWithoutDailyPokemonInput = {
     id?: string
-    userId: string
-    date?: Date | string
-    attempts?: number
-    caught?: boolean
-    pokeballsLeft?: number
+    username: string
+    email: string
+    password: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    level?: number
+    experience?: number
+    pokeballs?: number
+    maxPokeballs?: number
+    lastGameDate?: Date | string | null
+    dailyAttempts?: number
+    caughtToday?: boolean
+    currentStreak?: number
+    maxStreak?: number
+    totalCatches?: number
+    caughtPokemon?: CaughtPokemonUncheckedCreateNestedManyWithoutUserInput
+    dailyLogs?: DailyLogUncheckedCreateNestedManyWithoutUserInput
+    gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
+    achievements?: UserAchievementUncheckedCreateNestedManyWithoutUserInput
   }
 
-  export type DailyLogCreateOrConnectWithoutPokemonInput = {
-    where: DailyLogWhereUniqueInput
-    create: XOR<DailyLogCreateWithoutPokemonInput, DailyLogUncheckedCreateWithoutPokemonInput>
+  export type UserCreateOrConnectWithoutDailyPokemonInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutDailyPokemonInput, UserUncheckedCreateWithoutDailyPokemonInput>
   }
 
-  export type DailyLogCreateManyPokemonInputEnvelope = {
-    data: DailyLogCreateManyPokemonInput | DailyLogCreateManyPokemonInput[]
+  export type UserCreateManyDailyPokemonInputEnvelope = {
+    data: UserCreateManyDailyPokemonInput | UserCreateManyDailyPokemonInput[]
     skipDuplicates?: boolean
   }
 
@@ -12065,6 +12065,38 @@ export namespace Prisma {
   export type CaughtPokemonUpdateManyWithWhereWithoutPokemonInput = {
     where: CaughtPokemonScalarWhereInput
     data: XOR<CaughtPokemonUpdateManyMutationInput, CaughtPokemonUncheckedUpdateManyWithoutPokemonInput>
+  }
+
+  export type DailyLogUpsertWithWhereUniqueWithoutPokemonInput = {
+    where: DailyLogWhereUniqueInput
+    update: XOR<DailyLogUpdateWithoutPokemonInput, DailyLogUncheckedUpdateWithoutPokemonInput>
+    create: XOR<DailyLogCreateWithoutPokemonInput, DailyLogUncheckedCreateWithoutPokemonInput>
+  }
+
+  export type DailyLogUpdateWithWhereUniqueWithoutPokemonInput = {
+    where: DailyLogWhereUniqueInput
+    data: XOR<DailyLogUpdateWithoutPokemonInput, DailyLogUncheckedUpdateWithoutPokemonInput>
+  }
+
+  export type DailyLogUpdateManyWithWhereWithoutPokemonInput = {
+    where: DailyLogScalarWhereInput
+    data: XOR<DailyLogUpdateManyMutationInput, DailyLogUncheckedUpdateManyWithoutPokemonInput>
+  }
+
+  export type GameSessionUpsertWithWhereUniqueWithoutPokemonInput = {
+    where: GameSessionWhereUniqueInput
+    update: XOR<GameSessionUpdateWithoutPokemonInput, GameSessionUncheckedUpdateWithoutPokemonInput>
+    create: XOR<GameSessionCreateWithoutPokemonInput, GameSessionUncheckedCreateWithoutPokemonInput>
+  }
+
+  export type GameSessionUpdateWithWhereUniqueWithoutPokemonInput = {
+    where: GameSessionWhereUniqueInput
+    data: XOR<GameSessionUpdateWithoutPokemonInput, GameSessionUncheckedUpdateWithoutPokemonInput>
+  }
+
+  export type GameSessionUpdateManyWithWhereWithoutPokemonInput = {
+    where: GameSessionScalarWhereInput
+    data: XOR<GameSessionUpdateManyMutationInput, GameSessionUncheckedUpdateManyWithoutPokemonInput>
   }
 
   export type UserUpsertWithWhereUniqueWithoutDailyPokemonInput = {
@@ -12106,36 +12138,45 @@ export namespace Prisma {
     totalCatches?: IntFilter<"User"> | number
   }
 
-  export type GameSessionUpsertWithWhereUniqueWithoutPokemonInput = {
-    where: GameSessionWhereUniqueInput
-    update: XOR<GameSessionUpdateWithoutPokemonInput, GameSessionUncheckedUpdateWithoutPokemonInput>
-    create: XOR<GameSessionCreateWithoutPokemonInput, GameSessionUncheckedCreateWithoutPokemonInput>
+  export type PokemonCreateWithoutCaughtByInput = {
+    id: number
+    name: string
+    sprite: string
+    spriteShiny?: string | null
+    types?: PokemonCreatetypesInput | string[]
+    height: number
+    weight: number
+    baseExperience: number
+    isLegendary?: boolean
+    captureRate?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    dailyLogs?: DailyLogCreateNestedManyWithoutPokemonInput
+    gameSessions?: GameSessionCreateNestedManyWithoutPokemonInput
+    dailyForUsers?: UserCreateNestedManyWithoutDailyPokemonInput
   }
 
-  export type GameSessionUpdateWithWhereUniqueWithoutPokemonInput = {
-    where: GameSessionWhereUniqueInput
-    data: XOR<GameSessionUpdateWithoutPokemonInput, GameSessionUncheckedUpdateWithoutPokemonInput>
+  export type PokemonUncheckedCreateWithoutCaughtByInput = {
+    id: number
+    name: string
+    sprite: string
+    spriteShiny?: string | null
+    types?: PokemonCreatetypesInput | string[]
+    height: number
+    weight: number
+    baseExperience: number
+    isLegendary?: boolean
+    captureRate?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    dailyLogs?: DailyLogUncheckedCreateNestedManyWithoutPokemonInput
+    gameSessions?: GameSessionUncheckedCreateNestedManyWithoutPokemonInput
+    dailyForUsers?: UserUncheckedCreateNestedManyWithoutDailyPokemonInput
   }
 
-  export type GameSessionUpdateManyWithWhereWithoutPokemonInput = {
-    where: GameSessionScalarWhereInput
-    data: XOR<GameSessionUpdateManyMutationInput, GameSessionUncheckedUpdateManyWithoutPokemonInput>
-  }
-
-  export type DailyLogUpsertWithWhereUniqueWithoutPokemonInput = {
-    where: DailyLogWhereUniqueInput
-    update: XOR<DailyLogUpdateWithoutPokemonInput, DailyLogUncheckedUpdateWithoutPokemonInput>
-    create: XOR<DailyLogCreateWithoutPokemonInput, DailyLogUncheckedCreateWithoutPokemonInput>
-  }
-
-  export type DailyLogUpdateWithWhereUniqueWithoutPokemonInput = {
-    where: DailyLogWhereUniqueInput
-    data: XOR<DailyLogUpdateWithoutPokemonInput, DailyLogUncheckedUpdateWithoutPokemonInput>
-  }
-
-  export type DailyLogUpdateManyWithWhereWithoutPokemonInput = {
-    where: DailyLogScalarWhereInput
-    data: XOR<DailyLogUpdateManyMutationInput, DailyLogUncheckedUpdateManyWithoutPokemonInput>
+  export type PokemonCreateOrConnectWithoutCaughtByInput = {
+    where: PokemonWhereUniqueInput
+    create: XOR<PokemonCreateWithoutCaughtByInput, PokemonUncheckedCreateWithoutCaughtByInput>
   }
 
   export type UserCreateWithoutCaughtPokemonInput = {
@@ -12155,9 +12196,9 @@ export namespace Prisma {
     currentStreak?: number
     maxStreak?: number
     totalCatches?: number
-    dailyPokemon?: PokemonCreateNestedOneWithoutDailyForUsersInput
-    gameSessions?: GameSessionCreateNestedManyWithoutUserInput
     dailyLogs?: DailyLogCreateNestedManyWithoutUserInput
+    gameSessions?: GameSessionCreateNestedManyWithoutUserInput
+    dailyPokemon?: PokemonCreateNestedOneWithoutDailyForUsersInput
     achievements?: UserAchievementCreateNestedManyWithoutUserInput
   }
 
@@ -12179,8 +12220,8 @@ export namespace Prisma {
     currentStreak?: number
     maxStreak?: number
     totalCatches?: number
-    gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
     dailyLogs?: DailyLogUncheckedCreateNestedManyWithoutUserInput
+    gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
     achievements?: UserAchievementUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -12189,45 +12230,51 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutCaughtPokemonInput, UserUncheckedCreateWithoutCaughtPokemonInput>
   }
 
-  export type PokemonCreateWithoutCaughtByInput = {
-    id: number
-    name: string
-    sprite: string
-    spriteShiny?: string | null
-    types?: PokemonCreatetypesInput | string[]
-    height: number
-    weight: number
-    baseExperience: number
-    isLegendary?: boolean
-    captureRate?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    dailyForUsers?: UserCreateNestedManyWithoutDailyPokemonInput
-    gameSessions?: GameSessionCreateNestedManyWithoutPokemonInput
-    dailyLogs?: DailyLogCreateNestedManyWithoutPokemonInput
-  }
-
-  export type PokemonUncheckedCreateWithoutCaughtByInput = {
-    id: number
-    name: string
-    sprite: string
-    spriteShiny?: string | null
-    types?: PokemonCreatetypesInput | string[]
-    height: number
-    weight: number
-    baseExperience: number
-    isLegendary?: boolean
-    captureRate?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    dailyForUsers?: UserUncheckedCreateNestedManyWithoutDailyPokemonInput
-    gameSessions?: GameSessionUncheckedCreateNestedManyWithoutPokemonInput
-    dailyLogs?: DailyLogUncheckedCreateNestedManyWithoutPokemonInput
-  }
-
-  export type PokemonCreateOrConnectWithoutCaughtByInput = {
-    where: PokemonWhereUniqueInput
+  export type PokemonUpsertWithoutCaughtByInput = {
+    update: XOR<PokemonUpdateWithoutCaughtByInput, PokemonUncheckedUpdateWithoutCaughtByInput>
     create: XOR<PokemonCreateWithoutCaughtByInput, PokemonUncheckedCreateWithoutCaughtByInput>
+    where?: PokemonWhereInput
+  }
+
+  export type PokemonUpdateToOneWithWhereWithoutCaughtByInput = {
+    where?: PokemonWhereInput
+    data: XOR<PokemonUpdateWithoutCaughtByInput, PokemonUncheckedUpdateWithoutCaughtByInput>
+  }
+
+  export type PokemonUpdateWithoutCaughtByInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    sprite?: StringFieldUpdateOperationsInput | string
+    spriteShiny?: NullableStringFieldUpdateOperationsInput | string | null
+    types?: PokemonUpdatetypesInput | string[]
+    height?: IntFieldUpdateOperationsInput | number
+    weight?: IntFieldUpdateOperationsInput | number
+    baseExperience?: IntFieldUpdateOperationsInput | number
+    isLegendary?: BoolFieldUpdateOperationsInput | boolean
+    captureRate?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    dailyLogs?: DailyLogUpdateManyWithoutPokemonNestedInput
+    gameSessions?: GameSessionUpdateManyWithoutPokemonNestedInput
+    dailyForUsers?: UserUpdateManyWithoutDailyPokemonNestedInput
+  }
+
+  export type PokemonUncheckedUpdateWithoutCaughtByInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    sprite?: StringFieldUpdateOperationsInput | string
+    spriteShiny?: NullableStringFieldUpdateOperationsInput | string | null
+    types?: PokemonUpdatetypesInput | string[]
+    height?: IntFieldUpdateOperationsInput | number
+    weight?: IntFieldUpdateOperationsInput | number
+    baseExperience?: IntFieldUpdateOperationsInput | number
+    isLegendary?: BoolFieldUpdateOperationsInput | boolean
+    captureRate?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    dailyLogs?: DailyLogUncheckedUpdateManyWithoutPokemonNestedInput
+    gameSessions?: GameSessionUncheckedUpdateManyWithoutPokemonNestedInput
+    dailyForUsers?: UserUncheckedUpdateManyWithoutDailyPokemonNestedInput
   }
 
   export type UserUpsertWithoutCaughtPokemonInput = {
@@ -12258,9 +12305,9 @@ export namespace Prisma {
     currentStreak?: IntFieldUpdateOperationsInput | number
     maxStreak?: IntFieldUpdateOperationsInput | number
     totalCatches?: IntFieldUpdateOperationsInput | number
-    dailyPokemon?: PokemonUpdateOneWithoutDailyForUsersNestedInput
-    gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
     dailyLogs?: DailyLogUpdateManyWithoutUserNestedInput
+    gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
+    dailyPokemon?: PokemonUpdateOneWithoutDailyForUsersNestedInput
     achievements?: UserAchievementUpdateManyWithoutUserNestedInput
   }
 
@@ -12282,56 +12329,50 @@ export namespace Prisma {
     currentStreak?: IntFieldUpdateOperationsInput | number
     maxStreak?: IntFieldUpdateOperationsInput | number
     totalCatches?: IntFieldUpdateOperationsInput | number
-    gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
     dailyLogs?: DailyLogUncheckedUpdateManyWithoutUserNestedInput
+    gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
     achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type PokemonUpsertWithoutCaughtByInput = {
-    update: XOR<PokemonUpdateWithoutCaughtByInput, PokemonUncheckedUpdateWithoutCaughtByInput>
-    create: XOR<PokemonCreateWithoutCaughtByInput, PokemonUncheckedCreateWithoutCaughtByInput>
-    where?: PokemonWhereInput
+  export type PokemonCreateWithoutGameSessionsInput = {
+    id: number
+    name: string
+    sprite: string
+    spriteShiny?: string | null
+    types?: PokemonCreatetypesInput | string[]
+    height: number
+    weight: number
+    baseExperience: number
+    isLegendary?: boolean
+    captureRate?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    caughtBy?: CaughtPokemonCreateNestedManyWithoutPokemonInput
+    dailyLogs?: DailyLogCreateNestedManyWithoutPokemonInput
+    dailyForUsers?: UserCreateNestedManyWithoutDailyPokemonInput
   }
 
-  export type PokemonUpdateToOneWithWhereWithoutCaughtByInput = {
-    where?: PokemonWhereInput
-    data: XOR<PokemonUpdateWithoutCaughtByInput, PokemonUncheckedUpdateWithoutCaughtByInput>
+  export type PokemonUncheckedCreateWithoutGameSessionsInput = {
+    id: number
+    name: string
+    sprite: string
+    spriteShiny?: string | null
+    types?: PokemonCreatetypesInput | string[]
+    height: number
+    weight: number
+    baseExperience: number
+    isLegendary?: boolean
+    captureRate?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    caughtBy?: CaughtPokemonUncheckedCreateNestedManyWithoutPokemonInput
+    dailyLogs?: DailyLogUncheckedCreateNestedManyWithoutPokemonInput
+    dailyForUsers?: UserUncheckedCreateNestedManyWithoutDailyPokemonInput
   }
 
-  export type PokemonUpdateWithoutCaughtByInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    sprite?: StringFieldUpdateOperationsInput | string
-    spriteShiny?: NullableStringFieldUpdateOperationsInput | string | null
-    types?: PokemonUpdatetypesInput | string[]
-    height?: IntFieldUpdateOperationsInput | number
-    weight?: IntFieldUpdateOperationsInput | number
-    baseExperience?: IntFieldUpdateOperationsInput | number
-    isLegendary?: BoolFieldUpdateOperationsInput | boolean
-    captureRate?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    dailyForUsers?: UserUpdateManyWithoutDailyPokemonNestedInput
-    gameSessions?: GameSessionUpdateManyWithoutPokemonNestedInput
-    dailyLogs?: DailyLogUpdateManyWithoutPokemonNestedInput
-  }
-
-  export type PokemonUncheckedUpdateWithoutCaughtByInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    sprite?: StringFieldUpdateOperationsInput | string
-    spriteShiny?: NullableStringFieldUpdateOperationsInput | string | null
-    types?: PokemonUpdatetypesInput | string[]
-    height?: IntFieldUpdateOperationsInput | number
-    weight?: IntFieldUpdateOperationsInput | number
-    baseExperience?: IntFieldUpdateOperationsInput | number
-    isLegendary?: BoolFieldUpdateOperationsInput | boolean
-    captureRate?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    dailyForUsers?: UserUncheckedUpdateManyWithoutDailyPokemonNestedInput
-    gameSessions?: GameSessionUncheckedUpdateManyWithoutPokemonNestedInput
-    dailyLogs?: DailyLogUncheckedUpdateManyWithoutPokemonNestedInput
+  export type PokemonCreateOrConnectWithoutGameSessionsInput = {
+    where: PokemonWhereUniqueInput
+    create: XOR<PokemonCreateWithoutGameSessionsInput, PokemonUncheckedCreateWithoutGameSessionsInput>
   }
 
   export type UserCreateWithoutGameSessionsInput = {
@@ -12351,9 +12392,9 @@ export namespace Prisma {
     currentStreak?: number
     maxStreak?: number
     totalCatches?: number
-    dailyPokemon?: PokemonCreateNestedOneWithoutDailyForUsersInput
     caughtPokemon?: CaughtPokemonCreateNestedManyWithoutUserInput
     dailyLogs?: DailyLogCreateNestedManyWithoutUserInput
+    dailyPokemon?: PokemonCreateNestedOneWithoutDailyForUsersInput
     achievements?: UserAchievementCreateNestedManyWithoutUserInput
   }
 
@@ -12385,45 +12426,51 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutGameSessionsInput, UserUncheckedCreateWithoutGameSessionsInput>
   }
 
-  export type PokemonCreateWithoutGameSessionsInput = {
-    id: number
-    name: string
-    sprite: string
-    spriteShiny?: string | null
-    types?: PokemonCreatetypesInput | string[]
-    height: number
-    weight: number
-    baseExperience: number
-    isLegendary?: boolean
-    captureRate?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    caughtBy?: CaughtPokemonCreateNestedManyWithoutPokemonInput
-    dailyForUsers?: UserCreateNestedManyWithoutDailyPokemonInput
-    dailyLogs?: DailyLogCreateNestedManyWithoutPokemonInput
-  }
-
-  export type PokemonUncheckedCreateWithoutGameSessionsInput = {
-    id: number
-    name: string
-    sprite: string
-    spriteShiny?: string | null
-    types?: PokemonCreatetypesInput | string[]
-    height: number
-    weight: number
-    baseExperience: number
-    isLegendary?: boolean
-    captureRate?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    caughtBy?: CaughtPokemonUncheckedCreateNestedManyWithoutPokemonInput
-    dailyForUsers?: UserUncheckedCreateNestedManyWithoutDailyPokemonInput
-    dailyLogs?: DailyLogUncheckedCreateNestedManyWithoutPokemonInput
-  }
-
-  export type PokemonCreateOrConnectWithoutGameSessionsInput = {
-    where: PokemonWhereUniqueInput
+  export type PokemonUpsertWithoutGameSessionsInput = {
+    update: XOR<PokemonUpdateWithoutGameSessionsInput, PokemonUncheckedUpdateWithoutGameSessionsInput>
     create: XOR<PokemonCreateWithoutGameSessionsInput, PokemonUncheckedCreateWithoutGameSessionsInput>
+    where?: PokemonWhereInput
+  }
+
+  export type PokemonUpdateToOneWithWhereWithoutGameSessionsInput = {
+    where?: PokemonWhereInput
+    data: XOR<PokemonUpdateWithoutGameSessionsInput, PokemonUncheckedUpdateWithoutGameSessionsInput>
+  }
+
+  export type PokemonUpdateWithoutGameSessionsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    sprite?: StringFieldUpdateOperationsInput | string
+    spriteShiny?: NullableStringFieldUpdateOperationsInput | string | null
+    types?: PokemonUpdatetypesInput | string[]
+    height?: IntFieldUpdateOperationsInput | number
+    weight?: IntFieldUpdateOperationsInput | number
+    baseExperience?: IntFieldUpdateOperationsInput | number
+    isLegendary?: BoolFieldUpdateOperationsInput | boolean
+    captureRate?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    caughtBy?: CaughtPokemonUpdateManyWithoutPokemonNestedInput
+    dailyLogs?: DailyLogUpdateManyWithoutPokemonNestedInput
+    dailyForUsers?: UserUpdateManyWithoutDailyPokemonNestedInput
+  }
+
+  export type PokemonUncheckedUpdateWithoutGameSessionsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    sprite?: StringFieldUpdateOperationsInput | string
+    spriteShiny?: NullableStringFieldUpdateOperationsInput | string | null
+    types?: PokemonUpdatetypesInput | string[]
+    height?: IntFieldUpdateOperationsInput | number
+    weight?: IntFieldUpdateOperationsInput | number
+    baseExperience?: IntFieldUpdateOperationsInput | number
+    isLegendary?: BoolFieldUpdateOperationsInput | boolean
+    captureRate?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    caughtBy?: CaughtPokemonUncheckedUpdateManyWithoutPokemonNestedInput
+    dailyLogs?: DailyLogUncheckedUpdateManyWithoutPokemonNestedInput
+    dailyForUsers?: UserUncheckedUpdateManyWithoutDailyPokemonNestedInput
   }
 
   export type UserUpsertWithoutGameSessionsInput = {
@@ -12454,9 +12501,9 @@ export namespace Prisma {
     currentStreak?: IntFieldUpdateOperationsInput | number
     maxStreak?: IntFieldUpdateOperationsInput | number
     totalCatches?: IntFieldUpdateOperationsInput | number
-    dailyPokemon?: PokemonUpdateOneWithoutDailyForUsersNestedInput
     caughtPokemon?: CaughtPokemonUpdateManyWithoutUserNestedInput
     dailyLogs?: DailyLogUpdateManyWithoutUserNestedInput
+    dailyPokemon?: PokemonUpdateOneWithoutDailyForUsersNestedInput
     achievements?: UserAchievementUpdateManyWithoutUserNestedInput
   }
 
@@ -12483,51 +12530,45 @@ export namespace Prisma {
     achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type PokemonUpsertWithoutGameSessionsInput = {
-    update: XOR<PokemonUpdateWithoutGameSessionsInput, PokemonUncheckedUpdateWithoutGameSessionsInput>
-    create: XOR<PokemonCreateWithoutGameSessionsInput, PokemonUncheckedCreateWithoutGameSessionsInput>
-    where?: PokemonWhereInput
+  export type PokemonCreateWithoutDailyLogsInput = {
+    id: number
+    name: string
+    sprite: string
+    spriteShiny?: string | null
+    types?: PokemonCreatetypesInput | string[]
+    height: number
+    weight: number
+    baseExperience: number
+    isLegendary?: boolean
+    captureRate?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    caughtBy?: CaughtPokemonCreateNestedManyWithoutPokemonInput
+    gameSessions?: GameSessionCreateNestedManyWithoutPokemonInput
+    dailyForUsers?: UserCreateNestedManyWithoutDailyPokemonInput
   }
 
-  export type PokemonUpdateToOneWithWhereWithoutGameSessionsInput = {
-    where?: PokemonWhereInput
-    data: XOR<PokemonUpdateWithoutGameSessionsInput, PokemonUncheckedUpdateWithoutGameSessionsInput>
+  export type PokemonUncheckedCreateWithoutDailyLogsInput = {
+    id: number
+    name: string
+    sprite: string
+    spriteShiny?: string | null
+    types?: PokemonCreatetypesInput | string[]
+    height: number
+    weight: number
+    baseExperience: number
+    isLegendary?: boolean
+    captureRate?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    caughtBy?: CaughtPokemonUncheckedCreateNestedManyWithoutPokemonInput
+    gameSessions?: GameSessionUncheckedCreateNestedManyWithoutPokemonInput
+    dailyForUsers?: UserUncheckedCreateNestedManyWithoutDailyPokemonInput
   }
 
-  export type PokemonUpdateWithoutGameSessionsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    sprite?: StringFieldUpdateOperationsInput | string
-    spriteShiny?: NullableStringFieldUpdateOperationsInput | string | null
-    types?: PokemonUpdatetypesInput | string[]
-    height?: IntFieldUpdateOperationsInput | number
-    weight?: IntFieldUpdateOperationsInput | number
-    baseExperience?: IntFieldUpdateOperationsInput | number
-    isLegendary?: BoolFieldUpdateOperationsInput | boolean
-    captureRate?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    caughtBy?: CaughtPokemonUpdateManyWithoutPokemonNestedInput
-    dailyForUsers?: UserUpdateManyWithoutDailyPokemonNestedInput
-    dailyLogs?: DailyLogUpdateManyWithoutPokemonNestedInput
-  }
-
-  export type PokemonUncheckedUpdateWithoutGameSessionsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    sprite?: StringFieldUpdateOperationsInput | string
-    spriteShiny?: NullableStringFieldUpdateOperationsInput | string | null
-    types?: PokemonUpdatetypesInput | string[]
-    height?: IntFieldUpdateOperationsInput | number
-    weight?: IntFieldUpdateOperationsInput | number
-    baseExperience?: IntFieldUpdateOperationsInput | number
-    isLegendary?: BoolFieldUpdateOperationsInput | boolean
-    captureRate?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    caughtBy?: CaughtPokemonUncheckedUpdateManyWithoutPokemonNestedInput
-    dailyForUsers?: UserUncheckedUpdateManyWithoutDailyPokemonNestedInput
-    dailyLogs?: DailyLogUncheckedUpdateManyWithoutPokemonNestedInput
+  export type PokemonCreateOrConnectWithoutDailyLogsInput = {
+    where: PokemonWhereUniqueInput
+    create: XOR<PokemonCreateWithoutDailyLogsInput, PokemonUncheckedCreateWithoutDailyLogsInput>
   }
 
   export type UserCreateWithoutDailyLogsInput = {
@@ -12547,9 +12588,9 @@ export namespace Prisma {
     currentStreak?: number
     maxStreak?: number
     totalCatches?: number
-    dailyPokemon?: PokemonCreateNestedOneWithoutDailyForUsersInput
     caughtPokemon?: CaughtPokemonCreateNestedManyWithoutUserInput
     gameSessions?: GameSessionCreateNestedManyWithoutUserInput
+    dailyPokemon?: PokemonCreateNestedOneWithoutDailyForUsersInput
     achievements?: UserAchievementCreateNestedManyWithoutUserInput
   }
 
@@ -12581,45 +12622,51 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutDailyLogsInput, UserUncheckedCreateWithoutDailyLogsInput>
   }
 
-  export type PokemonCreateWithoutDailyLogsInput = {
-    id: number
-    name: string
-    sprite: string
-    spriteShiny?: string | null
-    types?: PokemonCreatetypesInput | string[]
-    height: number
-    weight: number
-    baseExperience: number
-    isLegendary?: boolean
-    captureRate?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    caughtBy?: CaughtPokemonCreateNestedManyWithoutPokemonInput
-    dailyForUsers?: UserCreateNestedManyWithoutDailyPokemonInput
-    gameSessions?: GameSessionCreateNestedManyWithoutPokemonInput
-  }
-
-  export type PokemonUncheckedCreateWithoutDailyLogsInput = {
-    id: number
-    name: string
-    sprite: string
-    spriteShiny?: string | null
-    types?: PokemonCreatetypesInput | string[]
-    height: number
-    weight: number
-    baseExperience: number
-    isLegendary?: boolean
-    captureRate?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    caughtBy?: CaughtPokemonUncheckedCreateNestedManyWithoutPokemonInput
-    dailyForUsers?: UserUncheckedCreateNestedManyWithoutDailyPokemonInput
-    gameSessions?: GameSessionUncheckedCreateNestedManyWithoutPokemonInput
-  }
-
-  export type PokemonCreateOrConnectWithoutDailyLogsInput = {
-    where: PokemonWhereUniqueInput
+  export type PokemonUpsertWithoutDailyLogsInput = {
+    update: XOR<PokemonUpdateWithoutDailyLogsInput, PokemonUncheckedUpdateWithoutDailyLogsInput>
     create: XOR<PokemonCreateWithoutDailyLogsInput, PokemonUncheckedCreateWithoutDailyLogsInput>
+    where?: PokemonWhereInput
+  }
+
+  export type PokemonUpdateToOneWithWhereWithoutDailyLogsInput = {
+    where?: PokemonWhereInput
+    data: XOR<PokemonUpdateWithoutDailyLogsInput, PokemonUncheckedUpdateWithoutDailyLogsInput>
+  }
+
+  export type PokemonUpdateWithoutDailyLogsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    sprite?: StringFieldUpdateOperationsInput | string
+    spriteShiny?: NullableStringFieldUpdateOperationsInput | string | null
+    types?: PokemonUpdatetypesInput | string[]
+    height?: IntFieldUpdateOperationsInput | number
+    weight?: IntFieldUpdateOperationsInput | number
+    baseExperience?: IntFieldUpdateOperationsInput | number
+    isLegendary?: BoolFieldUpdateOperationsInput | boolean
+    captureRate?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    caughtBy?: CaughtPokemonUpdateManyWithoutPokemonNestedInput
+    gameSessions?: GameSessionUpdateManyWithoutPokemonNestedInput
+    dailyForUsers?: UserUpdateManyWithoutDailyPokemonNestedInput
+  }
+
+  export type PokemonUncheckedUpdateWithoutDailyLogsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    sprite?: StringFieldUpdateOperationsInput | string
+    spriteShiny?: NullableStringFieldUpdateOperationsInput | string | null
+    types?: PokemonUpdatetypesInput | string[]
+    height?: IntFieldUpdateOperationsInput | number
+    weight?: IntFieldUpdateOperationsInput | number
+    baseExperience?: IntFieldUpdateOperationsInput | number
+    isLegendary?: BoolFieldUpdateOperationsInput | boolean
+    captureRate?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    caughtBy?: CaughtPokemonUncheckedUpdateManyWithoutPokemonNestedInput
+    gameSessions?: GameSessionUncheckedUpdateManyWithoutPokemonNestedInput
+    dailyForUsers?: UserUncheckedUpdateManyWithoutDailyPokemonNestedInput
   }
 
   export type UserUpsertWithoutDailyLogsInput = {
@@ -12650,9 +12697,9 @@ export namespace Prisma {
     currentStreak?: IntFieldUpdateOperationsInput | number
     maxStreak?: IntFieldUpdateOperationsInput | number
     totalCatches?: IntFieldUpdateOperationsInput | number
-    dailyPokemon?: PokemonUpdateOneWithoutDailyForUsersNestedInput
     caughtPokemon?: CaughtPokemonUpdateManyWithoutUserNestedInput
     gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
+    dailyPokemon?: PokemonUpdateOneWithoutDailyForUsersNestedInput
     achievements?: UserAchievementUpdateManyWithoutUserNestedInput
   }
 
@@ -12677,53 +12724,6 @@ export namespace Prisma {
     caughtPokemon?: CaughtPokemonUncheckedUpdateManyWithoutUserNestedInput
     gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
     achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type PokemonUpsertWithoutDailyLogsInput = {
-    update: XOR<PokemonUpdateWithoutDailyLogsInput, PokemonUncheckedUpdateWithoutDailyLogsInput>
-    create: XOR<PokemonCreateWithoutDailyLogsInput, PokemonUncheckedCreateWithoutDailyLogsInput>
-    where?: PokemonWhereInput
-  }
-
-  export type PokemonUpdateToOneWithWhereWithoutDailyLogsInput = {
-    where?: PokemonWhereInput
-    data: XOR<PokemonUpdateWithoutDailyLogsInput, PokemonUncheckedUpdateWithoutDailyLogsInput>
-  }
-
-  export type PokemonUpdateWithoutDailyLogsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    sprite?: StringFieldUpdateOperationsInput | string
-    spriteShiny?: NullableStringFieldUpdateOperationsInput | string | null
-    types?: PokemonUpdatetypesInput | string[]
-    height?: IntFieldUpdateOperationsInput | number
-    weight?: IntFieldUpdateOperationsInput | number
-    baseExperience?: IntFieldUpdateOperationsInput | number
-    isLegendary?: BoolFieldUpdateOperationsInput | boolean
-    captureRate?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    caughtBy?: CaughtPokemonUpdateManyWithoutPokemonNestedInput
-    dailyForUsers?: UserUpdateManyWithoutDailyPokemonNestedInput
-    gameSessions?: GameSessionUpdateManyWithoutPokemonNestedInput
-  }
-
-  export type PokemonUncheckedUpdateWithoutDailyLogsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    sprite?: StringFieldUpdateOperationsInput | string
-    spriteShiny?: NullableStringFieldUpdateOperationsInput | string | null
-    types?: PokemonUpdatetypesInput | string[]
-    height?: IntFieldUpdateOperationsInput | number
-    weight?: IntFieldUpdateOperationsInput | number
-    baseExperience?: IntFieldUpdateOperationsInput | number
-    isLegendary?: BoolFieldUpdateOperationsInput | boolean
-    captureRate?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    caughtBy?: CaughtPokemonUncheckedUpdateManyWithoutPokemonNestedInput
-    dailyForUsers?: UserUncheckedUpdateManyWithoutDailyPokemonNestedInput
-    gameSessions?: GameSessionUncheckedUpdateManyWithoutPokemonNestedInput
   }
 
   export type UserAchievementCreateWithoutAchievementInput = {
@@ -12764,57 +12764,6 @@ export namespace Prisma {
     data: XOR<UserAchievementUpdateManyMutationInput, UserAchievementUncheckedUpdateManyWithoutAchievementInput>
   }
 
-  export type UserCreateWithoutAchievementsInput = {
-    id?: string
-    username: string
-    email: string
-    password: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    level?: number
-    experience?: number
-    pokeballs?: number
-    maxPokeballs?: number
-    lastGameDate?: Date | string | null
-    dailyAttempts?: number
-    caughtToday?: boolean
-    currentStreak?: number
-    maxStreak?: number
-    totalCatches?: number
-    dailyPokemon?: PokemonCreateNestedOneWithoutDailyForUsersInput
-    caughtPokemon?: CaughtPokemonCreateNestedManyWithoutUserInput
-    gameSessions?: GameSessionCreateNestedManyWithoutUserInput
-    dailyLogs?: DailyLogCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutAchievementsInput = {
-    id?: string
-    username: string
-    email: string
-    password: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    level?: number
-    experience?: number
-    pokeballs?: number
-    maxPokeballs?: number
-    lastGameDate?: Date | string | null
-    dailyPokemonId?: number | null
-    dailyAttempts?: number
-    caughtToday?: boolean
-    currentStreak?: number
-    maxStreak?: number
-    totalCatches?: number
-    caughtPokemon?: CaughtPokemonUncheckedCreateNestedManyWithoutUserInput
-    gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
-    dailyLogs?: DailyLogUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutAchievementsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutAchievementsInput, UserUncheckedCreateWithoutAchievementsInput>
-  }
-
   export type AchievementCreateWithoutUnlockedByInput = {
     id?: string
     name: string
@@ -12838,61 +12787,55 @@ export namespace Prisma {
     create: XOR<AchievementCreateWithoutUnlockedByInput, AchievementUncheckedCreateWithoutUnlockedByInput>
   }
 
-  export type UserUpsertWithoutAchievementsInput = {
-    update: XOR<UserUpdateWithoutAchievementsInput, UserUncheckedUpdateWithoutAchievementsInput>
+  export type UserCreateWithoutAchievementsInput = {
+    id?: string
+    username: string
+    email: string
+    password: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    level?: number
+    experience?: number
+    pokeballs?: number
+    maxPokeballs?: number
+    lastGameDate?: Date | string | null
+    dailyAttempts?: number
+    caughtToday?: boolean
+    currentStreak?: number
+    maxStreak?: number
+    totalCatches?: number
+    caughtPokemon?: CaughtPokemonCreateNestedManyWithoutUserInput
+    dailyLogs?: DailyLogCreateNestedManyWithoutUserInput
+    gameSessions?: GameSessionCreateNestedManyWithoutUserInput
+    dailyPokemon?: PokemonCreateNestedOneWithoutDailyForUsersInput
+  }
+
+  export type UserUncheckedCreateWithoutAchievementsInput = {
+    id?: string
+    username: string
+    email: string
+    password: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    level?: number
+    experience?: number
+    pokeballs?: number
+    maxPokeballs?: number
+    lastGameDate?: Date | string | null
+    dailyPokemonId?: number | null
+    dailyAttempts?: number
+    caughtToday?: boolean
+    currentStreak?: number
+    maxStreak?: number
+    totalCatches?: number
+    caughtPokemon?: CaughtPokemonUncheckedCreateNestedManyWithoutUserInput
+    dailyLogs?: DailyLogUncheckedCreateNestedManyWithoutUserInput
+    gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutAchievementsInput = {
+    where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutAchievementsInput, UserUncheckedCreateWithoutAchievementsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutAchievementsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutAchievementsInput, UserUncheckedUpdateWithoutAchievementsInput>
-  }
-
-  export type UserUpdateWithoutAchievementsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    level?: IntFieldUpdateOperationsInput | number
-    experience?: IntFieldUpdateOperationsInput | number
-    pokeballs?: IntFieldUpdateOperationsInput | number
-    maxPokeballs?: IntFieldUpdateOperationsInput | number
-    lastGameDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dailyAttempts?: IntFieldUpdateOperationsInput | number
-    caughtToday?: BoolFieldUpdateOperationsInput | boolean
-    currentStreak?: IntFieldUpdateOperationsInput | number
-    maxStreak?: IntFieldUpdateOperationsInput | number
-    totalCatches?: IntFieldUpdateOperationsInput | number
-    dailyPokemon?: PokemonUpdateOneWithoutDailyForUsersNestedInput
-    caughtPokemon?: CaughtPokemonUpdateManyWithoutUserNestedInput
-    gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
-    dailyLogs?: DailyLogUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutAchievementsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    level?: IntFieldUpdateOperationsInput | number
-    experience?: IntFieldUpdateOperationsInput | number
-    pokeballs?: IntFieldUpdateOperationsInput | number
-    maxPokeballs?: IntFieldUpdateOperationsInput | number
-    lastGameDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dailyPokemonId?: NullableIntFieldUpdateOperationsInput | number | null
-    dailyAttempts?: IntFieldUpdateOperationsInput | number
-    caughtToday?: BoolFieldUpdateOperationsInput | boolean
-    currentStreak?: IntFieldUpdateOperationsInput | number
-    maxStreak?: IntFieldUpdateOperationsInput | number
-    totalCatches?: IntFieldUpdateOperationsInput | number
-    caughtPokemon?: CaughtPokemonUncheckedUpdateManyWithoutUserNestedInput
-    gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
-    dailyLogs?: DailyLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AchievementUpsertWithoutUnlockedByInput = {
@@ -12924,12 +12867,78 @@ export namespace Prisma {
     reward?: JsonNullValueInput | InputJsonValue
   }
 
+  export type UserUpsertWithoutAchievementsInput = {
+    update: XOR<UserUpdateWithoutAchievementsInput, UserUncheckedUpdateWithoutAchievementsInput>
+    create: XOR<UserCreateWithoutAchievementsInput, UserUncheckedCreateWithoutAchievementsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAchievementsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAchievementsInput, UserUncheckedUpdateWithoutAchievementsInput>
+  }
+
+  export type UserUpdateWithoutAchievementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    level?: IntFieldUpdateOperationsInput | number
+    experience?: IntFieldUpdateOperationsInput | number
+    pokeballs?: IntFieldUpdateOperationsInput | number
+    maxPokeballs?: IntFieldUpdateOperationsInput | number
+    lastGameDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dailyAttempts?: IntFieldUpdateOperationsInput | number
+    caughtToday?: BoolFieldUpdateOperationsInput | boolean
+    currentStreak?: IntFieldUpdateOperationsInput | number
+    maxStreak?: IntFieldUpdateOperationsInput | number
+    totalCatches?: IntFieldUpdateOperationsInput | number
+    caughtPokemon?: CaughtPokemonUpdateManyWithoutUserNestedInput
+    dailyLogs?: DailyLogUpdateManyWithoutUserNestedInput
+    gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
+    dailyPokemon?: PokemonUpdateOneWithoutDailyForUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAchievementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    level?: IntFieldUpdateOperationsInput | number
+    experience?: IntFieldUpdateOperationsInput | number
+    pokeballs?: IntFieldUpdateOperationsInput | number
+    maxPokeballs?: IntFieldUpdateOperationsInput | number
+    lastGameDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dailyPokemonId?: NullableIntFieldUpdateOperationsInput | number | null
+    dailyAttempts?: IntFieldUpdateOperationsInput | number
+    caughtToday?: BoolFieldUpdateOperationsInput | boolean
+    currentStreak?: IntFieldUpdateOperationsInput | number
+    maxStreak?: IntFieldUpdateOperationsInput | number
+    totalCatches?: IntFieldUpdateOperationsInput | number
+    caughtPokemon?: CaughtPokemonUncheckedUpdateManyWithoutUserNestedInput
+    dailyLogs?: DailyLogUncheckedUpdateManyWithoutUserNestedInput
+    gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type CaughtPokemonCreateManyUserInput = {
     id?: string
     pokemonId: number
     caughtAt?: Date | string
     critical?: boolean
     experience?: number
+  }
+
+  export type DailyLogCreateManyUserInput = {
+    id?: string
+    date?: Date | string
+    pokemonId: number
+    attempts?: number
+    caught?: boolean
+    pokeballsLeft?: number
   }
 
   export type GameSessionCreateManyUserInput = {
@@ -12940,15 +12949,6 @@ export namespace Prisma {
     attempts?: number
     pokeballsUsed?: number
     success?: boolean
-  }
-
-  export type DailyLogCreateManyUserInput = {
-    id?: string
-    date?: Date | string
-    pokemonId: number
-    attempts?: number
-    caught?: boolean
-    pokeballsLeft?: number
   }
 
   export type UserAchievementCreateManyUserInput = {
@@ -12981,6 +12981,33 @@ export namespace Prisma {
     experience?: IntFieldUpdateOperationsInput | number
   }
 
+  export type DailyLogUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    attempts?: IntFieldUpdateOperationsInput | number
+    caught?: BoolFieldUpdateOperationsInput | boolean
+    pokeballsLeft?: IntFieldUpdateOperationsInput | number
+    pokemon?: PokemonUpdateOneRequiredWithoutDailyLogsNestedInput
+  }
+
+  export type DailyLogUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    pokemonId?: IntFieldUpdateOperationsInput | number
+    attempts?: IntFieldUpdateOperationsInput | number
+    caught?: BoolFieldUpdateOperationsInput | boolean
+    pokeballsLeft?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type DailyLogUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    pokemonId?: IntFieldUpdateOperationsInput | number
+    attempts?: IntFieldUpdateOperationsInput | number
+    caught?: BoolFieldUpdateOperationsInput | boolean
+    pokeballsLeft?: IntFieldUpdateOperationsInput | number
+  }
+
   export type GameSessionUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13011,33 +13038,6 @@ export namespace Prisma {
     success?: BoolFieldUpdateOperationsInput | boolean
   }
 
-  export type DailyLogUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    attempts?: IntFieldUpdateOperationsInput | number
-    caught?: BoolFieldUpdateOperationsInput | boolean
-    pokeballsLeft?: IntFieldUpdateOperationsInput | number
-    pokemon?: PokemonUpdateOneRequiredWithoutDailyLogsNestedInput
-  }
-
-  export type DailyLogUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    pokemonId?: IntFieldUpdateOperationsInput | number
-    attempts?: IntFieldUpdateOperationsInput | number
-    caught?: BoolFieldUpdateOperationsInput | boolean
-    pokeballsLeft?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type DailyLogUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    pokemonId?: IntFieldUpdateOperationsInput | number
-    attempts?: IntFieldUpdateOperationsInput | number
-    caught?: BoolFieldUpdateOperationsInput | boolean
-    pokeballsLeft?: IntFieldUpdateOperationsInput | number
-  }
-
   export type UserAchievementUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     unlockedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13064,6 +13064,25 @@ export namespace Prisma {
     experience?: number
   }
 
+  export type DailyLogCreateManyPokemonInput = {
+    id?: string
+    userId: string
+    date?: Date | string
+    attempts?: number
+    caught?: boolean
+    pokeballsLeft?: number
+  }
+
+  export type GameSessionCreateManyPokemonInput = {
+    id?: string
+    userId: string
+    startedAt?: Date | string
+    endedAt?: Date | string | null
+    attempts?: number
+    pokeballsUsed?: number
+    success?: boolean
+  }
+
   export type UserCreateManyDailyPokemonInput = {
     id?: string
     username: string
@@ -13081,25 +13100,6 @@ export namespace Prisma {
     currentStreak?: number
     maxStreak?: number
     totalCatches?: number
-  }
-
-  export type GameSessionCreateManyPokemonInput = {
-    id?: string
-    userId: string
-    startedAt?: Date | string
-    endedAt?: Date | string | null
-    attempts?: number
-    pokeballsUsed?: number
-    success?: boolean
-  }
-
-  export type DailyLogCreateManyPokemonInput = {
-    id?: string
-    userId: string
-    date?: Date | string
-    attempts?: number
-    caught?: boolean
-    pokeballsLeft?: number
   }
 
   export type CaughtPokemonUpdateWithoutPokemonInput = {
@@ -13126,69 +13126,31 @@ export namespace Prisma {
     experience?: IntFieldUpdateOperationsInput | number
   }
 
-  export type UserUpdateWithoutDailyPokemonInput = {
+  export type DailyLogUpdateWithoutPokemonInput = {
     id?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    level?: IntFieldUpdateOperationsInput | number
-    experience?: IntFieldUpdateOperationsInput | number
-    pokeballs?: IntFieldUpdateOperationsInput | number
-    maxPokeballs?: IntFieldUpdateOperationsInput | number
-    lastGameDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dailyAttempts?: IntFieldUpdateOperationsInput | number
-    caughtToday?: BoolFieldUpdateOperationsInput | boolean
-    currentStreak?: IntFieldUpdateOperationsInput | number
-    maxStreak?: IntFieldUpdateOperationsInput | number
-    totalCatches?: IntFieldUpdateOperationsInput | number
-    caughtPokemon?: CaughtPokemonUpdateManyWithoutUserNestedInput
-    gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
-    dailyLogs?: DailyLogUpdateManyWithoutUserNestedInput
-    achievements?: UserAchievementUpdateManyWithoutUserNestedInput
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    attempts?: IntFieldUpdateOperationsInput | number
+    caught?: BoolFieldUpdateOperationsInput | boolean
+    pokeballsLeft?: IntFieldUpdateOperationsInput | number
+    user?: UserUpdateOneRequiredWithoutDailyLogsNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutDailyPokemonInput = {
+  export type DailyLogUncheckedUpdateWithoutPokemonInput = {
     id?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    level?: IntFieldUpdateOperationsInput | number
-    experience?: IntFieldUpdateOperationsInput | number
-    pokeballs?: IntFieldUpdateOperationsInput | number
-    maxPokeballs?: IntFieldUpdateOperationsInput | number
-    lastGameDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dailyAttempts?: IntFieldUpdateOperationsInput | number
-    caughtToday?: BoolFieldUpdateOperationsInput | boolean
-    currentStreak?: IntFieldUpdateOperationsInput | number
-    maxStreak?: IntFieldUpdateOperationsInput | number
-    totalCatches?: IntFieldUpdateOperationsInput | number
-    caughtPokemon?: CaughtPokemonUncheckedUpdateManyWithoutUserNestedInput
-    gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
-    dailyLogs?: DailyLogUncheckedUpdateManyWithoutUserNestedInput
-    achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    attempts?: IntFieldUpdateOperationsInput | number
+    caught?: BoolFieldUpdateOperationsInput | boolean
+    pokeballsLeft?: IntFieldUpdateOperationsInput | number
   }
 
-  export type UserUncheckedUpdateManyWithoutDailyPokemonInput = {
+  export type DailyLogUncheckedUpdateManyWithoutPokemonInput = {
     id?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    level?: IntFieldUpdateOperationsInput | number
-    experience?: IntFieldUpdateOperationsInput | number
-    pokeballs?: IntFieldUpdateOperationsInput | number
-    maxPokeballs?: IntFieldUpdateOperationsInput | number
-    lastGameDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dailyAttempts?: IntFieldUpdateOperationsInput | number
-    caughtToday?: BoolFieldUpdateOperationsInput | boolean
-    currentStreak?: IntFieldUpdateOperationsInput | number
-    maxStreak?: IntFieldUpdateOperationsInput | number
-    totalCatches?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    attempts?: IntFieldUpdateOperationsInput | number
+    caught?: BoolFieldUpdateOperationsInput | boolean
+    pokeballsLeft?: IntFieldUpdateOperationsInput | number
   }
 
   export type GameSessionUpdateWithoutPokemonInput = {
@@ -13221,31 +13183,69 @@ export namespace Prisma {
     success?: BoolFieldUpdateOperationsInput | boolean
   }
 
-  export type DailyLogUpdateWithoutPokemonInput = {
+  export type UserUpdateWithoutDailyPokemonInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    attempts?: IntFieldUpdateOperationsInput | number
-    caught?: BoolFieldUpdateOperationsInput | boolean
-    pokeballsLeft?: IntFieldUpdateOperationsInput | number
-    user?: UserUpdateOneRequiredWithoutDailyLogsNestedInput
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    level?: IntFieldUpdateOperationsInput | number
+    experience?: IntFieldUpdateOperationsInput | number
+    pokeballs?: IntFieldUpdateOperationsInput | number
+    maxPokeballs?: IntFieldUpdateOperationsInput | number
+    lastGameDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dailyAttempts?: IntFieldUpdateOperationsInput | number
+    caughtToday?: BoolFieldUpdateOperationsInput | boolean
+    currentStreak?: IntFieldUpdateOperationsInput | number
+    maxStreak?: IntFieldUpdateOperationsInput | number
+    totalCatches?: IntFieldUpdateOperationsInput | number
+    caughtPokemon?: CaughtPokemonUpdateManyWithoutUserNestedInput
+    dailyLogs?: DailyLogUpdateManyWithoutUserNestedInput
+    gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
+    achievements?: UserAchievementUpdateManyWithoutUserNestedInput
   }
 
-  export type DailyLogUncheckedUpdateWithoutPokemonInput = {
+  export type UserUncheckedUpdateWithoutDailyPokemonInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    attempts?: IntFieldUpdateOperationsInput | number
-    caught?: BoolFieldUpdateOperationsInput | boolean
-    pokeballsLeft?: IntFieldUpdateOperationsInput | number
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    level?: IntFieldUpdateOperationsInput | number
+    experience?: IntFieldUpdateOperationsInput | number
+    pokeballs?: IntFieldUpdateOperationsInput | number
+    maxPokeballs?: IntFieldUpdateOperationsInput | number
+    lastGameDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dailyAttempts?: IntFieldUpdateOperationsInput | number
+    caughtToday?: BoolFieldUpdateOperationsInput | boolean
+    currentStreak?: IntFieldUpdateOperationsInput | number
+    maxStreak?: IntFieldUpdateOperationsInput | number
+    totalCatches?: IntFieldUpdateOperationsInput | number
+    caughtPokemon?: CaughtPokemonUncheckedUpdateManyWithoutUserNestedInput
+    dailyLogs?: DailyLogUncheckedUpdateManyWithoutUserNestedInput
+    gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
+    achievements?: UserAchievementUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type DailyLogUncheckedUpdateManyWithoutPokemonInput = {
+  export type UserUncheckedUpdateManyWithoutDailyPokemonInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    attempts?: IntFieldUpdateOperationsInput | number
-    caught?: BoolFieldUpdateOperationsInput | boolean
-    pokeballsLeft?: IntFieldUpdateOperationsInput | number
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    level?: IntFieldUpdateOperationsInput | number
+    experience?: IntFieldUpdateOperationsInput | number
+    pokeballs?: IntFieldUpdateOperationsInput | number
+    maxPokeballs?: IntFieldUpdateOperationsInput | number
+    lastGameDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dailyAttempts?: IntFieldUpdateOperationsInput | number
+    caughtToday?: BoolFieldUpdateOperationsInput | boolean
+    currentStreak?: IntFieldUpdateOperationsInput | number
+    maxStreak?: IntFieldUpdateOperationsInput | number
+    totalCatches?: IntFieldUpdateOperationsInput | number
   }
 
   export type UserAchievementCreateManyAchievementInput = {

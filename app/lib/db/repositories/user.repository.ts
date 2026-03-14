@@ -3,21 +3,76 @@ import { prisma, User, Prisma } from '../index'
 
 export class UserRepository {
     /**
-     * Crear nuevo usuario
+     * Create a new user.
+     * The password must already be hashed (e.g. with hashPassword from @lib/auth/password).
      */
     async createUser(data: { username: string; email: string; password: string }): Promise<User> {
         return prisma.user.create({
             data: {
-                ...data,
+                username: data.username,
+                email: data.email,
+                password: data.password,
                 pokeballs: 6,
                 maxPokeballs: 6,
-                dailyAttempts: 0,
+                dailyAttempts: 6,
+                experience: 0,
+                level: 1,
+                currentStreak: 0,
+                maxStreak: 0,
+                totalCatches: 0,
+                caughtToday: false
             }
         })
     }
 
     /**
-     * Obtener usuario con sus Pokémon atrapados
+     * Find user by email.
+     */
+    async findByEmail(email: string) {
+        return prisma.user.findUnique({
+            where: { email }
+        })
+    }
+
+    /**
+     * Find user by username.
+     */
+    async findByUsername(username: string) {
+        return prisma.user.findUnique({
+            where: { username }
+        })
+    }
+
+    /**
+     * Update password (expects hash, never plain text).
+     */
+    async updatePassword(userId: string, hashedPassword: string) {
+        return prisma.user.update({
+            where: { id: userId },
+            data: { password: hashedPassword }
+        })
+    }
+
+    /**
+     * Find user by id.
+     */
+    async findById(id: string) {
+        return prisma.user.findUnique({
+            where: { id }
+        })
+    }
+
+    /**
+     * Find user by IP (requires lastIp field in User; currently unused).
+     */
+    async findByIp(_ip: string) {
+        return prisma.user.findFirst({
+            where: { id: '' }
+        })
+    }
+
+    /**
+     * Get user with their caught Pokémon.
      */
     async getUserWithPokemon(userId: string) {
         return prisma.user.findUnique({
@@ -36,7 +91,7 @@ export class UserRepository {
     }
 
     /**
-     * Actualizar progreso diario
+     * Update daily game progress.
      */
     async updateDailyProgress(
         userId: string,
@@ -53,7 +108,7 @@ export class UserRepository {
     }
 
     /**
-     * Incrementar experiencia y verificar subida de nivel
+     * Increment experience and check for level up.
      */
     async addExperience(userId: string, experience: number) {
         const user = await prisma.user.findUnique({
@@ -61,7 +116,7 @@ export class UserRepository {
             select: { experience: true, level: true }
         })
 
-        if (!user) throw new Error('Usuario no encontrado')
+        if (!user) throw new Error('User not found')
 
         const newExp = user.experience + experience
         const newLevel = Math.floor(newExp / 100) + 1 // 100 exp por nivel

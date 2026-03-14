@@ -3,7 +3,7 @@ import { prisma, GameSession, DailyLog } from '../index'
 
 export class GameRepository {
     /**
-     * Crear nueva sesión de juego
+     * Create a new game session.
      */
     async createSession(userId: string, pokemonId: number): Promise<GameSession> {
         return prisma.gameSession.create({
@@ -17,7 +17,7 @@ export class GameRepository {
     }
 
     /**
-     * Actualizar sesión de juego
+     * Update a game session.
      */
     async updateSession(
         sessionId: string,
@@ -35,7 +35,7 @@ export class GameRepository {
     }
 
     /**
-     * Registrar intento diario
+     * Log the daily attempt for a user.
      */
     async logDailyAttempt(
         userId: string,
@@ -71,7 +71,7 @@ export class GameRepository {
     }
 
     /**
-     * Obtener historial de un usuario
+     * Get a user&apos;s daily history.
      */
     async getUserHistory(userId: string, days: number = 30) {
         const startDate = new Date()
@@ -94,7 +94,7 @@ export class GameRepository {
     }
 
     /**
-     * Estadísticas globales del juego
+     * Global game statistics.
      */
     async getGlobalStats() {
         const [

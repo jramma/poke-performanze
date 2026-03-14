@@ -1,21 +1,38 @@
-import { NextResponse } from 'next/server';
-import { gameEngine } from '@/lib/game-engine';
+import { gameService } from "@lib/game-engine/service";
+import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-    const { userId, pokemonId } = await req.json();
+  try {
+    const body = await req.json();
+    const userId = body?.userId;
+    const sessionId = body?.sessionId;
 
-    // Validar en servidor (seguridad)
-    const canPlay = await gameEngine.canPlayToday(userId);
-    if (!canPlay) {
-        return NextResponse.json({ error: 'Ya jugaste hoy' }, { status: 400 });
+    if (!userId || typeof userId !== "string") {
+      return NextResponse.json(
+        { error: "userId requerido" },
+        { status: 400 }
+      );
     }
 
-    const result = await gameEngine.attemptCatch(userId, pokemonId);
+    const result = await gameService.processAttempt(userId, sessionId);
 
-    // Cache-Control para evitar re-jugadas
     return NextResponse.json(result, {
-        headers: {
-            'Cache-Control': 'no-store, max-age=0',
-        }
+      headers: {
+        "Cache-Control": "no-store, max-age=0",
+      },
     });
+  } catch (error: unknown) {
+    const message =
+      error instanceof Error ? error.message : "Error while processing the capture";
+    if (message === "User not found") {
+      return NextResponse.json({ error: message }, { status: 401 });
+    }
+    if (message === "No active game") {
+      return NextResponse.json({ error: message }, { status: 400 });
+    }
+    return NextResponse.json(
+      { error: message || "Internal error" },
+      { status: 500 }
+    );
+  }
 }
