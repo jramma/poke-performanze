@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import { UserRepository } from "@lib/db/repositories/user.repository";
 
 import { UserMenu } from "@components/client/UserMenu";
+import { Button } from "@components/ui/button";
 
 const userRepo = new UserRepository();
 
@@ -27,7 +28,16 @@ export default async function Header() {
 
                 <nav className="font-bold flex items-center gap-3 sm:gap-6">
                     {user && (
-                        <UserMenu username={user.username} />
+                        <>
+                            <Button
+                                asChild
+                                variant="outline"
+                                className="h-8 px-3 text-xs sm:text-sm font-black uppercase tracking-tighter rounded-full"
+                            >
+                                <Link href="/profile">Profile</Link>
+                            </Button>
+                            <UserMenu username={user.username} />
+                        </>
                     )}
                 </nav>
             </div>

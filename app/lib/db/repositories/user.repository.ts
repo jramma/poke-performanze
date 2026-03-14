@@ -169,4 +169,18 @@ export class UserRepository {
             }
         })
     }
+
+    /**
+     * Delete a user and their related data.
+     * This removes dependent records first to avoid FK constraint errors.
+     */
+    async deleteUserById(userId: string) {
+        await prisma.$transaction([
+            prisma.caughtPokemon.deleteMany({ where: { userId } }),
+            prisma.gameSession.deleteMany({ where: { userId } }),
+            prisma.dailyLog.deleteMany({ where: { userId } }),
+            prisma.userAchievement.deleteMany({ where: { userId } }),
+            prisma.user.delete({ where: { id: userId } }),
+        ])
+    }
 }

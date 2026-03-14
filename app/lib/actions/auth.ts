@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { cookies } from 'next/headers'
 import { hashPassword, verifyPassword } from '@lib/auth/password'
+import { Prisma } from '@lib/db'
 
 const userRepo = new UserRepository()
 
@@ -100,44 +101,69 @@ export async function registerAction(formData: FormData): Promise<AuthResult> {
   }
 
   try {
-    const existing = await userRepo.findByEmail(email)
-    if (existing) {
-      return {
-        success: false,
-        message: 'An account with that email already exists. Please log in.',
-      }
-    }
+        const existing = await userRepo.findByEmail(email)
+        if (existing) {
+            return {
+                success: false,
+                message: 'That email is already registered. Please log in instead.',
+            }
+        }
 
-    const existingUsername = await userRepo.findByUsername(username)
-    if (existingUsername) {
-      return {
-        success: false,
-        message: 'That trainer name is already in use',
-      }
-    }
+        const existingUsername = await userRepo.findByUsername(username)
+        if (existingUsername) {
+            return {
+                success: false,
+                message: 'That trainer name is already in use',
+            }
+        }
 
-    const hashedPassword = await hashPassword(password)
-    const user = await userRepo.createUser({
-      username,
-      email,
-      password: hashedPassword,
-    })
+        const hashedPassword = await hashPassword(password)
+        const user = await userRepo.createUser({
+            username,
+            email,
+            password: hashedPassword,
+        })
 
-    await setAuthCookie(user.id)
-    revalidatePath('/')
-    return {
-      success: true,
-      message: `Account created! Welcome, ${user.username}.`,
-      userId: user.id,
+        await setAuthCookie(user.id)
+        revalidatePath('/')
+        return {
+            success: true,
+            message: `Account created! Welcome, ${user.username}.`,
+            userId: user.id,
+        }
+    } catch (error: unknown) {
+        console.error('Register error:', error)
+
+        // Fallback por si Prisma lanza un error de unicidad en email/username
+        if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
+            const target = Array.isArray(error.meta?.target) ? error.meta?.target.join(', ') : error.meta?.target
+
+            if (typeof target === 'string' && target.includes('email')) {
+                return {
+                    success: false,
+                    message: 'That email is already registered. Please log in instead.',
+                }
+            }
+
+            if (typeof target === 'string' && target.includes('username')) {
+                return {
+                    success: false,
+                    message: 'That trainer name is already in use',
+                }
+            }
+
+            return {
+                success: false,
+                message: 'That account already exists. Please log in.',
+            }
+        }
+
+        return {
+            success: false,
+            message:
+                error instanceof Error ? error.message : 'Error while creating the account',
+        }
     }
-  } catch (error: unknown) {
-    console.error('Register error:', error)
-    return {
-      success: false,
-      message:
-        error instanceof Error ? error.message : 'Error while creating the account',
-    }
-  }
 }
 
 async function setAuthCookie(userId: string) {
@@ -152,6 +178,21 @@ async function setAuthCookie(userId: string) {
 
 export async function logoutAction() {
   ;(await cookies()).delete('userId')
+  revalidatePath('/')
+  redirect('/login')
+}
+
+export async function deleteAccountAction() {
+  const cookieStore = await cookies()
+  const userId = cookieStore.get('userId')?.value
+
+  if (!userId) {
+    redirect('/login')
+  }
+
+  await userRepo.deleteUserById(userId)
+
+  cookieStore.delete('userId')
   revalidatePath('/')
   redirect('/login')
 }
