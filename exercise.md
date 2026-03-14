@@ -1,43 +1,29 @@
-# 🎮 Poke-Performanze Challenge!!
+﻿Poke-Performanze challenge!!
+Hello, and welcome to our coding challenge. In this opportunity, we want to implement a simple web-based Pokemon game.
+Game premise
+The game will consist in catching the original 151 Pokemons with the following rules:
 
-Hello, and welcome to our coding challenge! In this opportunity, we want to implement a simple web-based Pokémon game.
 
----
+* The game will be free to play, but in order to play it, a user has to register. don't worry about authentication  for now
+* We invision having a home page once you log in in where you can see your current cached Pokemons (Let's imagine the home page is your Pokedex).
+* On that home-page we would also like to have a button that allows you to play the daily mini-game of catching a Pokemon. For this game each day a random Pokemon out of the 151 will appear, and the user will have 6 pokeballs to attempt to catch said mon.
+* To catch a mon you have to throw a pokeball to the Pokemon, throwing a pokebal is a random event with a 25% of success. If you ran out of pokeballs the game is over, the mon will escape, and the user will need to wait for the next day for another chance.
+Technical consideration
+For this challenge we want to stick with the JS ecosystem, Specially with TypeScript.
 
-## 🗺️ Game Premise
 
-The game consists of catching the original **151 Pokémon** following these rules:
+There's no need to have previous knowledge of Pokemon to complete this challenge. Use this API to retrieve all the info you might need in this challenge.
 
-*   **Registration**: The game is free to play, but users must register. *Don't worry about authentication for now.*
-*   **Home Page (Pokedex)**: Once logged in, users should see their currently caught Pokémon.
-*   **Daily Mini-game**:
-    *   A button allows playing the daily catch game.
-    *   Each day, a random Pokémon (from the original 151) appears.
-    *   The user has **6 Pokéballs** to attempt the catch.
-*   **Catch Mechanics**:
-    *   Throwing a Pokéball has a **25% success rate**.
-    *   If you run out of Pokéballs, the Pokémon escapes.
-    *   Users must wait until the next day for another chance.
 
----
+Remember, the API is mentioned above is modern, so it has more than the original 151 mons!
 
-## 🛠️ Technical Considerations
 
-*   **Stack**: We want to stick with the JS ecosystem, specifically **TypeScript**.
-*   **Data Source**: Use the [PokéAPI](https://pokeapi.co/) to retrieve all the info you might need.
-    > [!NOTE]
-    > The API is modern and contains more than the original 151 Pokémon! Ensure you filter correctly.
-*   **Testing**: We would love to see a solid test suite.
-*   **Deployment**: Implement a single-command launch (e.g., `docker compose up` or similar).
+We would love to see a solid test suite for this challenge.
 
-The challenge has been made intentionally simple, but we will have a technical discussion and potential iterations based on it.
 
----
+We would love to see a single-command launch for this app. Something like docker compose up or anything that you might see fit for it.
 
-## 📨 How to Submit
 
-Once the challenge is ready:
-1. Upload it to a **private git repo**.
-2. Send an invitation to **@ItsMacGyver**.
-
-Good luck! 🍀
+The challenge has been made intentionally simple. But we will do a technical discussion (and some iterations) over it.
+How to submit
+Once the challenge is ready, please upload it to a private git repo, and send an invitation to @ItsMacGyver

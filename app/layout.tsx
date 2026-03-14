@@ -44,7 +44,7 @@ export default async function RootLayout({
       <body className="antialiased min-h-screen bg-background text-foreground">
         <Header />
         <main
-          className="pt-20 pb-20 flex flex-col max-w-7xl mx-auto min-h-[calc(100vh-144px)] px-4 sm:px-6"
+          className="py-42 flex flex-col max-w-7xl mx-auto min-h-[calc(100vh-144px)] px-4 sm:px-6"
           id="main-content"
           role="main"
         >

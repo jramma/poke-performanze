@@ -28,7 +28,7 @@ export default async function GamePage() {
     }
 
     return (
-        <main className="min-h-screen bg-background p-6 md:p-12 font-sans overflow-hidden">
+        <main className="w-full font-sans py-6 md:py-8">
             <header className="mb-8">
                 <Link
                     href="/"
@@ -59,7 +59,7 @@ export default async function GamePage() {
                         <li>Each day a <span className="font-bold text-foreground">single wild Pokémon</span> appears for you to catch.</li>
                         <li>You start with <span className="font-bold text-foreground">your maximum Pokéballs</span> (this increases as you level up).</li>
                         <li>Each throw uses 1 Pokéball. If you run out, the Pokémon escapes until the next day.</li>
-                        <li>You can only catch <span className="font-bold text-foreground">1 daily Pokémon</span>, but in DEV mode (<code>DEV_MODE=true</code>) you can replay without limits.</li>
+                        <li>You can only catch <span className="font-bold text-foreground">1 daily Pokémon</span>, but in DEV mode (<code>NODE_ENV=development</code>) you can replay without limits.</li>
                         <li>Difficulty and experience rewards depend on the Pokémon and your current level.</li>
                     </ul>
                 </section>

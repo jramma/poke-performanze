@@ -53,7 +53,8 @@ export class GameService {
                 userId: user.id,
                 pokemonId: user.dailyPokemonId,
                 pokeballsRemaining: user.dailyAttempts,
-                attempts: 6 - user.dailyAttempts,
+                // Intentos realizados hoy: usar el contador real de la sesión activa
+                attempts: activeSession?.attempts ?? 0,
                 isCaught: false,
                 gameOver: user.dailyAttempts === 0,
                 lastAttemptDate: user.lastGameDate || new Date(),
@@ -73,7 +74,8 @@ export class GameService {
             data: {
                 lastGameDate: new Date(),
                 dailyPokemonId: dailyPokemon.id,
-                dailyAttempts: user.maxPokeballs, // Usar su máximo actual
+                // Diseñado para 6 Pokéballs diarias fijas (no escala con nivel)
+                dailyAttempts: GAME_CONSTANTS.MAX_DAILY_POKEBALLS,
                 caughtToday: false
             }
         })
@@ -81,7 +83,7 @@ export class GameService {
         return {
             userId,
             pokemonId: dailyPokemon.id,
-            pokeballsRemaining: updatedUser.dailyAttempts,
+            pokeballsRemaining: GAME_CONSTANTS.MAX_DAILY_POKEBALLS,
             attempts: 0,
             isCaught: false,
             gameOver: false,
@@ -176,13 +178,11 @@ export class GameService {
             // Calcular experiencia/nivel si atrapó
             let newExp = user.experience
             let newLevel = user.level
-            let shouldIncreaseMaxPokeballs = false
 
             if (result.success) {
                 const gainedExp = result.experience || 100
                 newExp = user.experience + gainedExp
                 newLevel = Math.floor(newExp / 100) + 1 // 100 exp por nivel
-                shouldIncreaseMaxPokeballs = newLevel > user.level
             }
 
             // Actualizar usuario (intento + progreso + experiencia/level)
@@ -198,11 +198,7 @@ export class GameService {
                             maxStreak: user.currentStreak + 1
                         }),
                         experience: newExp,
-                        level: newLevel,
-                        ...(shouldIncreaseMaxPokeballs && {
-                            // Incrementar desde el máximo actual del usuario, no desde 6 fijo
-                            maxPokeballs: Math.min(10, user.maxPokeballs + (newLevel - user.level))
-                        })
+                        level: newLevel
                     })
                 }
             })
@@ -231,7 +227,10 @@ export class GameService {
                     }
                 },
                 update: {
-                    attempts: 6 - result.pokeballsRemaining,
+                    // Contar intentos de forma incremental para no depender del máximo histórico de Pokéballs
+                    attempts: {
+                        increment: 1
+                    },
                     caught: result.success,
                     pokeballsLeft: result.pokeballsRemaining
                 },
@@ -239,7 +238,7 @@ export class GameService {
                     userId,
                     pokemonId: user.dailyPokemon.id,
                     date: today,
-                    attempts: 6 - result.pokeballsRemaining,
+                    attempts: 1,
                     caught: result.success,
                     pokeballsLeft: result.pokeballsRemaining
                 }

@@ -30,7 +30,7 @@ export default async function HomePage() {
     }
 
     return (
-        <main className="min-h-screen bg-background p-6 md:p-12 space-y-12 font-sans max-w-7xl mx-auto">
+        <main className="w-full space-y-10 md:space-y-12 font-sans">
             <header className="flex flex-col md:flex-row md:items-end justify-between gap-8 items-start">
                 <div className="space-y-4">
                     <div className="space-y-2">

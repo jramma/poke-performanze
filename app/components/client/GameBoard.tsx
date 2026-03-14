@@ -13,6 +13,8 @@ interface GameBoardProps {
 }
 
 export function GameBoard({ initialGameState, pokemon }: GameBoardProps) {
+    // Congelamos el Pokémon para que no cambie si el padre se re-renderiza
+    const [displayPokemon] = useState<Pokemon>(pokemon);
     const [gameState, setGameState] = useState<GameState>(initialGameState);
     const [isPending, startTransition] = useTransition();
     const [animationState, setAnimationState] = useState<'idle' | 'throwing' | 'shaking' | 'success' | 'failure'>('idle');
@@ -76,13 +78,13 @@ export function GameBoard({ initialGameState, pokemon }: GameBoardProps) {
             </div>
 
             {/* Game Header */}
-            <div className="w-full flex justify-between items-start z-10">
+            <div className="w-full flex justify-between items-start z-10 md:flex-row flex-col gap-6">
                 <div className="space-y-1">
                     <h2 className="text-2xl font-black uppercase tracking-tighter italic">
-                        {pokemon.name}
+                        {displayPokemon.name}
                     </h2>
                     <div className="flex gap-1">
-                        {pokemon.types.map(t => (
+                        {displayPokemon.types.map(t => (
                             <span key={t} className="text-[10px] font-bold bg-primary text-primary-foreground px-2 py-0.5 rounded-full uppercase">
                                 {t}
                             </span>
@@ -92,7 +94,7 @@ export function GameBoard({ initialGameState, pokemon }: GameBoardProps) {
                 <div className="text-right">
                     <div className="text-[10px] font-black uppercase text-muted-foreground mb-1">Pokéballs</div>
                     <div className="flex gap-1">
-                        {Array.from({ length: initialGameState.pokeballsRemaining }).map((_, i) => (
+                        {Array.from({ length: Math.min(gameState.pokeballsRemaining, 6) }).map((_, i) => (
                             <div 
                                 key={i} 
                                 className={`w-4 h-4 rounded-full border-2 border-primary ${
@@ -119,8 +121,8 @@ export function GameBoard({ initialGameState, pokemon }: GameBoardProps) {
                     ${animationState === 'idle' ? 'animate-bounce-slow' : ''}
                 `}>
                     <Image
-                        src={`/api/pokemon/image?id=${pokemon.id}`}
-                        alt={pokemon.name}
+                        src={`/api/pokemon/image?id=${displayPokemon.id}`}
+                        alt={displayPokemon.name}
                         width={180}
                         height={180}
                         sizes="180px"

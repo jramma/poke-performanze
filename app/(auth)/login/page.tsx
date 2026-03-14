@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@components/ui/card'
 import { Button } from '@components/ui/button'
 import { loginAction, registerAction } from '@lib/actions/auth'
@@ -11,6 +12,7 @@ type Mode = 'login' | 'register'
 export default function LoginPage() {
     const [mode, setMode] = useState<Mode>('login')
     const [isLoading, setIsLoading] = useState(false)
+    const router = useRouter()
 
     async function handleSubmit(formData: FormData) {
         setIsLoading(true)
@@ -20,9 +22,7 @@ export default function LoginPage() {
                 : await registerAction(formData)
             if (result?.success) {
                 toast.success(result.message)
-                setTimeout(() => {
-                    window.location.href = '/'
-                }, 800)
+                router.push('/')
             } else if (result) {
                 toast.error(result.message)
             }
@@ -34,7 +34,7 @@ export default function LoginPage() {
     }
 
     return (
-        <div className="min-h-screen bg-secondary-background flex items-center justify-center p-6 font-early-gameboy overflow-hidden relative">
+        <div className="w-full bg-secondary-background flex items-center justify-center px-4 py-8 sm:px-6 font-early-gameboy relative">
             <div className="absolute top-10 left-10 w-32 h-32 bg-main/5 rounded-full animate-pulse" />
             <div className="absolute bottom-10 right-10 w-48 h-48 bg-primary/5 rounded-full animate-pulse" />
 
