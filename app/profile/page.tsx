@@ -94,7 +94,6 @@ export default async function ProfilePage() {
             </p>
             <Button
               type="submit"
-              variant="destructive"
               className="w-full md:w-auto mt-1 font-black uppercase tracking-tighter"
             >
               Delete my profile

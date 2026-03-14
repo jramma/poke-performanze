@@ -31,7 +31,6 @@ export default async function Header() {
                         <>
                             <Button
                                 asChild
-                                variant="outline"
                                 className="h-8 px-3 text-xs sm:text-sm font-black uppercase tracking-tighter rounded-full"
                             >
                                 <Link href="/profile">Profile</Link>
