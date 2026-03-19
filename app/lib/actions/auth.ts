@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { cookies } from 'next/headers'
 import { hashPassword, verifyPassword } from '@lib/auth/password'
+import { checkLoginRateLimit, resetLoginRateLimit } from '@lib/auth/rate-limit'
 import { Prisma } from '@lib/db'
 
 const userRepo = new UserRepository()
@@ -31,37 +32,33 @@ export async function loginAction(formData: FormData): Promise<AuthResult> {
     }
   }
 
-    try {
-        const user = await userRepo.findByEmail(email)
-        if (!user) {
-            return {
-                success: false,
-                message: 'Incorrect email or password',
-            }
-        }
+  const rateLimit = checkLoginRateLimit(email)
+  if (!rateLimit.allowed) {
+    return {
+      success: false,
+      message: `Too many login attempts. Try again in ${Math.ceil((rateLimit.retryAfterSec ?? 900) / 60)} minutes.`,
+    }
+  }
 
-        // Legacy users with plain-text passwords: migrate to hash on first login
-        const LEGACY_PLACEHOLDER = 'temp-pass'
-        if (user.password === LEGACY_PLACEHOLDER) {
-            if (!password || password.length < 6) {
-                return {
-                    success: false,
-                    message: 'This account must set a password with at least 6 characters. Use it here.',
-                }
-            }
-            const hashed = await hashPassword(password)
-            await userRepo.updatePassword(user.id, hashed)
-        } else {
-            const isValid = await verifyPassword(password, user.password)
-            if (!isValid) {
-                return {
-                    success: false,
-                    message: 'Incorrect email or password',
-                }
-            }
-        }
+  try {
+    const user = await userRepo.findByEmail(email)
+    if (!user) {
+      return {
+        success: false,
+        message: 'Incorrect email or password',
+      }
+    }
 
-        await setAuthCookie(user.id)
+    const isValid = await verifyPassword(password, user.password)
+    if (!isValid) {
+      return {
+        success: false,
+        message: 'Incorrect email or password',
+      }
+    }
+
+    resetLoginRateLimit(email)
+    await setAuthCookie(user.id)
     revalidatePath('/')
     return {
       success: true,
@@ -72,7 +69,7 @@ export async function loginAction(formData: FormData): Promise<AuthResult> {
     console.error('Login error:', error)
     return {
       success: false,
-      message: error instanceof Error ? error.message : 'Error al iniciar sesión',
+      message: 'An error occurred. Please try again.',
     }
   }
 }
@@ -160,8 +157,7 @@ export async function registerAction(formData: FormData): Promise<AuthResult> {
 
         return {
             success: false,
-            message:
-                error instanceof Error ? error.message : 'Error while creating the account',
+            message: 'An error occurred. Please try again.',
         }
     }
 }
