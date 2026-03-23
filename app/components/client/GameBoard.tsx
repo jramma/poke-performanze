@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useCallback } from "react";
 import Image from "next/image";
 import { CatchResult, GameState, Pokemon } from "@lib/game-engine/types";
 import { catchPokemonAction } from "@lib/actions/game";
@@ -19,6 +19,18 @@ export function GameBoard({ initialGameState, pokemon }: GameBoardProps) {
     const [isPending, startTransition] = useTransition();
     const [animationState, setAnimationState] = useState<'idle' | 'throwing' | 'shaking' | 'success' | 'failure'>('idle');
     const [message, setMessage] = useState<string>('A wild Pokémon appeared!');
+    const [ripples, setRipples] = useState<{ id: number; x: number; y: number }[]>([]);
+
+    const handleBoardClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+        const isActive = animationState === 'throwing' || animationState === 'shaking';
+        if (!isActive) return;
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const id = Date.now();
+        setRipples(prev => [...prev, { id, x, y }]);
+        setTimeout(() => setRipples(prev => prev.filter(r => r.id !== id)), 600);
+    }, [animationState]);
 
     const handleThrow = () => {
         if (gameState.pokeballsRemaining <= 0 || gameState.isCaught || animationState !== 'idle') return;
@@ -67,7 +79,18 @@ export function GameBoard({ initialGameState, pokemon }: GameBoardProps) {
     };
 
     return (
-        <div className="relative bg-secondary-background border-8 border-primary rounded-3xl p-8 shadow-shadow overflow-hidden min-h-[500px] flex flex-col items-center justify-between">
+        <div
+            className="relative bg-secondary-background border-8 border-primary rounded-3xl p-8 shadow-shadow overflow-hidden min-h-125 flex flex-col items-center justify-between"
+            onClick={handleBoardClick}
+        >
+            {/* Click ripples during catch */}
+            {ripples.map(r => (
+                <span
+                    key={r.id}
+                    className="pointer-events-none absolute rounded-full border-4 border-primary animate-ripple"
+                    style={{ left: r.x - 24, top: r.y - 24, width: 48, height: 48 }}
+                />
+            ))}
             {/* Background elements */}
             <div className="absolute inset-0 opacity-5 pointer-events-none select-none overflow-hidden">
                 <div className="grid grid-cols-10 gap-4">
@@ -237,6 +260,13 @@ export function GameBoard({ initialGameState, pokemon }: GameBoardProps) {
                 }
                 .animate-ping-once {
                     animation: ping-once 1s ease-out forwards;
+                }
+                @keyframes ripple {
+                    0% { transform: scale(1); opacity: 0.7; }
+                    100% { transform: scale(4); opacity: 0; }
+                }
+                .animate-ripple {
+                    animation: ripple 0.6s ease-out forwards;
                 }
             `}</style>
         </div>
