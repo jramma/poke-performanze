@@ -3,7 +3,7 @@
 import { gameService } from '@lib/game-engine/service'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
-import { Prisma } from '@prisma/client'
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
 
 export async function catchPokemonAction(userId: string, sessionId?: string) {
     try {
@@ -20,7 +20,7 @@ export async function catchPokemonAction(userId: string, sessionId?: string) {
             redirect('/login')
         }
         // Unique constraint: Pokémon already caught today
-        if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
+        if (error instanceof PrismaClientKnownRequestError && error.code === 'P2002') {
             return {
                 success: false,
                 message: '¡Ya tienes este Pokémon! Vuelve mañana.',
