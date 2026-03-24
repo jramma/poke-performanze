@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition, useCallback } from "react";
+import React, { useState, useTransition, useCallback } from "react";
 import Image from "next/image";
 import { CatchResult, GameState, Pokemon } from "@lib/game-engine/types";
 import { catchPokemonAction } from "@lib/actions/game";
@@ -83,13 +83,35 @@ export function GameBoard({ initialGameState, pokemon }: GameBoardProps) {
             className="relative bg-secondary-background border-8 border-primary rounded-3xl p-8 shadow-shadow overflow-hidden min-h-125 flex flex-col items-center justify-between"
             onClick={handleBoardClick}
         >
-            {/* Click ripples during catch */}
+            {/* Click burst during catch */}
             {ripples.map(r => (
-                <span
-                    key={r.id}
-                    className="pointer-events-none absolute rounded-full border-4 border-primary animate-ripple"
-                    style={{ left: r.x - 24, top: r.y - 24, width: 48, height: 48 }}
-                />
+                <React.Fragment key={r.id}>
+                    {/* Glow flash */}
+                    <span
+                        className="pointer-events-none absolute rounded-full bg-primary/60 blur-md animate-catch-burst"
+                        style={{ left: r.x - 20, top: r.y - 88, width: 40, height: 40 }}
+                    />
+                    {/* Particles */}
+                    {[0, 60, 120, 180, 240, 300].map((angle) => {
+                        const rad = (angle * Math.PI) / 180
+                        const tx = Math.round(Math.cos(rad) * 48)
+                        const ty = Math.round(Math.sin(rad) * 48)
+                        return (
+                            <span
+                                key={angle}
+                                className="pointer-events-none absolute rounded-full bg-primary animate-catch-particle"
+                                style={{
+                                    left: r.x - 5,
+                                    top: r.y - 73,
+                                    width: 10,
+                                    height: 10,
+                                    '--tx': `${tx}px`,
+                                    '--ty': `${ty}px`,
+                                } as React.CSSProperties}
+                            />
+                        )
+                    })}
+                </React.Fragment>
             ))}
             {/* Background elements */}
             <div className="absolute inset-0 opacity-5 pointer-events-none select-none overflow-hidden">
@@ -261,12 +283,20 @@ export function GameBoard({ initialGameState, pokemon }: GameBoardProps) {
                 .animate-ping-once {
                     animation: ping-once 1s ease-out forwards;
                 }
-                @keyframes ripple {
-                    0% { transform: scale(1); opacity: 0.7; }
-                    100% { transform: scale(4); opacity: 0; }
+                @keyframes catch-burst {
+                    0% { transform: scale(0.2); opacity: 1; }
+                    60% { opacity: 0.5; }
+                    100% { transform: scale(3.5); opacity: 0; }
                 }
-                .animate-ripple {
-                    animation: ripple 0.6s ease-out forwards;
+                .animate-catch-burst {
+                    animation: catch-burst 0.45s ease-out forwards;
+                }
+                @keyframes catch-particle {
+                    0% { transform: translate(0, 0) scale(1); opacity: 1; }
+                    100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+                }
+                .animate-catch-particle {
+                    animation: catch-particle 0.5s ease-out forwards;
                 }
             `}</style>
         </div>
