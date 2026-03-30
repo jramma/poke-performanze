@@ -121,7 +121,7 @@ export default function LoginPage() {
                         Pokémon Performanze
                     </p>
                     <h1 className="text-6xl xl:text-8xl font-black italic tracking-tighter uppercase leading-none mb-6">
-                        Hazte<br />con<br />todos
+                        Gotta<br />catch<br />&apos;em all!
                     </h1>
                     <p className="text-base font-bold opacity-60 max-w-xs leading-relaxed font-sans">
                         Catch all 151 original Pokémon.<br />
