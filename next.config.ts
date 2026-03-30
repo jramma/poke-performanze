@@ -5,6 +5,21 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   turbopack: {},
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [
+          {
+            type: "host",
+            value: "poke-performanze.vercel.app",
+          },
+        ],
+        destination: "https://pokemon.casset.cat/:path*",
+        permanent: true,
+      },
+    ];
+  },
 
   images: {
     remotePatterns: [
