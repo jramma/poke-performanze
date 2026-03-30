@@ -17,7 +17,7 @@ export default async function Header() {
   }
 
   return (
-    <header className="fixed top-0 left-0 right-0 bg-background border-b-4 border-primary z-50 shadow-shadow">
+    <header className="fixed max-w-screen top-0 left-0 right-0 bg-background border-b-4 border-primary z-50 shadow-shadow pt-[env(safe-area-inset-top)]">
       {/* Hidden checkbox — controls mobile menu via CSS peer */}
       {user && (
         <input type="checkbox" id="mobile-nav" className="peer/mob sr-only" />
@@ -27,9 +27,14 @@ export default async function Header() {
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between h-16 sm:h-20 px-4 sm:px-6 md:px-8">
         <Link
           href="/"
-          className="text-lg sm:text-xl md:text-2xl font-black italic tracking-tighter uppercase hover:text-main transition-colors truncate"
+          className="flex items-center gap-2 text-lg sm:text-xl md:text-2xl font-black italic tracking-tighter uppercase hover:text-main transition-colors truncate"
         >
-          poke-performanze
+          <img
+            src="/favicon_io/favicon-32x32.png"
+            alt="Poke-Performanze"
+            className="w-8 h-8 sm:hidden rounded-xs"
+          />
+          <span className="hidden sm:inline">poke-performanze</span>
         </Link>
 
         {user && (
@@ -45,10 +50,18 @@ export default async function Header() {
                 </span>
               </div>
 
-              <Button asChild variant="neutral" className="h-8 px-3 text-xs font-black uppercase tracking-tighter rounded-full">
+              <Button
+                asChild
+                variant="neutral"
+                className="h-8 px-3 text-xs font-black uppercase tracking-tighter rounded-full"
+              >
                 <Link href="/profile#ranking">🏆 Ranking</Link>
               </Button>
-              <Button asChild variant="neutral" className="h-8 px-3 text-xs font-black uppercase tracking-tighter rounded-full">
+              <Button
+                asChild
+                variant="neutral"
+                className="h-8 px-3 text-xs font-black uppercase tracking-tighter rounded-full"
+              >
                 <Link href="/profile">Profile</Link>
               </Button>
               <LogoutButton />
@@ -95,10 +108,18 @@ export default async function Header() {
           </div>
 
           <div className="grid grid-cols-3 gap-2">
-            <Button asChild variant="neutral" className="h-10 text-xs font-black uppercase tracking-tighter rounded-xl">
+            <Button
+              asChild
+              variant="neutral"
+              className="h-10 text-xs font-black uppercase tracking-tighter rounded-xl"
+            >
               <Link href="/profile#ranking">🏆 Ranking</Link>
             </Button>
-            <Button asChild variant="neutral" className="h-10 text-xs font-black uppercase tracking-tighter rounded-xl">
+            <Button
+              asChild
+              variant="neutral"
+              className="h-10 text-xs font-black uppercase tracking-tighter rounded-xl"
+            >
               <Link href="/profile">Profile</Link>
             </Button>
             <LogoutButton className="h-10 rounded-xl" />

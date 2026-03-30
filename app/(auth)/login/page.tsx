@@ -102,7 +102,7 @@ export default function LoginPage() {
     }
 
     return (
-        <div className="-mx-4 sm:-mx-6 -mt-42 min-h-screen flex font-early-gameboy">
+        <div className="md:-mx-4 sm:-mx-6 -mt-42 min-h-screen flex font-early-gameboy pt-24">
             {/* ── Left decorative panel ── */}
             <div className="hidden lg:flex flex-col justify-between  flex-1 bg-primary text-primary-foreground overflow-hidden relative py-16 px-14">
                 {/* Marquee strips (background) */}
@@ -131,7 +131,7 @@ export default function LoginPage() {
             </div>
 
             {/* ── Right form panel ── */}
-            <div className="flex flex-col w-full lg:w-120 lg:shrink-0 px-8 py-10 lg:py-12 bg-background min-h-screen lg:min-h-0 lg:items-center lg:justify-center">
+            <div className="relative flex flex-col w-full lg:w-120 lg:shrink-0 px-8 py-10 lg:py-12 bg-background min-h-screen lg:min-h-0 lg:items-center lg:justify-center overflow-x-hidden">
 
                 {/* Mobile title */}
                 <div className="lg:hidden text-center mb-8 pt-2">
@@ -142,7 +142,7 @@ export default function LoginPage() {
                 </div>
 
                 {/* Form area — expands to fill space on mobile, natural on desktop */}
-                <div className="w-full max-w-sm space-y-8 flex-1 flex flex-col justify-center self-center lg:flex-none lg:justify-start">
+                <div className="w-full max-w-sm space-y-8 flex-1 flex flex-col justify-center self-center lg:flex-none lg:justify-start relative z-10">
                     {/* Mode switcher */}
                     <div className="flex border-4 border-primary rounded-2xl overflow-hidden shadow-shadow">
                         <button
@@ -244,7 +244,7 @@ export default function LoginPage() {
                 </div>
 
                 {/* Mobile marquee at the bottom */}
-                <div className="lg:hidden -mx-8 mt-8 space-y-3 opacity-20 pointer-events-none select-none">
+                <div className="lg:hidden absolute bottom-12 left-0 right-0 space-y-3 opacity-20 pointer-events-none select-none z-0">
                     <MarqueeRow ids={ROW_A} />
                     <MarqueeRow ids={ROW_B} reverse />
                 </div>

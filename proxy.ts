@@ -9,7 +9,7 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(new URL('/', request.url));
   }
 
-  const isPublicPath = pathname.startsWith('/login') || pathname.startsWith('/api');
+  const isPublicPath = pathname.startsWith('/login') || pathname.startsWith('/api') || pathname.startsWith('/favicon_io');
   if (!userId && !isPublicPath) {
     return NextResponse.redirect(new URL('/login', request.url));
   }
@@ -55,7 +55,7 @@ export function proxy(request: NextRequest) {
 export const config = {
   matcher: [
     {
-      source: '/((?!api|_next/static|_next/image|favicon.ico).*)',
+      source: '/((?!api|_next/static|_next/image|favicon.ico|favicon_io|manifest.webmanifest|icon.svg|sw.js|workbox-).*)',
       missing: [
         { type: 'header', key: 'next-router-prefetch' },
         { type: 'header', key: 'purpose', value: 'prefetch' },
