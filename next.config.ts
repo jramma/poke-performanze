@@ -4,6 +4,7 @@ import withPWA from "@ducanh2912/next-pwa";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  turbopack: {},
 
   images: {
     remotePatterns: [
