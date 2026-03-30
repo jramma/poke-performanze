@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useTransition, useCallback } from "react";
+import { useState, useTransition, useCallback } from "react";
 import Image from "next/image";
 import { CatchResult, GameState, Pokemon } from "@lib/game-engine/types";
 import { catchPokemonAction } from "@lib/actions/game";
@@ -19,17 +19,13 @@ export function GameBoard({ initialGameState, pokemon }: GameBoardProps) {
     const [isPending, startTransition] = useTransition();
     const [animationState, setAnimationState] = useState<'idle' | 'throwing' | 'shaking' | 'success' | 'failure'>('idle');
     const [message, setMessage] = useState<string>('A wild Pokémon appeared!');
-    const [ripples, setRipples] = useState<{ id: number; x: number; y: number }[]>([]);
+    const [vibrating, setVibrating] = useState(false);
 
-    const handleBoardClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const handleBoardClick = useCallback(() => {
         const isActive = animationState === 'throwing' || animationState === 'shaking';
         if (!isActive) return;
-        const rect = e.currentTarget.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const id = Date.now();
-        setRipples(prev => [...prev, { id, x, y }]);
-        setTimeout(() => setRipples(prev => prev.filter(r => r.id !== id)), 600);
+        setVibrating(true);
+        setTimeout(() => setVibrating(false), 350);
     }, [animationState]);
 
     const handleThrow = () => {
@@ -80,39 +76,9 @@ export function GameBoard({ initialGameState, pokemon }: GameBoardProps) {
 
     return (
         <div
-            className="relative bg-secondary-background border-8 border-primary rounded-3xl p-8 shadow-shadow overflow-hidden min-h-125 flex flex-col items-center justify-between"
+            className={`relative bg-secondary-background border-8 border-primary rounded-3xl p-8 shadow-shadow overflow-hidden min-h-125 flex flex-col items-center justify-between ${vibrating ? 'animate-board-vibrate' : ''}`}
             onClick={handleBoardClick}
         >
-            {/* Click burst during catch */}
-            {ripples.map(r => (
-                <React.Fragment key={r.id}>
-                    {/* Glow flash */}
-                    <span
-                        className="pointer-events-none absolute rounded-full bg-primary/60 blur-md animate-catch-burst"
-                        style={{ left: r.x - 20, top: r.y - 88, width: 40, height: 40 }}
-                    />
-                    {/* Particles */}
-                    {[0, 60, 120, 180, 240, 300].map((angle) => {
-                        const rad = (angle * Math.PI) / 180
-                        const tx = Math.round(Math.cos(rad) * 48)
-                        const ty = Math.round(Math.sin(rad) * 48)
-                        return (
-                            <span
-                                key={angle}
-                                className="pointer-events-none absolute rounded-full bg-primary animate-catch-particle"
-                                style={{
-                                    left: r.x - 5,
-                                    top: r.y - 73,
-                                    width: 10,
-                                    height: 10,
-                                    '--tx': `${tx}px`,
-                                    '--ty': `${ty}px`,
-                                } as React.CSSProperties}
-                            />
-                        )
-                    })}
-                </React.Fragment>
-            ))}
             {/* Background elements */}
             <div className="absolute inset-0 opacity-5 pointer-events-none select-none overflow-hidden">
                 <div className="grid grid-cols-10 gap-4">
@@ -282,21 +248,6 @@ export function GameBoard({ initialGameState, pokemon }: GameBoardProps) {
                 }
                 .animate-ping-once {
                     animation: ping-once 1s ease-out forwards;
-                }
-                @keyframes catch-burst {
-                    0% { transform: scale(0.2); opacity: 1; }
-                    60% { opacity: 0.5; }
-                    100% { transform: scale(3.5); opacity: 0; }
-                }
-                .animate-catch-burst {
-                    animation: catch-burst 0.45s ease-out forwards;
-                }
-                @keyframes catch-particle {
-                    0% { transform: translate(0, 0) scale(1); opacity: 1; }
-                    100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
-                }
-                .animate-catch-particle {
-                    animation: catch-particle 0.5s ease-out forwards;
                 }
             `}</style>
         </div>

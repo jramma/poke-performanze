@@ -9,6 +9,11 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(new URL('/', request.url));
   }
 
+  const isPublicPath = pathname.startsWith('/login') || pathname.startsWith('/api');
+  if (!userId && !isPublicPath) {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
+
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
 
   const isDev = process.env.NODE_ENV === 'development';

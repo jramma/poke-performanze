@@ -24,13 +24,13 @@ export default async function HomePage() {
         stats = await gameService.getUserStats(userId);
     } catch (error: any) {
         if (error.message === 'User not found') {
-            redirect('/login');
+            redirect('/api/logout');
         }
         throw error;
     }
 
     return (
-        <main className="w-full space-y-10 md:space-y-12 font-sans">
+        <div className="w-full space-y-10 md:space-y-12 font-sans">
             <header className="flex flex-col md:flex-row md:items-end justify-between gap-8 items-start">
                 <div className="space-y-4">
                     <div className="space-y-2">
@@ -46,7 +46,7 @@ export default async function HomePage() {
                 <Button
                     asChild
                     size="lg"
-                    className="h-auto py-5 px-10 rounded-2xl text-2xl group relative"
+                    className="h-auto font-early-gameboy py-5 px-10 rounded-2xl text-2xl group relative"
                 >
                     <Link href="/game" className="flex items-center gap-4">
                         <Sword className="w-12 h-12 animate-bounce" />
@@ -65,7 +65,7 @@ export default async function HomePage() {
                 />
             </section>
 
-            <section className="relative pt-8">
+            <section className="relative pt-8 pb-20">
                 <div className="flex items-center gap-4 mb-10">
                     <h2 className="text-xl font-black uppercase tracking-tighter text-foreground shrink-0 italic">
                         Your Collection
@@ -80,6 +80,7 @@ export default async function HomePage() {
                     <PokedexGrid userId={userId} />
                 </Suspense>
             </section>
-        </main>
+
+        </div>
     );
 }

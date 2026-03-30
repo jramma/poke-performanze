@@ -1,5 +1,6 @@
 import { getDailyGameAction } from '@lib/actions/game'
 import { GameBoard } from '@components/client/GameBoard'
+import { GameRules } from './GameRules'
 import { PokemonRepository } from '@lib/db/repositories/pokemon.repository'
 import Link from 'next/link'
 import { ChevronLeft } from 'lucide-react'
@@ -28,7 +29,7 @@ export default async function GamePage() {
     }
 
     return (
-        <main className="w-full font-sans py-6 md:py-8">
+        <div className="w-full font-sans pb-6 md:pb-8 md:min-w-4xl">
             <header className="mb-8">
                 <Link
                     href="/"
@@ -51,19 +52,8 @@ export default async function GamePage() {
                         isLegendary: pokemon.isLegendary
                     }}
                 />
-                <section className="bg-card/70 border-2 border-dashed border-primary rounded-2xl p-4 text-xs md:text-sm text-muted-foreground font-medium leading-relaxed">
-                    <h2 className="font-black uppercase tracking-widest text-foreground text-[11px] mb-2">
-                        How the daily game works
-                    </h2>
-                    <ul className="list-disc list-inside space-y-1">
-                        <li>Each day a <span className="font-bold text-foreground">single wild Pokémon</span> appears for you to catch.</li>
-                        <li>You start with <span className="font-bold text-foreground">your maximum Pokéballs</span> (this increases as you level up).</li>
-                        <li>Each throw uses 1 Pokéball. If you run out, the Pokémon escapes until the next day.</li>
-                        <li>You can only catch <span className="font-bold text-foreground">1 daily Pokémon</span>, but in DEV mode (<code>NODE_ENV=development</code>) you can replay without limits.</li>
-                        <li>Difficulty and experience rewards depend on the Pokémon and your current level.</li>
-                    </ul>
-                </section>
+                <GameRules />
             </div>
-        </main>
+        </div>
     )
 }

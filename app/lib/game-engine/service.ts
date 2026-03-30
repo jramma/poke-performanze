@@ -185,6 +185,14 @@ export class GameService {
                 newLevel = Math.floor(newExp / 100) + 1 // 100 exp por nivel
             }
 
+            // Comprobar si el streak ya se incrementó hoy (evita doble-count en dev mode)
+            const today = new Date()
+            today.setHours(0, 0, 0, 0)
+            const alreadyCaughtToday = result.success
+                ? await tx.dailyLog.findFirst({ where: { userId, date: today, caught: true } })
+                : null
+            const shouldIncrementStreak = result.success && !alreadyCaughtToday
+
             // Actualizar usuario (intento + progreso + experiencia/level)
             await tx.user.update({
                 where: { id: userId },
@@ -193,9 +201,11 @@ export class GameService {
                     ...(result.success && {
                         caughtToday: true,
                         totalCatches: { increment: 1 },
-                        currentStreak: { increment: 1 },
-                        ...(user.currentStreak + 1 > user.maxStreak && {
-                            maxStreak: user.currentStreak + 1
+                        ...(shouldIncrementStreak && {
+                            currentStreak: { increment: 1 },
+                            ...(user.currentStreak + 1 > user.maxStreak && {
+                                maxStreak: user.currentStreak + 1
+                            }),
                         }),
                         experience: newExp,
                         level: newLevel
@@ -203,22 +213,32 @@ export class GameService {
                 }
             })
 
-            // Si atrapó, guardar registro de captura
+            // Si atrapó, guardar registro de captura (si no lo tenía ya)
             if (result.success) {
-                await tx.caughtPokemon.create({
-                    data: {
-                        userId,
-                        pokemonId: user.dailyPokemon.id,
-                        critical: result.critical || false,
-                        experience: result.experience || 100
+                const alreadyCaught = await tx.caughtPokemon.findUnique({
+                    where: {
+                        userId_pokemonId: {
+                            userId,
+                            pokemonId: user.dailyPokemon.id
+                        }
                     }
                 })
+
+                if (!alreadyCaught) {
+                    await tx.caughtPokemon.create({
+                        data: {
+                            userId,
+                            pokemonId: user.dailyPokemon.id,
+                            critical: result.critical || false,
+                            experience: result.experience || 100
+                        }
+                    })
+                } else {
+                    result.message = `¡${user.dailyPokemon.name} ya estaba en tu Pokédex! ¡Pero lo has vuelto a capturar!`
+                }
             }
 
             // Registrar log diario dentro de la misma transacción
-            const today = new Date()
-            today.setHours(0, 0, 0, 0)
-
             await tx.dailyLog.upsert({
                 where: {
                     userId_date: {
@@ -263,6 +283,8 @@ export class GameService {
                 }
             })
         ])
+
+        if (!user) throw new Error('User not found')
 
         return {
             username: user?.username,

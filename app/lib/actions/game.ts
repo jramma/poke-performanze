@@ -17,15 +17,15 @@ export async function catchPokemonAction(userId: string, sessionId?: string) {
         return result
     } catch (error: any) {
         if (error.message === 'User not found') {
-            redirect('/login')
+            redirect('/api/logout')
         }
-        // Unique constraint: Pokémon already caught today
+        // Unique constraint: Pokémon already in Pokédex (race condition fallback)
         if (error instanceof PrismaClientKnownRequestError && error.code === 'P2002') {
             return {
-                success: false,
-                message: '¡Ya tienes este Pokémon! Vuelve mañana.',
+                success: true,
+                message: '¡Ya tenías este Pokémon en tu Pokédex! ¡Pero lo has vuelto a capturar!',
                 pokeballsRemaining: 0,
-                animation: 'break' as const
+                animation: 'success' as const
             }
         }
         return {
@@ -42,7 +42,7 @@ export async function getDailyGameAction(userId: string) {
         return await gameService.getOrCreateDailyGame(userId)
     } catch (error: any) {
         if (error.message === 'User not found') {
-            redirect('/login')
+            redirect('/api/logout')
         }
         throw new Error(error.message || 'Error while loading the daily game')
     }

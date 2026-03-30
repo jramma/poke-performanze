@@ -45,9 +45,14 @@ export class PokemonRepository {
      * Get a random Pokémon from the first 151.
      */
     async getRandomPokemon(): Promise<Pokemon> {
-        const count = await prisma.pokemon.count()
-        const skip = Math.floor(Math.random() * Math.min(count, 151))
+        let count = await prisma.pokemon.count()
 
+        if (count === 0) {
+            await this.initializePokemon()
+            count = await prisma.pokemon.count()
+        }
+
+        const skip = Math.floor(Math.random() * Math.min(count, 151))
         const [pokemon] = await prisma.pokemon.findMany({
             take: 1,
             skip,

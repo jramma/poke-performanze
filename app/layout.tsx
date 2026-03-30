@@ -10,13 +10,13 @@ export const metadata: Metadata = {
     default: "Poke-Performanze",
     template: "%s | Poke-Performanze",
   },
-  description: "The fastest Pokédex in the West. Catch the original 151 Pokémon.",
-  metadataBase:
-    process.env.VERCEL_PROJECT_PRODUCTION_URL
-      ? new URL(`https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`)
-      : process.env.VERCEL_URL
-        ? new URL(`https://${process.env.VERCEL_URL}`)
-        : undefined,
+  description:
+    "The fastest Pokédex in the West. Catch the original 151 Pokémon.",
+  metadataBase: process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? new URL(`https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`)
+    : process.env.VERCEL_URL
+      ? new URL(`https://${process.env.VERCEL_URL}`)
+      : undefined,
   openGraph: {
     title: "Poke-Performanze",
     description: "The fastest Pokédex in the West",
@@ -42,10 +42,10 @@ export default async function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="antialiased min-h-screen bg-background text-foreground">
+      <body className="antialiased  bg-background text-foreground flex flex-col min-h-screen">
         <Header />
         <main
-          className="py-42 flex flex-col max-w-7xl mx-auto min-h-[calc(100vh-144px)] px-4 sm:px-6"
+          className="pt-32 flex grow flex-col max-w-7xl self-center px-4 sm:px-6"
           id="main-content"
           role="main"
         >
@@ -53,7 +53,7 @@ export default async function RootLayout({
         </main>
         <Footer />
         <Toaster />
-        <SpeedInsights/>
+        <SpeedInsights />
       </body>
     </html>
   );

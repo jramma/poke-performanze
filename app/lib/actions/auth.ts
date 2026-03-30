@@ -79,16 +79,17 @@ export async function loginAction(formData: FormData): Promise<AuthResult> {
  * The password is hashed before being stored.
  */
 export async function registerAction(formData: FormData): Promise<AuthResult> {
-  const username = (formData.get('username') as string)?.trim()
+  const nickname = (formData.get('nickname') as string)?.trim()
   const email = (formData.get('email') as string)?.trim().toLowerCase()
   const password = formData.get('password') as string
 
-  if (!username || !email || !password) {
+  if (!nickname || !email || !password) {
     return {
       success: false,
-      message: 'Username, email and password are required',
-    }
+      message: 'Nickname, email and password are required',    }
   }
+
+  const username = nickname
 
   if (password.length < 6) {
     return {
@@ -110,13 +111,14 @@ export async function registerAction(formData: FormData): Promise<AuthResult> {
         if (existingUsername) {
             return {
                 success: false,
-                message: 'That trainer name is already in use',
+                message: 'That nickname is already taken',
             }
         }
 
         const hashedPassword = await hashPassword(password)
         const user = await userRepo.createUser({
             username,
+            nickname,
             email,
             password: hashedPassword,
         })
@@ -145,7 +147,7 @@ export async function registerAction(formData: FormData): Promise<AuthResult> {
             if (typeof target === 'string' && target.includes('username')) {
                 return {
                     success: false,
-                    message: 'That trainer name is already in use',
+                    message: 'That nickname is already taken',
                 }
             }
 
@@ -170,6 +172,30 @@ async function setAuthCookie(userId: string) {
     secure: process.env.NODE_ENV === 'development' ? false : true,
     sameSite: 'lax',
   })
+}
+
+export async function updateProfileAction(formData: FormData): Promise<AuthResult> {
+  const cookieStore = await cookies()
+  const userId = cookieStore.get('userId')?.value
+  if (!userId) redirect('/login')
+
+  const nickname = (formData.get('nickname') as string)?.trim()
+  if (!nickname || nickname.length < 3) {
+    return { success: false, message: 'Nickname must be at least 3 characters' }
+  }
+
+  try {
+    const existing = await userRepo.findByUsername(nickname)
+    if (existing && existing.id !== userId) {
+      return { success: false, message: 'That nickname is already taken' }
+    }
+
+    await userRepo.updateNickname(userId, nickname)
+    revalidatePath('/profile')
+    return { success: true, message: 'Profile updated!' }
+  } catch {
+    return { success: false, message: 'An error occurred. Please try again.' }
+  }
 }
 
 export async function logoutAction() {

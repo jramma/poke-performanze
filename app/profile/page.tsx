@@ -1,9 +1,9 @@
 import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@components/ui/card'
-import { Button } from '@components/ui/button'
 import { UserRepository } from '@lib/db/repositories/user.repository'
-import { deleteAccountAction } from '@lib/actions/auth'
+import { ProfileClient } from './ProfileClient'
+import { Leaderboard } from '@components/server/Leaderboard'
 
 const userRepo = new UserRepository()
 
@@ -20,88 +20,63 @@ export default async function ProfilePage() {
   const user = await userRepo.findById(userId)
 
   if (!user) {
-    redirect('/login')
-  }
-
-  async function handleDelete() {
-    'use server'
-    await deleteAccountAction()
+    redirect('/api/logout')
   }
 
   return (
-    <main className="w-full max-w-2xl mx-auto py-10 md:py-14 font-sans space-y-8">
+    <div className="w-full max-w-2xl mx-auto pb-10 md:pb-14 font-sans space-y-10">
       <Card className="border-4 border-primary shadow-shadow bg-card">
         <CardHeader>
           <CardTitle className="text-2xl md:text-3xl font-black italic tracking-tighter uppercase">
             Trainer profile
           </CardTitle>
-          <CardDescription className="text-xs md:text-sm font-bold uppercase tracking-widest text-muted-foreground">
+          <CardDescription className="text-xs md:text-sm font-medium text-muted-foreground">
             Your account details and game stats
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          <section className="space-y-2 text-sm md:text-base">
-            <h2 className="text-xs font-black uppercase tracking-widest text-muted-foreground">
-              Account
-            </h2>
-            <div className="grid grid-cols-[120px_1fr] gap-2 text-sm">
-              <span className="font-black uppercase tracking-tighter text-muted-foreground">
-                Trainer name
-              </span>
-              <span className="font-bold">{user.username}</span>
 
-              <span className="font-black uppercase tracking-tighter text-muted-foreground">
-                Email
-              </span>
-              <span className="font-bold break-all">{user.email}</span>
+          <ProfileClient
+            userId={userId}
+            nickname={user.nickname ?? user.username}
+            level={user.level}
+            totalCatches={user.totalCatches}
+            currentStreak={user.currentStreak}
+          />
+
+          <section className="space-y-3 border-t border-border/40 pt-4">
+            <h2 className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Account</h2>
+            <div className="grid grid-cols-[100px_1fr] gap-y-2 gap-x-4 text-sm">
+              <span className="font-black uppercase tracking-tighter text-muted-foreground text-xs">Email</span>
+              <span className="font-medium break-all">{user.email}</span>
             </div>
           </section>
 
-          <section className="space-y-2 text-sm md:text-base">
-            <h2 className="text-xs font-black uppercase tracking-widest text-muted-foreground">
-              Progress
-            </h2>
-            <div className="grid grid-cols-[120px_1fr] gap-2 text-sm">
-              <span className="font-black uppercase tracking-tighter text-muted-foreground">
-                Level
-              </span>
-              <span className="font-bold">{user.level}</span>
-
-              <span className="font-black uppercase tracking-tighter text-muted-foreground">
-                Total catches
-              </span>
-              <span className="font-bold">{user.totalCatches}</span>
-
-              <span className="font-black uppercase tracking-tighter text-muted-foreground">
-                Current streak
-              </span>
-              <span className="font-bold">{user.currentStreak}</span>
-
-              <span className="font-black uppercase tracking-tighter text-muted-foreground">
-                Max streak
-              </span>
-              <span className="font-bold">{user.maxStreak}</span>
+          <section className="space-y-3 border-t border-border/40 pt-4">
+            <h2 className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Progress</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <Stat label="Level" value={user.level} />
+              <Stat label="Caught" value={`${user.totalCatches}/151`} />
+              <Stat label="Streak" value={`${user.currentStreak}d`} />
+              <Stat label="Best streak" value={`${user.maxStreak}d`} />
             </div>
           </section>
 
-          <form action={handleDelete} className="pt-4 border-t border-border/60 space-y-3">
-            <p className="text-[11px] md:text-xs text-muted-foreground font-medium uppercase tracking-widest">
-              Danger zone
-            </p>
-            <p className="text-[11px] md:text-xs text-muted-foreground leading-relaxed">
-              Deleting your profile will permanently remove your trainer, your Pokédex progress and
-              all game data. This action cannot be undone.
-            </p>
-            <Button
-              type="submit"
-              className="w-full md:w-auto mt-1 font-black uppercase tracking-tighter"
-            >
-              Delete my profile
-            </Button>
-          </form>
         </CardContent>
       </Card>
-    </main>
+
+      <section id="ranking">
+        <Leaderboard />
+      </section>
+    </div>
   )
 }
 
+function Stat({ label, value }: { label: string; value: string | number }) {
+  return (
+    <div className="bg-muted rounded-xl p-3 text-center border-2 border-border">
+      <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-1">{label}</p>
+      <p className="text-xl font-black tracking-tighter">{value}</p>
+    </div>
+  )
+}

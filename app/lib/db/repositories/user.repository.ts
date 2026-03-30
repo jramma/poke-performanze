@@ -6,10 +6,11 @@ export class UserRepository {
      * Create a new user.
      * The password must already be hashed (e.g. with hashPassword from @lib/auth/password).
      */
-    async createUser(data: { username: string; email: string; password: string }): Promise<User> {
+    async createUser(data: { username: string; nickname: string; email: string; password: string }): Promise<User> {
         return prisma.user.create({
             data: {
                 username: data.username,
+                nickname: data.nickname,
                 email: data.email,
                 password: data.password,
                 pokeballs: 6,
@@ -40,6 +41,16 @@ export class UserRepository {
     async findByUsername(username: string) {
         return prisma.user.findUnique({
             where: { username }
+        })
+    }
+
+    /**
+     * Update nickname and keep username in sync.
+     */
+    async updateNickname(userId: string, nickname: string) {
+        return prisma.user.update({
+            where: { id: userId },
+            data: { nickname, username: nickname }
         })
     }
 
@@ -162,6 +173,7 @@ export class UserRepository {
             ],
             select: {
                 username: true,
+                nickname: true,
                 level: true,
                 totalCatches: true,
                 currentStreak: true,
