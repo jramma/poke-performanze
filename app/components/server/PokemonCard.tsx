@@ -25,13 +25,14 @@ export function PokemonCard({ pokemon, isCaught }: PokemonCardProps) {
           <div className="absolute inset-0 bg-primary/10 rounded-full animate-ping scale-75 opacity-50" />
         )}
         <Image
-          src={`/api/pokemon/image?id=${pokemon.id}`}
+          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
           alt={pokemon.name}
           width={96}
           height={96}
           sizes="96px"
           className="object-contain z-10 transition-transform group-hover:scale-110"
-          priority={pokemon.id <= 20}
+          priority={isCaught && pokemon.id <= 20}
+          unoptimized={!isCaught}
         />
       </div>
 

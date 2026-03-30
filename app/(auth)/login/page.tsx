@@ -44,7 +44,7 @@ function MarqueeRow({ ids, reverse }: { ids: number[]; reverse?: boolean }) {
                     >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
-                            src={`/api/pokemon/image?id=${id}`}
+                            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`}
                             alt=""
                             width={52}
                             height={52}

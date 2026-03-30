@@ -131,7 +131,7 @@ export function GameBoard({ initialGameState, pokemon }: GameBoardProps) {
                     ${animationState === 'idle' ? 'animate-bounce-slow' : ''}
                 `}>
                     <Image
-                        src={`/api/pokemon/image?id=${displayPokemon.id}`}
+                        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${displayPokemon.id}.png`}
                         alt={displayPokemon.name}
                         width={180}
                         height={180}

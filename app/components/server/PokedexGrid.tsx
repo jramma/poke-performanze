@@ -77,7 +77,7 @@ export async function PokedexGrid({ userId }: { userId: string }) {
                                 <div className="relative w-40 h-40 flex items-center justify-center">
                                     <div className="absolute inset-0 rounded-full bg-primary/10" />
                                     <Image
-                                        src={`/api/pokemon/image?id=${p.id}`}
+                                        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${p.id}.png`}
                                         alt={p.name}
                                         width={160}
                                         height={160}

@@ -12,11 +12,7 @@ export const metadata: Metadata = {
   },
   description:
     "The fastest Pokédex in the West. Catch the original 151 Pokémon.",
-  metadataBase: process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? new URL(`https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`)
-    : process.env.VERCEL_URL
-      ? new URL(`https://${process.env.VERCEL_URL}`)
-      : undefined,
+  metadataBase: new URL("https://pokemon.casset.cat"),
   openGraph: {
     title: "Poke-Performanze",
     description: "The fastest Pokédex in the West",
@@ -25,6 +21,19 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "PokePerf",
+  },
+  icons: {
+    icon: [
+      { url: "/favicon_io/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon_io/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+    ],
+    shortcut: "/favicon_io/favicon.ico",
+    apple: "/favicon_io/apple-touch-icon.png",
   },
 };
 
