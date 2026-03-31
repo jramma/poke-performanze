@@ -29,7 +29,7 @@ export default async function GamePage() {
     }
 
     return (
-        <div className="w-full font-sans pb-6 md:pb-8 md:min-w-4xl">
+        <div className="w-full font-sans pb-6 md:pb-8 min-w-80 md:min-w-4xl">
             <header className="mb-8">
                 <Link
                     href="/"
